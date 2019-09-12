@@ -168,6 +168,26 @@ main {
   display: grid;
   gap: 4px;
 }
+main div.firstTimeHint {
+  position: absolute;
+  left: 50%;
+  bottom: 64px;
+  width: 80%;
+  max-width: 500px;
+  height: auto;
+  background: var(--g4-app-background);
+  border-radius: 24px;
+  transform: translateX(-50%);
+  z-index: 100;
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+main div.firstTimeHint img {
+  filter: invert(1);
+}
+main div.firstTimeHint.hidden {
+  opacity: 0;
+}
 main div.game {
   position: relative;
   background: var(--g4-game-background);
@@ -492,6 +512,9 @@ aside footer a {
   text-decoration: none;
 }
 
+body.light div.firstTimeHint img {
+  filter: invert(0);
+}
 body.light button.daynight div:before {
   position: absolute;
   left: 50%;

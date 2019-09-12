@@ -1,18 +1,24 @@
 'use strict';
 
-const CACHE_NAME = 'static-cache-v1';
-const DATA_CACHE_NAME = 'data-cache-v1';
+const DEV_BUILD_VERSION = 1
+
+const CACHE_NAME = `static-cache-g4.6-dev${DEV_BUILD_VERSION}`;
+const DATA_CACHE_NAME = `static-cache-g4.6-dev${DEV_BUILD_VERSION}`;
 
 const FILES_TO_CACHE = [
     ' ',
     'index.html',
+
     'res/music/default.mp3',
+    'res/images/gameHint.svg',
+
     'scripts/game.js',
     'scripts/leaderboard.js',
     'scripts/levelgen.js',
     'scripts/main.js',
     'scripts/ui.js',
     'scripts/install.js',
+
     'styles/build/layout.css',
   ];
 

@@ -171,6 +171,36 @@ main {
     display: grid;
     gap: 4px;
 
+    div.firstTimeHint {
+        position: absolute;
+
+        left: 50%;
+        bottom: 64px;
+        width: 80%;
+        max-width: 500px;
+        height: auto;
+
+        background: var(--g4-app-background);
+
+        border-radius: 24px;
+
+        transform: translateX(-50%);
+
+        z-index: 100;
+
+        pointer-events: none;
+
+        transition: opacity 0.4s;
+
+        img {
+            filter: invert(1);
+        }
+    }
+
+    div.firstTimeHint.hidden {
+        opacity: 0;
+    }
+
     div.game {
         position: relative;
         
@@ -620,6 +650,10 @@ aside {
 }
 
 body.light {
+    div.firstTimeHint img {
+        filter: invert(0);
+    }
+
     button.daynight {
         div:before {
             position: absolute;
