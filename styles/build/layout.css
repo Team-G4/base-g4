@@ -344,6 +344,38 @@ aside header svg#g4logo {
   width: auto;
   margin: 8px 16px;
 }
+aside header button.expander {
+  display: none;
+}
+aside header button.expander div {
+  position: relative;
+  width: 20px;
+  height: 2px;
+  background: transparent;
+}
+aside header button.expander div:before {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 20px;
+  height: 2px;
+  background: var(--g4-app-foreground);
+  content: "";
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+aside header button.expander div:after {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 20px;
+  height: 2px;
+  background: var(--g4-app-foreground);
+  content: "";
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+aside header button:active div {
+  --g4-app-foreground: var(--g4-app-background);
+}
 aside header button.daynight {
   background: transparent;
 }
@@ -536,6 +568,56 @@ body.light button.daynight div:after {
   border-radius: 0px;
   transform: translate(-50%, -50%) rotate(45deg);
   z-index: -1;
+}
+
+@media (max-width: 768px) {
+  main {
+    right: 0;
+  }
+
+  aside {
+    width: 100%;
+    max-width: 400px;
+  }
+  aside button.expander {
+    display: block !important;
+  }
+
+  aside:not(.expanded) {
+    right: -100%;
+  }
+  aside:not(.expanded) button.expander {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 48px;
+  }
+  aside:not(.expanded) button.expander div {
+    position: relative;
+    width: 20px;
+    height: 2px;
+    background: var(--g4-app-foreground);
+  }
+  aside:not(.expanded) button.expander div:before {
+    position: absolute;
+    left: 50%;
+    top: -6px;
+    width: 20px;
+    height: 2px;
+    background: var(--g4-app-foreground);
+    content: "";
+    transform: translate(-50%, -50%);
+  }
+  aside:not(.expanded) button.expander div:after {
+    position: absolute;
+    left: 50%;
+    top: 8px;
+    width: 20px;
+    height: 2px;
+    background: var(--g4-app-foreground);
+    content: "";
+    transform: translate(-50%, -50%);
+  }
 }
 
 /*# sourceMappingURL=layout.css.map */

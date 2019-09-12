@@ -22,3 +22,8 @@ if (!localStorage.getItem("g4_hideHint")) {
         document.querySelector("div.firstTimeHint").classList.add("hidden")
     }, 3500)
 }
+
+// Sidebar expander
+document.querySelector("button.expander").addEventListener("click", () => {
+    document.querySelector("aside").classList.toggle("expanded")
+})
