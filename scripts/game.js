@@ -419,6 +419,7 @@ class Game {
 
         this.dom.querySelector("div.stat.level p.value").textContent = this.data.levelIndex
         this.dom.querySelector("div.stat.record p.value").textContent = this.data.userRecord
+        this.dom.querySelector("div.stat.deaths p.value").textContent = this.data.userDeaths
 
         this.dom.querySelector("div.progress p.time").textContent = this.data.slow.time.toFixed(1) + " s"
         this.dom.querySelector("div.progress div").style.width = `${this.data.slow.time * 10}%`
@@ -433,7 +434,7 @@ class Game {
 
         this.updateDOM()
 
-        // let computedStyles = getComputedStyle(this.dom)
+        let computedStyles = getComputedStyle(this.dom)
 
         let canvas = this.dom.querySelector("canvas")
 
@@ -446,7 +447,7 @@ class Game {
 
         ctx.setTransform(1, 0, 0, 1, 0, 0)
 
-        ctx.fillStyle = "#000"
+        ctx.fillStyle = computedStyles.getPropertyValue("--g4-game-background")
 
         if (this.data.slow.isSlow) ctx.globalAlpha = 0.2
         ctx.fillRect(0, 0, minWidth, minWidth)
@@ -464,8 +465,8 @@ class Game {
 
         this.data.rings.forEach((ring, i) => {
             let property = "--g4-game-obstacle" + ((i % 2) + 1)
-            ctx.fillStyle = "#888"
-            ctx.strokeStyle = "#888"
+            ctx.fillStyle = computedStyles.getPropertyValue(property)
+            ctx.strokeStyle = computedStyles.getPropertyValue(property)
 
             ctx.globalAlpha = ring.isDistraction ? 0.4 : 1
 
@@ -474,11 +475,11 @@ class Game {
 
         ctx.globalAlpha = 1
 
-        ctx.fillStyle = "#Fff"
+        ctx.fillStyle = computedStyles.getPropertyValue("--g4-game-cannon")
         this.renderCannon(ctx)
 
         if (this.data.projectile) {
-            ctx.fillStyle = "#Fff"
+            ctx.fillStyle = computedStyles.getPropertyValue("--g4-game-bullet")
             this.renderProjectile(ctx)
         }
     }
@@ -502,6 +503,8 @@ class Game {
         this.advanceLevel(this.gameTime)
 
         this.updateRecord()
+        this.updateDeaths()
+        
         this.sendStateChange()
 
         Leaderboard.setScore(mode, levelIndex).then(() => {
@@ -538,10 +541,45 @@ class Game {
             this.data.mode, 0
         )
 
+        this.addDeath()
+
         this.dom.classList.add("hit")
         setTimeout(() => {
             this.dom.classList.remove("hit")
         }, 500)
+    }
+
+    updateDeaths() {
+        let storageKey = "g4game_deaths"
+        if (this.data.mode != "normal") {
+            let mode = this.data.mode
+
+            storageKey += mode[0].toUpperCase() + mode.substring(1)
+        }
+
+        let deaths = 0
+        if (localStorage.getItem(storageKey)) deaths = localStorage.getItem(storageKey)
+
+        localStorage[storageKey] = deaths
+
+        this.data.userDeaths = deaths
+    }
+
+    addDeath() {
+        let storageKey = "g4game_deaths"
+        if (this.data.mode != "normal") {
+            let mode = this.data.mode
+
+            storageKey += mode[0].toUpperCase() + mode.substring(1)
+        }
+
+        let deaths = 0
+        if (localStorage.getItem(storageKey)) deaths = localStorage.getItem(storageKey)
+
+        deaths++
+        localStorage[storageKey] = deaths
+
+        this.data.userDeaths = deaths
     }
 
     updateRecord() {
