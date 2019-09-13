@@ -55,6 +55,10 @@ class Game {
         div.innerHTML = `
         <header>
             ${spectatingHeader}
+            <div class="stat deaths">
+                <p class="name">Deaths</p>
+                <p class="value">0</p>
+            </div>
             <div class="stat level">
                 <p class="name">Level</p>
                 <p class="value">16</p>
@@ -429,7 +433,7 @@ class Game {
 
         this.updateDOM()
 
-        let computedStyles = getComputedStyle(this.dom)
+        // let computedStyles = getComputedStyle(this.dom)
 
         let canvas = this.dom.querySelector("canvas")
 
@@ -442,7 +446,7 @@ class Game {
 
         ctx.setTransform(1, 0, 0, 1, 0, 0)
 
-        ctx.fillStyle = computedStyles.getPropertyValue("--g4-game-background")
+        ctx.fillStyle = "#000"
 
         if (this.data.slow.isSlow) ctx.globalAlpha = 0.2
         ctx.fillRect(0, 0, minWidth, minWidth)
@@ -460,8 +464,8 @@ class Game {
 
         this.data.rings.forEach((ring, i) => {
             let property = "--g4-game-obstacle" + ((i % 2) + 1)
-            ctx.fillStyle = computedStyles.getPropertyValue(property)
-            ctx.strokeStyle = computedStyles.getPropertyValue(property)
+            ctx.fillStyle = "#888"
+            ctx.strokeStyle = "#888"
 
             ctx.globalAlpha = ring.isDistraction ? 0.4 : 1
 
@@ -470,11 +474,11 @@ class Game {
 
         ctx.globalAlpha = 1
 
-        ctx.fillStyle = computedStyles.getPropertyValue("--g4-game-cannon")
+        ctx.fillStyle = "#Fff"
         this.renderCannon(ctx)
 
         if (this.data.projectile) {
-            ctx.fillStyle = computedStyles.getPropertyValue("--g4-game-bullet")
+            ctx.fillStyle = "#Fff"
             this.renderProjectile(ctx)
         }
     }
