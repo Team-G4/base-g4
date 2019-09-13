@@ -103,7 +103,7 @@
             <section class="leaderboard">
                 <header>
                     Leaderboard
-                    <button>
+                    <button id="setNicknameBtn">
                         Set nickname
                     </button>
                 </header>
@@ -129,6 +129,11 @@
 
         <dialog id="setNickname">
             <h1>Set leaderboard nickname</h1>
+            <p class="error hidden">This nickname is already taken.</p>
+
+            <input id="userNickname" placeholder="Your nickname">
+
+            <button>Set nickname</button>
         </dialog>
 
         <script src="scripts/levelgen.js"></script>
