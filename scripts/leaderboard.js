@@ -70,7 +70,17 @@ class Leaderboard {
         scores.forEach((score, i) => {
             let tr = document.createElement("tr")
 
-            tr.innerHTML = `<td>${i + 1}</td><td>${score.player}</td><td>${score.score}</td>`
+            let rank = document.createElement("td")
+            rank.textContent = i + 1
+            tr.appendChild(rank)
+
+            let player = document.createElement("td")
+            player.textContent = score.player
+            tr.appendChild(player)
+
+            let score = document.createElement("td")
+            score.textContent = score.score
+            tr.appendChild(score)
 
             table.appendChild(tr)
         })
