@@ -7,35 +7,18 @@
     addEventListener("g4statechange", (e) => console.log(e))
 
     let testGame = new Game(
-        null, false, ""
+        null, false, "",
+        new Leaderboard()
     )
+
+    prepG4AccountUI(testGame.leaderboard)
+
     testGame.generateLevel("normal", 0)
     window.game = testGame
 
     document.querySelector("main").appendChild(testGame.dom)
 
     games.push(testGame)
-
-    // let spectatedGame = new Game(
-    //     JSON.parse(
-    //         JSON.stringify(
-    //             testGame.data
-    //         )
-    //     ),
-    //     true, "the one on the left"
-    // )
-
-    // document.querySelector("main").appendChild(spectatedGame.dom)
-
-    // games.push(spectatedGame)
-
-    // setInterval(() => {
-    //     spectatedGame.data = JSON.parse(
-    //         JSON.stringify(
-    //             testGame.data
-    //         )
-    //     )
-    // }, 250)
 
     // Rendering "loop"
     let previousTimestamp = null

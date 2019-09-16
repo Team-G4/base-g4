@@ -3,10 +3,12 @@ class Game {
      * @param {GameData} gameData 
      * @param {Boolean} isSpectated 
      * @param {String} spectatedUser
+     * @param {Leaderboard} leaderboard
      */
     constructor(
         gameData,
-        isSpectated, spectatedUser
+        isSpectated, spectatedUser,
+        leaderboard
     ) {
         /**
          * @type {GameData}
@@ -37,6 +39,11 @@ class Game {
          * @type {Number}
          */
         this.gameTime = 0
+
+        /**
+         * @type {Leaderboard}
+         */
+        this.leaderboard = leaderboard
     }
 
     /**
@@ -507,9 +514,20 @@ class Game {
         
         this.sendStateChange()
 
-        Leaderboard.setScore(mode, levelIndex).then(() => {
-            Leaderboard.updateLeaderboard(mode)
-        })
+        this.updateLeaderboard()
+
+        // Leaderboard.setScore(mode, levelIndex).then(() => {
+        //     Leaderboard.updateLeaderboard(mode)
+        // })
+    }
+
+    async updateLeaderboard() {
+        await this.leaderboard.postScore(
+            this.data.mode,
+            this.data.levelIndex,
+            this.data.userDeaths
+        )
+        await this.leaderboard.updateLeaderboard(this.data.mode)
     }
 
     sendStateChange() {

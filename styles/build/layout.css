@@ -159,6 +159,13 @@ body.light {
   --g4-app-accent: #1814f3;
 }
 
+body.login div.accountInfo {
+  display: flex;
+}
+body.login button#openLoginBtn {
+  display: none;
+}
+
 main {
   position: fixed;
   top: 0;
@@ -351,6 +358,7 @@ aside {
 }
 aside header {
   display: flex;
+  flex-wrap: wrap;
 }
 aside header svg#g4logo {
   height: 32px;
@@ -433,6 +441,17 @@ aside header button.daynight:active div {
 }
 aside header button.daynight:active div:before, aside header button.daynight:active div:after {
   display: none;
+}
+aside header div.accountInfo {
+  width: 100%;
+  display: none;
+}
+aside header div.accountInfo p {
+  font-weight: 400;
+  font-size: 15pt;
+  padding: 8px 16px;
+  margin: 0px;
+  flex-grow: 1;
 }
 aside svg {
   fill: var(--g4-app-accent);
@@ -584,41 +603,80 @@ body.light button.daynight div:after {
 }
 
 dialog {
-  display: none;
+  position: fixed;
+  top: 0;
+  right: -500px;
+  left: unset;
+  width: 100%;
+  max-width: 400px;
+  height: 100%;
+  transition: right 0.3s;
 }
 
 dialog.open {
-  position: fixed;
   right: 0;
-  left: unset;
-  width: 100%;
-  max-width: 368px;
-  background: #fff;
-  color: #000;
-  margin: 0;
+  background: var(--g4-app-background);
+  color: var(--g4-app-foreground);
+  margin: 0px;
+  padding: 0px;
   border: none;
   box-shadow: 0px 8px 32px #000000a0;
   display: flex;
   flex-direction: column;
-  align-content: flex-end;
 }
-dialog.open h1 {
-  font-size: 16pt;
+dialog.open header {
+  top: 0;
+  background: var(--g4-app-header-background);
   font-weight: 500;
-  margin: 0;
+  font-size: 15pt;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
 }
-dialog.open p.error {
-  color: red;
+dialog.open header button {
+  margin-right: 16px;
 }
-dialog.open p.error.hidden {
+dialog.open content {
+  padding: 16px;
+  flex-grow: 1;
+  overflow: auto;
+}
+dialog.open content h2 {
+  font-size: 16pt;
+  font-weight: 400;
+  margin: 0px 0px 32px 0px;
+}
+dialog.open content p.error {
+  color: var(--g4-app-accent);
   display: none;
 }
-dialog.open input {
+dialog.open content p.error.visible {
+  display: block;
+}
+dialog.open content form {
+  display: flex;
+  flex-direction: column;
+}
+dialog.open content form label {
+  margin: 8px 0px 0px 0px;
+}
+dialog.open content form input {
+  background: transparent;
+  color: var(--g4-app-foreground);
   font-family: "Poppins", sans-serif;
-  font-size: 13pt;
-  border: 1px solid #aaa;
-  margin: 8px 0px;
-  padding: 8px 16px;
+  font-size: 12pt;
+  padding: 4px 8px;
+  border: 1px solid var(--g4-app-accent);
+}
+dialog.open content div.buttons {
+  height: 40px;
+  margin-top: 16px;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+dialog.open content div.buttons button.primary {
+  color: var(--g4-app-accent);
 }
 
 @media (max-width: 768px) {

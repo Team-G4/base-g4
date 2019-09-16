@@ -28,54 +28,114 @@ document.querySelector("button.expander").addEventListener("click", () => {
     document.querySelector("aside").classList.toggle("expanded")
 })
 
-// Leaderboard nickname
-if (Leaderboard.getNickname()) {
-    let btn = document.querySelector("#setNicknameBtn")
-    btn.parentNode.removeChild(btn)
-} else {
-    document.querySelector("#setNicknameBtn").addEventListener("click", function(e) {
-        showDialog("setNickname", this)
-        e.stopPropagation()
+// Sidebar windows
+document.querySelectorAll("dialog").forEach(dialog => {
+    dialog.querySelector("button.close").addEventListener("click", () => {
+        dialog.classList.remove("open")
     })
+})
+
+function openWindow(id) {
+    if (document.querySelector("dialog.open")) {
+        document.querySelector("dialog.open").classList.remove("open")
+    }
+
+    document.querySelector("dialog#" + id).classList.add("open")
 }
 
-document.querySelector("dialog#setNickname button").addEventListener("click", () => {
-    let nickname = document.querySelector("#userNickname").value
-
-    if (nickname) {
-        Leaderboard.isNicknameAvailable(nickname).then((available) => {
-            document.querySelector("dialog#setNickname p.error").classList.toggle("hidden", available)
-
-            if (available) {
-                Leaderboard.setNickname(nickname).then(() => {
-                    document.querySelector("dialog#setNickname").classList.remove("open")
-
-                    let btn = document.querySelector("#setNicknameBtn")
-                    btn.parentNode.removeChild(btn)
-                })
-            }
-        })
+function closeWindows() {
+    if (document.querySelector("dialog.open")) {
+        document.querySelector("dialog.open").classList.remove("open")
     }
-})
+}
 
-// Dialog hiding
-window.addEventListener("click", (e) => {
-    let activeDialog = document.querySelector("dialog.open")
-
-    if (activeDialog && !e.path.includes(activeDialog))
-        activeDialog.classList.remove("open")
-})
-
+// G4 Account
 /**
  * 
- * @param {String} dialogId 
- * @param {HTMLButtonElement} button 
+ * @param {Leaderboard} leaderboard 
  */
-function showDialog(dialogId, button) {
-    let dialog = document.querySelector("dialog#" + dialogId)
+function prepG4AccountUI(leaderboard) {
+    document.querySelector("button#openLoginBtn").addEventListener("click", () => {
+        openWindow("login")
+    })
 
-    dialog.classList.add("open")
+    document.querySelector("button#goToRegisterBtn").addEventListener("click", () => {
+        openWindow("register")
+    })
 
-    let top = button.getBoundingClientRect().bottom
-    dialog.style.top = `${top + 4}px`
+    document.querySelector("button#logoutBtn").addEventListener("click", () => {
+        leaderboard.logout()
+    })
+
+    document.querySelector("button#loginBtn").addEventListener("click", () => {
+        let err = document.querySelector("dialog#login p.error")
+        err.classList.remove("visible")
+
+        let username = document.querySelector("input#loginUsername").value
+        let passwd = document.querySelector("input#loginPassword").value
+
+        if (!username || !passwd) {
+            err.textContent = "Incomplete login information."
+            err.classList.add("visible")
+            return
+        }
+
+        try {
+            leaderboard.loginAccount(
+                username, passwd
+            ).then(result => {
+                if (result) {
+                    closeWindows()
+                } else {
+                    err.textContent = "Incorrect login information."
+                    err.classList.add("visible")
+                }
+            })
+        } catch(e) {
+            err.textContent = "Couldn't connect to the server. Try again later."
+            err.classList.add("visible")
+        }
+    })
+
+    document.querySelector("button#registerBtn").addEventListener("click", () => {
+        let err = document.querySelector("dialog#register p.error")
+        err.classList.remove("visible")
+
+        let username = document.querySelector("input#registerUsername").value
+        let passwd = document.querySelector("input#registerPassword").value
+
+        if (!username || !passwd) {
+            err.textContent = "Incomplete login information."
+            err.classList.add("visible")
+            return
+        }
+        if (username.length > 20) {
+            err.textContent = "Username must be 20 characters or less."
+            err.classList.add("visible")
+            return
+        }
+
+        try {
+            leaderboard.isUsernameAvailable(username).then(available => {
+                if (available) {
+                    console.log("available!")
+                    leaderboard.registerAccount(username, passwd).then(result => {
+                        console.log(result)
+                        if (result) {
+                            closeWindows()
+                        } else {
+                            err.textContent = "Couldn't complete account registration. Try again later."
+                            err.classList.add("visible")
+                        }
+                    })
+                } else {
+                    err.textContent = "This username is already taken."
+                    err.classList.add("visible")
+                }
+            })
+        } catch(e) {
+            err.textContent = "Couldn't connect to the server. Try again later."
+            err.classList.add("visible")
+        }
+    })
 }

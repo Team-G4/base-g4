@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="styles/build/layout.css">
     </head>
 
-    <body>
+    <body class="">
         <main class="one">
             <div class="firstTimeHint hidden">
                 <img src="res/images/gameHint.svg">
@@ -36,6 +36,10 @@
                 <button>
                     Music: ON
                 </button>
+
+                <button id="openLoginBtn">
+                    Log in
+                </button>
                 <button class="daynight">
                     <div></div>
                 </button>
@@ -43,6 +47,12 @@
                 <button class="expander">
                     <div></div>
                 </button>
+
+                <div class="accountInfo">
+                    <p class="username">N/A</p>
+
+                    <button id="logoutBtn">Log out</button>
+                </div>
             </header>
 
             <div class="scroller">
@@ -85,28 +95,9 @@
                     </content>
                 </section>
     
-                <section class="spectating">
-                    <header>
-                        Split-screen
-                        <button>
-                            Add player
-                        </button>
-                    </header>
-                    <content>
-                        <div class="player me">
-                            <p class="name">scintilla4evr</p>
-                            <p class="level">Level: 16</p>
-                            <p class="mode">Normal mode</p>
-                        </div>
-                    </content>
-                </section>
-    
                 <section class="leaderboard">
                     <header>
                         Leaderboard
-                        <button id="setNicknameBtn">
-                            Set nickname
-                        </button>
                     </header>
                     <content>
                         <table>
@@ -129,13 +120,55 @@
             </footer>
         </aside>
 
-        <dialog id="setNickname">
-            <h1>Set leaderboard nickname</h1>
-            <p class="error hidden">This nickname is already taken.</p>
+        <dialog id="login" class="">
+            <header>
+                <button class="close">Back</button>
+                Log in
+            </header>
 
-            <input id="userNickname" placeholder="Your nickname">
+            <content>
+                <h2>Log in to your G4 account to save your scores on the leaderboard.</h2>
 
-            <button>Set nickname</button>
+                <p class="error"></p>
+
+                <form id="loginForm">
+                    <label for="loginUsername">Username:</label>
+                    <input id="loginUsername" maxlength="20">
+
+                    <label for="loginPassword">Password:</label>
+                    <input id="loginPassword" type="password">
+                </form>
+
+                <div class="buttons">
+                    <button id="loginBtn" class="primary">Log in</button>
+                    <button id="goToRegisterBtn">Create an account</button>
+                </div>
+            </content>
+        </dialog>
+
+        <dialog id="register" class="">
+            <header>
+                <button class="close">Back</button>
+                Register
+            </header>
+
+            <content>
+                <h2>Create a G4 account.</h2>
+
+                <p class="error"></p>
+
+                <form id="registerForm">
+                    <label for="registerUsername">Username:</label>
+                    <input id="registerUsername" maxlength="20">
+
+                    <label for="registerPassword">Password:</label>
+                    <input id="registerPassword" type="password">
+                </form>
+
+                <div class="buttons">
+                    <button id="registerBtn" class="primary">Register</button>
+                </div>
+            </content>
         </dialog>
 
         <script src="scripts/levelgen.js"></script>
