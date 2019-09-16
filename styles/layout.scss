@@ -531,6 +531,11 @@ aside {
         fill: var(--g4-app-accent);
     }
 
+    div.scroller {
+        flex-grow: 1;
+        overflow: auto;
+    }
+
     section {
         display: flex;
         flex-direction: column;
@@ -652,9 +657,6 @@ aside {
     }
 
     section.leaderboard {
-        flex-grow: 1;
-        overflow: auto;
-
         content {
             table {
                 width: 100%;

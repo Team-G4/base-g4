@@ -437,6 +437,10 @@ aside header button.daynight:active div:before, aside header button.daynight:act
 aside svg {
   fill: var(--g4-app-accent);
 }
+aside div.scroller {
+  flex-grow: 1;
+  overflow: auto;
+}
 aside section {
   display: flex;
   flex-direction: column;
@@ -516,10 +520,6 @@ aside section.spectating content div.player.robot p.name:after {
   font-size: 11pt;
   text-transform: uppercase;
   padding: 2px 8px;
-}
-aside section.leaderboard {
-  flex-grow: 1;
-  overflow: auto;
 }
 aside section.leaderboard content table {
   width: 100%;

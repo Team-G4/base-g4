@@ -45,82 +45,84 @@
                 </button>
             </header>
 
-            <section class="pwaInstall">
-                <header>
-                    Install G4 locally
-                    <button id="butInstall" aria-label="Install">
-                        Click to Install
-                    </button>
-                </header>
-                <content>
-                    You can install G4 on your device as a Progressive Web App to play it without an internet connection.
-                </content>
-            </section>
-
-            <section class="gameMode">
-                <header>Game mode</header>
-                <content>
-                    <button data-mode="easy" class="mode">
-                        <p class="name">Easy</p>
-                    </button>
-                    <button data-mode="normal" class="mode active">
-                        <p class="name">Normal</p>
-                    </button>
-                    <button data-mode="hard" class="mode">
-                        <p class="name">Hard</p>
-                    </button>
-                    <button data-mode="hell" class="mode">
-                        <p class="name">Hell</p>
-                    </button>
-                    <button data-mode="hades" class="mode">
-                        <p class="name">Hades</p>
-                    </button>
-                    <button data-mode="denise" class="mode">
-                        <p class="name">Chaos</p>
-                    </button>
-                    <button data-mode="reverse" class="mode">
-                        <p class="name">Reverse</p>
-                    </button>
-                </content>
-            </section>
-
-            <section class="spectating">
-                <header>
-                    Split-screen
-                    <button>
-                        Add player
-                    </button>
-                </header>
-                <content>
-                    <div class="player me">
-                        <p class="name">scintilla4evr</p>
-                        <p class="level">Level: 16</p>
-                        <p class="mode">Normal mode</p>
-                    </div>
-                </content>
-            </section>
-
-            <section class="leaderboard">
-                <header>
-                    Leaderboard
-                    <button id="setNicknameBtn">
-                        Set nickname
-                    </button>
-                </header>
-                <content>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Player</th>
-                                <th>Score</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </content>
-            </section>
+            <div class="scroller">
+                <section class="pwaInstall hidden">
+                    <header>
+                        Install G4 locally
+                        <button id="butInstall" aria-label="Install">
+                            Click to Install
+                        </button>
+                    </header>
+                    <content>
+                        You can install G4 on your device as a Progressive Web App to play it without an internet connection.
+                    </content>
+                </section>
+    
+                <section class="gameMode">
+                    <header>Game mode</header>
+                    <content>
+                        <button data-mode="easy" class="mode">
+                            <p class="name">Easy</p>
+                        </button>
+                        <button data-mode="normal" class="mode active">
+                            <p class="name">Normal</p>
+                        </button>
+                        <button data-mode="hard" class="mode">
+                            <p class="name">Hard</p>
+                        </button>
+                        <button data-mode="hell" class="mode">
+                            <p class="name">Hell</p>
+                        </button>
+                        <button data-mode="hades" class="mode">
+                            <p class="name">Hades</p>
+                        </button>
+                        <button data-mode="denise" class="mode">
+                            <p class="name">Chaos</p>
+                        </button>
+                        <button data-mode="reverse" class="mode">
+                            <p class="name">Reverse</p>
+                        </button>
+                    </content>
+                </section>
+    
+                <section class="spectating">
+                    <header>
+                        Split-screen
+                        <button>
+                            Add player
+                        </button>
+                    </header>
+                    <content>
+                        <div class="player me">
+                            <p class="name">scintilla4evr</p>
+                            <p class="level">Level: 16</p>
+                            <p class="mode">Normal mode</p>
+                        </div>
+                    </content>
+                </section>
+    
+                <section class="leaderboard">
+                    <header>
+                        Leaderboard
+                        <button id="setNicknameBtn">
+                            Set nickname
+                        </button>
+                    </header>
+                    <content>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Player</th>
+                                    <th>Score</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </content>
+                </section>
+            </div>
 
             <footer>
                 G4.6 by <a href="https://www.twitter.com/scintilla4evr" target=_blank" rel="noopener" aria-label="@scintilla4evr on Twitter">@scintilla4evr</a> | Frame rate: <span class="fpsCounter"></span>
