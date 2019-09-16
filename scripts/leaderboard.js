@@ -78,9 +78,9 @@ class Leaderboard {
             player.textContent = score.player
             tr.appendChild(player)
 
-            let score = document.createElement("td")
-            score.textContent = score.score
-            tr.appendChild(score)
+            let scoreText = document.createElement("td")
+            scoreText.textContent = score.score
+            tr.appendChild(scoreText)
 
             table.appendChild(tr)
         })
