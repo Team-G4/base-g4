@@ -27,6 +27,10 @@
  * @typedef {Object} RingBall
  * 
  * @property {String} type
+ * 
+ * @property {Number} centerX
+ * @property {Number} centerY
+ * 
  * @property {Number} angle
  * @property {Number} distance
  * @property {Number} radius
@@ -36,6 +40,10 @@
  * @typedef {Object} RingPulsingBall
  * 
  * @property {String} type
+ * 
+ * @property {Number} centerX
+ * @property {Number} centerY
+ * 
  * @property {Number} angle
  * @property {Number} distance
  * @property {Number} radius
@@ -49,6 +57,10 @@
  * @typedef {Object} RingBar
  * 
  * @property {String} type
+ * 
+ * @property {Number} centerX
+ * @property {Number} centerY
+ * 
  * @property {Number} angleStart
  * @property {Number} angleLength
  * @property {Number} distance
@@ -59,6 +71,10 @@
  * @typedef {Object} RingMarqueeBar
  * 
  * @property {String} type
+ * 
+ * @property {Number} centerX
+ * @property {Number} centerY
+ * 
  * @property {Number} angleStart
  * @property {Number} angleLength
  * @property {Number} distance
@@ -108,10 +124,14 @@ class LevelGenerator {
      * @param {Number} radius 
      * @returns {RingBall}
      */
-    static createRingBall(angle, distance, radius) {
+    static createRingBall(angle, distance, radius, centerX, centerY) {
+        if (!centerX) centerX = 0
+        if (!centerY) centerY = 0
+
         return {
             type: "ball",
-            angle, distance, radius
+            angle, distance, radius,
+            centerX, centerY
         }
     }
 
@@ -122,13 +142,17 @@ class LevelGenerator {
      * @param {Number} pulseFreq 
      * @return {RingPulsingBall}
      */
-    static createRingPulsingBall(angle, distance, radius, pulseFreq) {
+    static createRingPulsingBall(angle, distance, radius, pulseFreq, centerX, centerY) {
+        if (!centerX) centerX = 0
+        if (!centerY) centerY = 0
+
         return {
             type: "pulsingBall",
             angle, distance, radius,
             pulseFreq,
             pulseTime: 0,
-            baseRadius: radius
+            baseRadius: radius,
+            centerX, centerY
         }
     }
 
@@ -139,10 +163,14 @@ class LevelGenerator {
      * @param {Number} radius 
      * @returns {RingBar}
      */
-    static createRingBar(angleStart, angleLength, distance, radius) {
+    static createRingBar(angleStart, angleLength, distance, radius, centerX, centerY) {
+        if (!centerX) centerX = 0
+        if (!centerY) centerY = 0
+
         return {
             type: "bar",
-            angleStart, angleLength, distance, radius
+            angleStart, angleLength, distance, radius,
+            centerX, centerY
         }
     }
 
@@ -156,15 +184,20 @@ class LevelGenerator {
      */
     static createRingMarqueeBar(
         angleStart, angleLength, distance, radius,
-        sweepFreq
+        sweepFreq,
+        centerX, centerY
     ) {
+        if (!centerX) centerX = 0
+        if (!centerY) centerY = 0
+
         return {
             type: "marqueeBar",
             angleStart, angleLength, distance, radius,
             sweepFreq,
             sweepTime: 0,
             baseStart: angleStart,
-            baseEnd: angleStart + angleLength
+            baseEnd: angleStart + angleLength,
+            centerX, centerY
         }
     }
 
