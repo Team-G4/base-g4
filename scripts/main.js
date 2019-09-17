@@ -14,10 +14,21 @@ loadAssets().then(() => {
     mainGame.generateLevel("normal", 0)
 
     document.querySelector("main").appendChild(mainGame.dom)
+    mainGame.resizeCanvas()
 
     games.push(mainGame)
 
     document.querySelector("audio#gameAudio").src = "res/music/default.mp3"
+
+    // On window resize, resize the canvases
+    window.addEventListener("resize", () => {
+        games.forEach(game => game.resizeCanvas())
+    })
+
+    // DOM update "loop"
+    setInterval(() => {
+        games.forEach(game => game.updateDOM())
+    }, 1000 / 30)
 
     // Rendering "loop"
     let previousTimestamp = null

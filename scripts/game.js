@@ -446,16 +446,12 @@ class Game {
         this.dom.querySelector("div.progress div").style.width = `${this.data.slow.time * 10}%`
     }
 
-    render() {
+    resizeCanvas() {
         let boundingBox = this.dom.getBoundingClientRect()
         let minWidth = Math.min(
             boundingBox.width,
             boundingBox.height - 160
         )
-
-        this.updateDOM()
-
-        let computedStyles = getComputedStyle(this.dom)
 
         let canvas = this.dom.querySelector("canvas")
 
@@ -463,6 +459,13 @@ class Game {
             canvas.width = minWidth
             canvas.height = minWidth
         }
+    }
+
+    render() {
+        let computedStyles = getComputedStyle(this.dom)
+
+        let canvas = this.dom.querySelector("canvas")
+        let minWidth = canvas.width
 
         let ctx = canvas.getContext("2d")
 
