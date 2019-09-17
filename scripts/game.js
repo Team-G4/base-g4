@@ -253,7 +253,9 @@ class Game {
      * @param {Number} dTime 
      */
     advanceCannon(dTime) {
-        this.data.cannon.angle -= dTime * 0.461538461
+        let beatTime = this.calculateBeatTime(dTime)
+
+        this.data.cannon.angle -= beatTime * 1.5
 
         switch (this.data.mode) {
             case "hard":
