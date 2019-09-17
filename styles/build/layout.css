@@ -148,12 +148,22 @@ body.light [data-mode=reverse] {
 
 [data-mode=nox] {
   --g4-game-background: #000;
-  --g4-game-damage: #200;
-  --g4-game-foreground: #fff;
+  --g4-game-damage: rgb(22, 10, 18);
+  --g4-game-foreground: rgb(65, 209, 84);
   --g4-game-obstacle1: var(--g4-game-foreground);
-  --g4-game-obstacle2: var(--g4-game-foreground);
+  --g4-game-obstacle2: rgb(52, 66, 199);
   --g4-game-cannon: #fff;
-  --g4-game-bullet: #f00;
+  --g4-game-bullet: rgb(255, 0, 85);
+}
+
+body.light [data-mode=nox] {
+  --g4-game-background: #fff;
+  --g4-game-damage: rgb(255, 225, 235);
+  --g4-game-foreground: rgb(35, 202, 20);
+  --g4-game-obstacle1: var(--g4-game-foreground);
+  --g4-game-obstacle2: rgb(35, 68, 211);
+  --g4-game-cannon: rgb(0, 0, 0);
+  --g4-game-bullet: rgb(255, 0, 85);
 }
 
 body {

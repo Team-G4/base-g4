@@ -96,6 +96,7 @@
  * 
  * @property {Number} distance
  * @property {Number} revolveFreq
+ * @property {Number} revolvePhase
  */
 
 /**
@@ -434,10 +435,12 @@ class LevelGenerator {
      * @param {Boolean} isDistraction 
      * @returns {Ring}
      */
-    static createRing(items, speedMult, isDistraction, distance, revolveFreq) {
+    static createRing(items, speedMult, isDistraction, distance, revolveFreq, revolvePhase) {
         if (!distance) distance = 0
         if (!revolveFreq) revolveFreq = 0
-        return {items, speedMult, isDistraction, distance, revolveFreq, rotation: 0}
+        if (!revolvePhase) revolvePhase = 0
+
+        return {items, speedMult, isDistraction, distance, revolveFreq, revolvePhase, rotation: 0}
     }
 
     /**
@@ -514,6 +517,35 @@ class LevelGenerator {
                     0.25, false
                 )
             )
+    }
+
+    static generateNoxRings(rings, n) {
+        // The giant outer ring
+        rings.push(
+            LevelGenerator.createRing(
+                LevelGenerator.generateOuterRing(2, 500),
+                0.5, false,
+                0, 0
+            )
+        )
+
+        // The revolving rings
+        for (let i = 0; i < n; i++) {
+            let phase = i / n
+            let ringRadius = 400
+            let ringDistance = 100
+
+            rings.push(
+                LevelGenerator.createRing(
+                    LevelGenerator.generateInnerRing(
+                        1 + Math.round(Math.random()),
+                        ringRadius
+                    ),
+                    1, false,
+                    ringDistance, 0.5, phase
+                )
+            )
+        }
     }
 
     /**
@@ -664,13 +696,9 @@ class LevelGenerator {
                 )
                 break
             case "nox":
-                rings.push(
-                    LevelGenerator.createRing(
-                        LevelGenerator.generateInnerRing(2, 200),
-                        1, false,
-                        50, 1
-                    )
-                )
+                let n = Math.round(Math.random() * 2) + 2
+                
+                LevelGenerator.generateNoxRings(rings, n, false)
 
                 break
         }

@@ -138,8 +138,9 @@ class Game {
     advanceRing(dTime, ring) {
         ring.rotation += dTime
 
-        let centerX = Math.cos(ring.rotation * 2 * Math.PI * ring.revolveFreq) * ring.distance
-        let centerY = Math.sin(ring.rotation * 2 * Math.PI * ring.revolveFreq) * ring.distance
+        let phase = 2 * Math.PI * ring.revolvePhase
+        let centerX = Math.cos(ring.rotation * 2 * Math.PI * ring.revolveFreq + phase) * ring.distance
+        let centerY = Math.sin(ring.rotation * 2 * Math.PI * ring.revolveFreq + phase) * ring.distance
 
         ring.items.forEach(item => {
             item.centerX = centerX
