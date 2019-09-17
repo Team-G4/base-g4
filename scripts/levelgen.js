@@ -519,7 +519,7 @@ class LevelGenerator {
             )
     }
 
-    static generateNoxRings(rings, n) {
+    static generateNoxRings(rings, level) {
         // The giant outer ring
         rings.push(
             LevelGenerator.createRing(
@@ -529,16 +529,33 @@ class LevelGenerator {
             )
         )
 
+        // The middle ring
+        if (level > 12) {
+            rings.push(
+                LevelGenerator.createRing(
+                    LevelGenerator.generateMiddleRing(3, 250),
+                    0.5, false,
+                    0, 0
+                )
+            )
+        }
+
         // The revolving rings
+        let diffOffset = (level > 9) ? 2 : 1
+        let nOffset = (level > 4) ? 2 : 3
+        let n = Math.round(Math.random() * 2) + nOffset
+
         for (let i = 0; i < n; i++) {
             let phase = i / n
             let ringRadius = 400
             let ringDistance = 100
 
+            let ringDifficulty = diffOffset + Math.round(Math.random())
+
             rings.push(
                 LevelGenerator.createRing(
                     LevelGenerator.generateInnerRing(
-                        1 + Math.round(Math.random()),
+                        ringDifficulty,
                         ringRadius
                     ),
                     1, false,
@@ -696,9 +713,8 @@ class LevelGenerator {
                 )
                 break
             case "nox":
-                let n = Math.round(Math.random() * 2) + 2
-                
-                LevelGenerator.generateNoxRings(rings, n, false)
+
+                LevelGenerator.generateNoxRings(rings, levelIndex)
 
                 break
         }
