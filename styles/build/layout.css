@@ -365,6 +365,12 @@ aside header svg#g4logo {
   width: auto;
   margin: 8px 16px;
 }
+aside header button#musicToggleBtn:after {
+  content: ": OFF";
+}
+aside header button#musicToggleBtn.playing:after {
+  content: ": ON";
+}
 aside header button.expander {
   display: none;
 }

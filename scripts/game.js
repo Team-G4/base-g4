@@ -632,4 +632,19 @@ class Game {
             this.dom.classList.add("slow")
         }
     }
+
+    static modeIDToDisplayName(mode) {
+        let modeAlias = {
+            easy: "Easy",
+            normal: "Normal",
+            hard: "Hard",
+            hell: "Hell",
+            hades: "Hades",
+            denise: "Chaos",
+            reverse: "Reverse",
+            nox: "Nox"
+        }
+
+        return modeAlias[mode]
+    }
 }

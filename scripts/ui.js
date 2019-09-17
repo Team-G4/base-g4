@@ -139,3 +139,24 @@ function prepG4AccountUI(leaderboard) {
         }
     })
 }
+
+// Music playback
+document.querySelector("button#musicToggleBtn").addEventListener("click", function() {
+    /**
+     * @type {HTMLAudioElement}
+     */
+    let audio = document.querySelector("audio#gameAudio")
+
+    let state = !audio.paused && !audio.ended && audio.readyState > 2
+    state = !state
+
+    console.log(state)
+
+    if (state) {
+        audio.play()
+    } else {
+        audio.pause()
+    }
+
+    this.classList.toggle("playing", state)
+})
