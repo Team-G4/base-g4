@@ -93,6 +93,9 @@
  * @property {Number} speedMult
  * @property {Number} rotation
  * @property {Boolean} isDistraction
+ * 
+ * @property {Number} distance
+ * @property {Number} revolveFreq
  */
 
 /**
@@ -431,8 +434,10 @@ class LevelGenerator {
      * @param {Boolean} isDistraction 
      * @returns {Ring}
      */
-    static createRing(items, speedMult, isDistraction) {
-        return {items, speedMult, isDistraction}
+    static createRing(items, speedMult, isDistraction, distance, revolveFreq) {
+        if (!distance) distance = 0
+        if (!revolveFreq) revolveFreq = 0
+        return {items, speedMult, isDistraction, distance, revolveFreq, rotation: 0}
     }
 
     /**
@@ -657,6 +662,16 @@ class LevelGenerator {
                         0.5, false
                     )
                 )
+                break
+            case "nox":
+                rings.push(
+                    LevelGenerator.createRing(
+                        LevelGenerator.generateInnerRing(2, 200),
+                        1, false,
+                        50, 1
+                    )
+                )
+
                 break
         }
 

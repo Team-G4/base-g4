@@ -115,7 +115,7 @@ class Game {
                     case "marqueeBar":
                         radius = Math.max(
                             radius,
-                            item.distance + item.radius
+                            item.distance + item.radius + ring.distance
                         )
                         break
                 }
@@ -136,7 +136,15 @@ class Game {
      * @param {Ring} ring
      */
     advanceRing(dTime, ring) {
+        ring.rotation += dTime
+
+        let centerX = Math.cos(ring.rotation * 2 * Math.PI * ring.revolveFreq) * ring.distance
+        let centerY = Math.sin(ring.rotation * 2 * Math.PI * ring.revolveFreq) * ring.distance
+
         ring.items.forEach(item => {
+            item.centerX = centerX
+            item.centerY = centerY
+
             switch (item.type) {
                 case "ball":
                     item.angle += dTime
@@ -174,22 +182,25 @@ class Game {
      * @param {RingElement} item 
      */
     hitTest(bullet, item) {
+        let bulletX = bullet.x - item.centerX
+        let bulletY = bullet.y - item.centerY
+
         switch (item.type) {
             case "ball":
             case "pulsingBall":
                 return Math.hypot(
-                    item.distance * Math.cos(2 * Math.PI * item.angle) - bullet.x,
-                    item.distance * Math.sin(2 * Math.PI * item.angle) - bullet.y
+                    item.distance * Math.cos(2 * Math.PI * item.angle) - bulletX,
+                    item.distance * Math.sin(2 * Math.PI * item.angle) - bulletY
                 ) < (item.radius + bullet.radius)
             case "bar":
             case "marqueeBar":
                 let bulletAngle = Math.atan2(
-                    bullet.y, bullet.x
+                    bulletY, bulletX
                 )
                 if (bulletAngle < 0) bulletAngle += Math.PI * 2
                 bulletAngle /= Math.PI * 2
 
-                let bulletDist = Math.hypot(bullet.x, bullet.y)
+                let bulletDist = Math.hypot(bulletX, bulletY)
 
                 let clampedStart = item.angleStart % 1
                 let clampedEnd = (clampedStart + item.angleLength) % 1
@@ -397,8 +408,8 @@ class Game {
                     ctx.beginPath()
 
                     ctx.arc(
-                        item.distance * Math.cos(2 * Math.PI * item.angle),
-                        item.distance * Math.sin(2 * Math.PI * item.angle),
+                        item.distance * Math.cos(2 * Math.PI * item.angle) + item.centerX,
+                        item.distance * Math.sin(2 * Math.PI * item.angle) + item.centerY,
                         item.radius,
                         0, 2 * Math.PI
                     )
@@ -412,7 +423,7 @@ class Game {
                     ctx.lineWidth = item.radius * 2
 
                     ctx.arc(
-                        0, 0, item.distance,
+                        item.centerX, item.centerY, item.distance,
                         2 * Math.PI * item.angleStart,
                         2 * Math.PI * (item.angleStart + item.angleLength)
                     )

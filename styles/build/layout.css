@@ -146,6 +146,16 @@ body.light [data-mode=reverse] {
   --g4-game-bullet: #552eff;
 }
 
+[data-mode=nox] {
+  --g4-game-background: #000;
+  --g4-game-damage: #200;
+  --g4-game-foreground: #fff;
+  --g4-game-obstacle1: var(--g4-game-foreground);
+  --g4-game-obstacle2: var(--g4-game-foreground);
+  --g4-game-cannon: #fff;
+  --g4-game-bullet: #f00;
+}
+
 body {
   background: var(--g4-app-background);
   color: var(--g4-game-foreground);
