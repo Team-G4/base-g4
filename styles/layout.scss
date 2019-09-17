@@ -943,3 +943,9 @@ dialog.open {
         }
     }
 }
+
+@media (max-width: 500px) {
+    main div.game header {
+        padding-right: 52px;
+    }
+}

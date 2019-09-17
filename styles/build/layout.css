@@ -728,5 +728,10 @@ dialog.open content div.buttons button.primary {
     transform: translate(-50%, -50%);
   }
 }
+@media (max-width: 500px) {
+  main div.game header {
+    padding-right: 52px;
+  }
+}
 
 /*# sourceMappingURL=layout.css.map */
