@@ -568,9 +568,6 @@ aside {
         flex-direction: column;
         
         header {
-            position: sticky;
-            top: 0;
-
             background: var(--g4-app-header-background);
             
             font-weight: 500;
@@ -618,7 +615,7 @@ aside {
                 color: var(--g4-app-background);
             }
 
-            button[data-mode=reverse] {
+            button[data-mode=reverse] p {
                 transform: scaleX(-1);
             }
         }

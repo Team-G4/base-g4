@@ -465,8 +465,6 @@ aside section {
   flex-direction: column;
 }
 aside section header {
-  position: sticky;
-  top: 0;
   background: var(--g4-app-header-background);
   font-weight: 500;
   font-size: 15pt;
@@ -502,7 +500,7 @@ aside section.gameMode content button.mode.active {
   background: var(--g4-app-foreground);
   color: var(--g4-app-background);
 }
-aside section.gameMode content button[data-mode=reverse] {
+aside section.gameMode content button[data-mode=reverse] p {
   transform: scaleX(-1);
 }
 aside section.spectating content div.player {
