@@ -178,7 +178,7 @@ body.light {
     --g4-app-background: #ffffff;
     --g4-app-foreground: #000000;
     --g4-app-header-background: #ebebeb;
-    --g4-app-accent: #1814f3;
+    --g4-app-accent: #e63b24;
 }
 
 body.login {
@@ -587,17 +587,26 @@ aside {
     }
 
     div.scroller {
+        padding: 0px 8px;
+        border-radius: 24px;
+
         flex-grow: 1;
         overflow: auto;
     }
 
     section {
+        background: var(--g4-app-header-background);
+
+        padding-bottom: 16px;
+        margin-bottom: 8px;
+        border-radius: 24px;
+
+        overflow: hidden;
+
         display: flex;
         flex-direction: column;
         
-        header {
-            background: var(--g4-app-header-background);
-            
+        header {            
             font-weight: 500;
             font-size: 15pt;
 
@@ -618,7 +627,7 @@ aside {
             grid-template-columns: repeat(4, 1fr);
 
             button.mode {
-                background: var(--g4-app-background);
+                background: transparent;
                 color: var(--g4-app-foreground);
 
                 padding: 4px 8px;
@@ -821,7 +830,7 @@ dialog {
 dialog.open {
     right: 0;
 
-    background: var(--g4-app-background);
+    background: var(--g4-app-header-background);
     color: var(--g4-app-foreground);
 
     margin: 0px;
@@ -834,8 +843,6 @@ dialog.open {
 
     header {
         top: 0;
-
-        background: var(--g4-app-header-background);
         
         font-weight: 500;
         font-size: 15pt;
@@ -851,7 +858,11 @@ dialog.open {
     }
 
     content {
+        background: var(--g4-app-background);
+
         padding: 16px;
+        border-radius: 24px 24px 0px 0px;
+
         flex-grow: 1;
         overflow: auto;
 

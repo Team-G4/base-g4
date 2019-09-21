@@ -176,7 +176,7 @@ body.light {
   --g4-app-background: #ffffff;
   --g4-app-foreground: #000000;
   --g4-app-header-background: #ebebeb;
-  --g4-app-accent: #1814f3;
+  --g4-app-accent: #e63b24;
 }
 
 body.login div.accountInfo {
@@ -483,15 +483,21 @@ aside svg {
   fill: var(--g4-app-accent);
 }
 aside div.scroller {
+  padding: 0px 8px;
+  border-radius: 24px;
   flex-grow: 1;
   overflow: auto;
 }
 aside section {
+  background: var(--g4-app-header-background);
+  padding-bottom: 16px;
+  margin-bottom: 8px;
+  border-radius: 24px;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
 }
 aside section header {
-  background: var(--g4-app-header-background);
   font-weight: 500;
   font-size: 15pt;
   padding: 8px 16px;
@@ -506,7 +512,7 @@ aside section.gameMode content {
   grid-template-columns: repeat(4, 1fr);
 }
 aside section.gameMode content button.mode {
-  background: var(--g4-app-background);
+  background: transparent;
   color: var(--g4-app-foreground);
   padding: 4px 8px;
   border: none;
@@ -639,7 +645,7 @@ dialog {
 
 dialog.open {
   right: 0;
-  background: var(--g4-app-background);
+  background: var(--g4-app-header-background);
   color: var(--g4-app-foreground);
   margin: 0px;
   padding: 0px;
@@ -650,7 +656,6 @@ dialog.open {
 }
 dialog.open header {
   top: 0;
-  background: var(--g4-app-header-background);
   font-weight: 500;
   font-size: 15pt;
   padding: 8px 16px;
@@ -661,7 +666,9 @@ dialog.open header button {
   margin-right: 16px;
 }
 dialog.open content {
+  background: var(--g4-app-background);
   padding: 16px;
+  border-radius: 24px 24px 0px 0px;
   flex-grow: 1;
   overflow: auto;
 }
