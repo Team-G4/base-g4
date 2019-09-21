@@ -639,6 +639,8 @@ class Game {
      */
     handleKeyboardEvent(event) {
         if (this.isSpectated) return
+        if (event.target instanceof HTMLInputElement ||
+            event.target instanceof HTMLButtonElement) return
 
         if (event.code == "Space" && !this.data.projectile)
             this.shoot()
