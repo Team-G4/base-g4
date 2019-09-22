@@ -172,6 +172,7 @@ body {
   background: var(--g4-app-background);
   color: var(--g4-game-foreground);
   font-family: Poppins;
+  user-select: none;
 }
 
 body.light {
