@@ -8,6 +8,15 @@
   --g4-app-scroll-thumb: rgb(77, 77, 77);
 }
 
+body.light {
+  --g4-app-background: #ffffff;
+  --g4-app-foreground: #000000;
+  --g4-app-header-background: #ebebeb;
+  --g4-app-accent: #e63b24;
+  --g4-app-scroll-track: #f1f1f1;
+  --g4-app-scroll-thumb: rgb(148, 148, 148);
+}
+
 [data-mode=easy] {
   --g4-game-background: #070f0e;
   --g4-game-damage: #0c0f07;
@@ -166,29 +175,6 @@ body.light [data-mode=nox] {
   --g4-game-obstacle2: rgb(35, 68, 211);
   --g4-game-cannon: rgb(0, 0, 0);
   --g4-game-bullet: rgb(255, 0, 85);
-}
-
-body {
-  background: var(--g4-app-background);
-  color: var(--g4-game-foreground);
-  font-family: Poppins;
-  user-select: none;
-}
-
-body.light {
-  --g4-app-background: #ffffff;
-  --g4-app-foreground: #000000;
-  --g4-app-header-background: #ebebeb;
-  --g4-app-accent: #e63b24;
-  --g4-app-scroll-track: #f1f1f1;
-  --g4-app-scroll-thumb: rgb(148, 148, 148);
-}
-
-body.login div.accountInfo {
-  display: flex;
-}
-body.login button#openLoginBtn {
-  display: none;
 }
 
 main {
@@ -350,27 +336,16 @@ main.six {
   grid-template-rows: repeat(2, 1fr);
 }
 
-button {
-  background: var(--g4-app-background);
-  color: var(--g4-app-foreground);
-  font-family: Poppins;
-  font-weight: 500;
-  font-size: 12pt;
-  text-transform: uppercase;
-  padding: 4px 16px;
-  border: none;
-  border-radius: 8px;
+@media (max-width: 768px) {
+  main {
+    right: 0;
+  }
 }
-
-button:hover {
-  box-shadow: inset 0px 0px 0px 4px var(--g4-app-foreground);
+@media (max-width: 500px) {
+  main div.game header {
+    padding-right: 52px;
+  }
 }
-
-button:active {
-  background: var(--g4-app-foreground);
-  color: var(--g4-app-background);
-}
-
 aside {
   position: fixed;
   top: 0;
@@ -619,32 +594,6 @@ aside footer a {
   text-decoration: none;
 }
 
-body.light div.firstTimeHint img {
-  filter: invert(0);
-}
-body.light button.daynight div:before {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 22px;
-  height: 22px;
-  background: var(--g4-app-foreground);
-  border-radius: 0px;
-  transform: translate(-50%, -50%);
-  z-index: -1;
-}
-body.light button.daynight div:after {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 22px;
-  height: 22px;
-  background: var(--g4-app-foreground);
-  border-radius: 0px;
-  transform: translate(-50%, -50%) rotate(45deg);
-  z-index: -1;
-}
-
 dialog {
   position: fixed;
   top: 0;
@@ -755,6 +704,51 @@ dialog#playerStats content div.highScore table td {
   font-size: 13pt;
 }
 
+@media (max-width: 768px) {
+  aside {
+    width: 100%;
+    max-width: 400px;
+  }
+  aside button.expander {
+    display: block !important;
+  }
+
+  aside:not(.expanded) {
+    right: -100%;
+  }
+  aside:not(.expanded) button.expander {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 48px;
+  }
+  aside:not(.expanded) button.expander div {
+    position: relative;
+    width: 20px;
+    height: 2px;
+    background: var(--g4-app-foreground);
+  }
+  aside:not(.expanded) button.expander div:before {
+    position: absolute;
+    left: 50%;
+    top: -6px;
+    width: 20px;
+    height: 2px;
+    background: var(--g4-app-foreground);
+    content: "";
+    transform: translate(-50%, -50%);
+  }
+  aside:not(.expanded) button.expander div:after {
+    position: absolute;
+    left: 50%;
+    top: 8px;
+    width: 20px;
+    height: 2px;
+    background: var(--g4-app-foreground);
+    content: "";
+    transform: translate(-50%, -50%);
+  }
+}
 div.titleBar {
   display: none;
 }
@@ -826,60 +820,68 @@ body.maximized button#maximizeBtn {
   body.electron aside:not(.expanded) button.expander {
     top: 40px;
   }
-
-  main {
-    right: 0;
-  }
-
-  aside {
-    width: 100%;
-    max-width: 400px;
-  }
-  aside button.expander {
-    display: block !important;
-  }
-
-  aside:not(.expanded) {
-    right: -100%;
-  }
-  aside:not(.expanded) button.expander {
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: 48px;
-  }
-  aside:not(.expanded) button.expander div {
-    position: relative;
-    width: 20px;
-    height: 2px;
-    background: var(--g4-app-foreground);
-  }
-  aside:not(.expanded) button.expander div:before {
-    position: absolute;
-    left: 50%;
-    top: -6px;
-    width: 20px;
-    height: 2px;
-    background: var(--g4-app-foreground);
-    content: "";
-    transform: translate(-50%, -50%);
-  }
-  aside:not(.expanded) button.expander div:after {
-    position: absolute;
-    left: 50%;
-    top: 8px;
-    width: 20px;
-    height: 2px;
-    background: var(--g4-app-foreground);
-    content: "";
-    transform: translate(-50%, -50%);
-  }
 }
-@media (max-width: 500px) {
-  main div.game header {
-    padding-right: 52px;
-  }
+body {
+  background: var(--g4-app-background);
+  color: var(--g4-game-foreground);
+  font-family: Poppins;
+  user-select: none;
 }
+
+body.login div.accountInfo {
+  display: flex;
+}
+body.login button#openLoginBtn {
+  display: none;
+}
+
+button {
+  background: var(--g4-app-background);
+  color: var(--g4-app-foreground);
+  font-family: Poppins;
+  font-weight: 500;
+  font-size: 12pt;
+  text-transform: uppercase;
+  padding: 4px 16px;
+  border: none;
+  border-radius: 8px;
+}
+
+button:hover {
+  box-shadow: inset 0px 0px 0px 4px var(--g4-app-foreground);
+}
+
+button:active {
+  background: var(--g4-app-foreground);
+  color: var(--g4-app-background);
+}
+
+body.light div.firstTimeHint img {
+  filter: invert(0);
+}
+body.light button.daynight div:before {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 22px;
+  height: 22px;
+  background: var(--g4-app-foreground);
+  border-radius: 0px;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+body.light button.daynight div:after {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 22px;
+  height: 22px;
+  background: var(--g4-app-foreground);
+  border-radius: 0px;
+  transform: translate(-50%, -50%) rotate(45deg);
+  z-index: -1;
+}
+
 ::-webkit-scrollbar {
   width: 12px;
 }

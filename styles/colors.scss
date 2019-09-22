@@ -1,0 +1,177 @@
+:root {
+    --g4-app-background: #000000;
+    --g4-app-foreground: #d1d1d1;
+    --g4-app-header-background: #0f0f0f;
+    --g4-app-accent: #ff523b;
+    --g4-app-scroll-track: #111111;
+    --g4-app-scroll-thumb: rgb(77, 77, 77);
+}
+
+body.light {
+    --g4-app-background: #ffffff;
+    --g4-app-foreground: #000000;
+    --g4-app-header-background: #ebebeb;
+    --g4-app-accent: #e63b24;
+    --g4-app-scroll-track: #f1f1f1;
+    --g4-app-scroll-thumb: rgb(148, 148, 148);
+}
+
+[data-mode=easy] {
+    --g4-game-background: #070f0e;
+    --g4-game-damage: #0c0f07;
+    --g4-game-foreground: #4c7d45;
+    --g4-game-obstacle1: var(--g4-game-foreground);
+    --g4-game-obstacle2: var(--g4-game-foreground);
+    --g4-game-cannon: var(--g4-game-foreground);
+    --g4-game-bullet: #e5ff00;
+}
+
+body.light [data-mode=easy] {
+    --g4-game-background: #e0f3f1;
+    --g4-game-damage: #ffe4ee;
+    --g4-game-foreground: #25691c;
+    --g4-game-obstacle1: var(--g4-game-foreground);
+    --g4-game-obstacle2: var(--g4-game-foreground);
+    --g4-game-cannon: var(--g4-game-foreground);
+    --g4-game-bullet: #07a6ce;
+}
+
+[data-mode=normal] {
+    --g4-game-background: #1c1b1a;
+    --g4-game-damage: #2b1616;
+    --g4-game-foreground: #dbb986;
+    --g4-game-obstacle1: var(--g4-game-foreground);
+    --g4-game-obstacle2: var(--g4-game-foreground);
+    --g4-game-cannon: var(--g4-game-obstacle1);
+    --g4-game-bullet: #ff523b;
+}
+
+body.light [data-mode=normal] {
+    --g4-game-background: #f1ece7;
+    --g4-game-damage: #ffe4ee;
+    --g4-game-foreground: #8b3716;
+    --g4-game-obstacle1: var(--g4-game-foreground);
+    --g4-game-obstacle2: var(--g4-game-foreground);
+    --g4-game-cannon: var(--g4-game-obstacle1);
+    --g4-game-bullet: #ff893b;
+}
+
+[data-mode=hard] {
+    --g4-game-background: #151523;
+    --g4-game-damage: #271620;
+    --g4-game-foreground: #9bd1ba;
+    --g4-game-obstacle1: var(--g4-game-foreground);
+    --g4-game-obstacle2: var(--g4-game-foreground);
+    --g4-game-cannon: var(--g4-game-obstacle1);
+    --g4-game-bullet: #ffcb3b;
+}
+
+body.light [data-mode=hard] {
+    --g4-game-background: #efeffa;
+    --g4-game-damage: #ffe4ee;
+    --g4-game-foreground: #466281;
+    --g4-game-obstacle1: var(--g4-game-foreground);
+    --g4-game-obstacle2: var(--g4-game-foreground);
+    --g4-game-cannon: var(--g4-game-obstacle1);
+    --g4-game-bullet: #d36307;
+}
+
+[data-mode=hell] {
+    --g4-game-background: #200c0c;
+    --g4-game-damage: #000000;
+    --g4-game-foreground: #e20000;
+    --g4-game-obstacle1: var(--g4-game-foreground);
+    --g4-game-obstacle2: var(--g4-game-foreground);
+    --g4-game-cannon: var(--g4-game-obstacle1);
+    --g4-game-bullet: #ffa600;
+}
+
+body.light [data-mode=hell] {
+    --g4-game-background: #ff2323;
+    --g4-game-damage: #a10000;
+    --g4-game-foreground: #000000;
+    --g4-game-obstacle1: var(--g4-game-foreground);
+    --g4-game-obstacle2: var(--g4-game-foreground);
+    --g4-game-cannon: var(--g4-game-obstacle1);
+    --g4-game-bullet: #f1ff34;
+}
+
+[data-mode=hades] {
+    --g4-game-background: #000000;
+    --g4-game-damage: #0e0909;
+    --g4-game-foreground: #302f35;
+    --g4-game-obstacle1: var(--g4-game-foreground);
+    --g4-game-obstacle2: var(--g4-game-foreground);
+    --g4-game-cannon: #fff;
+    --g4-game-bullet: #227892;
+}
+
+body.light [data-mode=hades] {
+    --g4-game-background: #ffffff;
+    --g4-game-damage: #fae2e2;
+    --g4-game-foreground: #7b788a;
+    --g4-game-obstacle1: var(--g4-game-foreground);
+    --g4-game-obstacle2: var(--g4-game-foreground);
+    --g4-game-cannon: rgb(17, 85, 233);
+    --g4-game-bullet: #1c1f20;
+}
+
+[data-mode=denise] {
+    --g4-game-background: #1e1e1e;
+    --g4-game-damage: #292425;
+    --g4-game-foreground: #929292;
+    --g4-game-obstacle1: var(--g4-game-foreground);
+    --g4-game-obstacle2: #67d387;
+    --g4-game-cannon: var(--g4-game-obstacle1);
+    --g4-game-bullet: #67d387;
+}
+
+body.light [data-mode=denise] {
+    --g4-game-background: #dadada;
+    --g4-game-damage: #ecc7c7;
+    --g4-game-foreground: #414141;
+    --g4-game-obstacle1: var(--g4-game-foreground);
+    --g4-game-obstacle2: #1c923f;
+    --g4-game-cannon: var(--g4-game-obstacle1);
+    --g4-game-bullet: #1c923f;
+}
+
+[data-mode=reverse] {
+    --g4-game-background: #231935;
+    --g4-game-damage: #250e27;
+    --g4-game-foreground: #d37cdf;
+    --g4-game-obstacle1: var(--g4-game-foreground);
+    --g4-game-obstacle2: var(--g4-game-foreground);
+    --g4-game-cannon: #c2fc22;
+    --g4-game-bullet: #552eff;
+}
+
+body.light [data-mode=reverse] {
+    --g4-game-background: #d8caeb;
+    --g4-game-damage: #e6c3db;
+    --g4-game-foreground: #231935;
+    --g4-game-obstacle1: var(--g4-game-foreground);
+    --g4-game-obstacle2: var(--g4-game-foreground);
+    --g4-game-cannon: #1e0b8b;
+    --g4-game-bullet: #552eff;
+}
+
+[data-mode=nox] {
+    --g4-game-background: #000;
+    --g4-game-damage: rgb(22, 10, 18);
+    --g4-game-foreground: rgb(65, 209, 84);
+    --g4-game-obstacle1: var(--g4-game-foreground);
+    --g4-game-obstacle2: rgb(52, 66, 199);
+    --g4-game-cannon: #fff;
+    --g4-game-bullet: rgb(255, 0, 85);
+}
+
+body.light [data-mode=nox] {
+    --g4-game-background: #fff;
+    --g4-game-damage: rgb(255, 225, 235);
+    --g4-game-foreground: rgb(35, 202, 20);
+    --g4-game-obstacle1: var(--g4-game-foreground);
+    --g4-game-obstacle2: rgb(35, 68, 211);
+    --g4-game-cannon: rgb(0, 0, 0);
+    --g4-game-bullet: rgb(255, 0, 85);
+}
