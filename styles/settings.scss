@@ -1,0 +1,61 @@
+div.setting {
+    display: flex;
+    align-items: center;
+
+    label {
+        position: relative;
+
+        font-size: 13pt;
+
+        flex-grow: 1;
+    }
+
+    input[type=checkbox] {
+        position: absolute;
+        opacity: 0;
+
+        & + label:before {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            width: 32px;
+            height: 24px;
+    
+            background: var(--g4-app-foreground);
+            content: "";
+    
+            border-radius: 12px;
+
+            transform: translateY(-50%);
+
+            transition: background 0.2s;
+        }
+
+        & + label:after {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            width: 20px;
+            height: 20px;
+    
+            background: var(--g4-app-background);
+            content: "";
+    
+            border-radius: 10px;
+
+            transform: translateY(-50%);
+
+            transition: background 0.2s, right 0.2s;
+        }
+
+        &:checked + label:before {
+            background: var(--g4-app-accent);
+        }
+
+        &:checked + label:after {
+            right: 2px;
+    
+            background: var(--g4-app-background);
+        }
+    }
+}

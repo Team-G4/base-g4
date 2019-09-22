@@ -1,3 +1,4 @@
+/*
 // Day/night mode
 document.querySelector("button.daynight").addEventListener("click", () => {
     document.body.classList.toggle("light")
@@ -12,7 +13,7 @@ document.querySelector("button.daynight").addEventListener("click", () => {
 if (localStorage.getItem("g4_lightmode") == 1) {
     document.body.classList.add("light")
 }
-
+*/
 // First time hint
 if (!localStorage.getItem("g4_hideHint")) {
     document.querySelector("div.firstTimeHint").classList.remove("hidden")
@@ -148,16 +149,19 @@ function prepG4AccountUI(leaderboard) {
     })
 }
 
+// Open settings
+document.querySelector("button#openSettingsBtn").addEventListener("click", () => {
+    openWindow("settings")
+})
+
 // Music playback
-document.querySelector("button#musicToggleBtn").addEventListener("click", function() {
+document.querySelector("input#settingMusic").addEventListener("input", function() {
     /**
      * @type {HTMLAudioElement}
      */
     let audio = document.querySelector("audio#gameAudio")
 
-    let state = !audio.paused && !audio.ended && audio.readyState > 2
-    state = !state
-
+    let state = this.checked
     console.log(state)
 
     if (state) {
@@ -165,6 +169,4 @@ document.querySelector("button#musicToggleBtn").addEventListener("click", functi
     } else {
         audio.pause()
     }
-
-    this.classList.toggle("playing", state)
 })

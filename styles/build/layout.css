@@ -3,6 +3,7 @@
   --g4-app-background: #000000;
   --g4-app-foreground: #d1d1d1;
   --g4-app-header-background: #0f0f0f;
+  --g4-app-header-translucent: #0f0f0f50;
   --g4-app-accent: #ff523b;
   --g4-app-scroll-track: #111111;
   --g4-app-scroll-thumb: #4d4d4d;
@@ -623,6 +624,12 @@ dialog {
   pointer-events: all;
 }
 
+@supports (backdrop-filter: blur(24px)) {
+  dialog {
+    background: var(--g4-app-header-translucent);
+    backdrop-filter: blur(24px);
+  }
+}
 dialog.open {
   left: 0;
 }
@@ -760,6 +767,51 @@ dialog#playerStats content div.highScore table td {
     transform: translate(-50%, -50%);
   }
 }
+div.setting {
+  display: flex;
+  align-items: center;
+}
+div.setting label {
+  position: relative;
+  font-size: 13pt;
+  flex-grow: 1;
+}
+div.setting input[type=checkbox] {
+  position: absolute;
+  opacity: 0;
+}
+div.setting input[type=checkbox] + label:before {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 32px;
+  height: 24px;
+  background: var(--g4-app-foreground);
+  content: "";
+  border-radius: 12px;
+  transform: translateY(-50%);
+  transition: background 0.2s;
+}
+div.setting input[type=checkbox] + label:after {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  background: var(--g4-app-background);
+  content: "";
+  border-radius: 10px;
+  transform: translateY(-50%);
+  transition: background 0.2s, right 0.2s;
+}
+div.setting input[type=checkbox]:checked + label:before {
+  background: var(--g4-app-accent);
+}
+div.setting input[type=checkbox]:checked + label:after {
+  right: 2px;
+  background: var(--g4-app-background);
+}
+
 div.titleBar {
   display: none;
 }

@@ -5,6 +5,7 @@
         "background": "#000000",
         "boreground": "#d1d1d1",
         "headerBackground": "#0f0f0f",
+        "headerTranslucent": "#0f0f0f50",
         "accent": "#ff523b",
         
         "scrollTrack": "#111111",

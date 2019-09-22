@@ -63,15 +63,11 @@
                 </svg>
                 <div style="flex-grow: 1"></div>
 
-                <button id="musicToggleBtn">
-                    Music
+                <button id="openSettingsBtn">
+                    Settings
                 </button>
-
                 <button id="openLoginBtn">
                     Log in
-                </button>
-                <button class="daynight">
-                    <div></div>
                 </button>
 
                 <button class="expander">
@@ -217,6 +213,20 @@
                     <h2></h2>
 
                     <div class="scores">
+                    </div>
+                </content>
+            </dialog>
+
+            <dialog id="settings" class="">
+                <header>
+                    <button class="close">Back</button>
+                    Settings
+                </header>
+
+                <content>
+                    <div class="setting">
+                        <input type="checkbox" id="settingMusic">
+                        <label for="settingMusic">In-game music</label>
                     </div>
                 </content>
             </dialog>
