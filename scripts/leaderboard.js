@@ -178,6 +178,8 @@ class Leaderboard {
         let container = document.querySelector("dialog#playerStats div.scores")
         container.innerHTML = ""
 
+        openWindow("playerStats")
+
         for (let score of scores) {
             let scoreDiv = document.createElement("div")
 
@@ -200,8 +202,6 @@ class Leaderboard {
 
             container.appendChild(scoreDiv)
         }
-
-        openWindow("playerStats")
     }
 
     async postScore(mode, score, deathCount) {

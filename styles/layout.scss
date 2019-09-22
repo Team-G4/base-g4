@@ -5,6 +5,8 @@
     --g4-app-foreground: #d1d1d1;
     --g4-app-header-background: #0f0f0f;
     --g4-app-accent: #ff523b;
+    --g4-app-scroll-track: #111111;
+    --g4-app-scroll-thumb: rgb(77, 77, 77);
 }
 
 [data-mode=easy] {
@@ -179,6 +181,8 @@ body.light {
     --g4-app-foreground: #000000;
     --g4-app-header-background: #ebebeb;
     --g4-app-accent: #e63b24;
+    --g4-app-scroll-track: #f1f1f1;
+    --g4-app-scroll-thumb: rgb(148, 148, 148);
 }
 
 body.login {
@@ -440,8 +444,11 @@ aside {
     background: var(--g4-app-background);
     color: var(--g4-app-foreground);
     
+    box-shadow: 0px 0px 16px #00000020;
     display: flex;
     flex-direction: column;
+
+    transition: right 0.2s;
 
     header {
         display: flex;
@@ -476,8 +483,8 @@ aside {
             div:before {
                 position: absolute;
                 left: 50%;
-                top: 50%;
-                width: 20px;
+                top: calc(50% - 4.5px);
+                width: 14px;
                 height: 2px;
                 
                 background: var(--g4-app-foreground);
@@ -489,8 +496,8 @@ aside {
             div:after {
                 position: absolute;
                 left: 50%;
-                top: 50%;
-                width: 20px;
+                top: calc(50% + 4.5px);
+                width: 14px;
                 height: 2px;
                 
                 background: var(--g4-app-foreground);
@@ -588,7 +595,7 @@ aside {
     }
 
     div.scroller {
-        padding: 0px 8px;
+        padding: 8px 8px;
         border-radius: 24px;
 
         flex-grow: 1;
@@ -743,6 +750,13 @@ aside {
                     }
                 }
 
+                tbody tr:hover {
+                    background: var(--g4-app-foreground);
+                    color: var(--g4-app-background);
+
+                    cursor: pointer;
+                }
+
                 tr.me {
                     background: var(--g4-app-accent);
                     color: var(--g4-app-background);
@@ -825,22 +839,21 @@ dialog {
     max-width: 400px;
     height: 100%;
 
-    transition: right 0.3s;
-}
-
-dialog.open {
-    right: 0;
-
     background: var(--g4-app-header-background);
     color: var(--g4-app-foreground);
 
     margin: 0px;
     padding: 0px;
     border: none;
-    box-shadow: 0px 8px 32px #000000a0;
 
     display: flex;
     flex-direction: column;
+
+    transition: right 0.2s;
+}
+
+dialog.open {
+    right: 0;
 
     header {
         top: 0;
@@ -862,7 +875,7 @@ dialog.open {
         background: var(--g4-app-background);
 
         padding: 16px;
-        border-radius: 24px 24px 0px 0px;
+        border-radius: 24px 0px 0px 0px;
 
         flex-grow: 1;
         overflow: auto;
@@ -967,7 +980,106 @@ dialog#playerStats {
     }
 }
 
+div.titleBar {
+    display: none;
+}
+
+body.electron {
+    div.titleBar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        right: 0;
+        height: 40px;
+
+        display: flex;
+        z-index: 9000;
+
+        -webkit-app-region: drag;
+
+        div.title {
+            color: var(--g4-app-foreground);
+
+            display: flex;
+            flex-grow: 1;
+            align-items: center;
+
+            p {
+                margin: 0px 16px;
+
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+        }
+
+        div.buttons {
+            min-width: 144px;
+            
+            display: flex;
+            justify-content: flex-end;
+
+            button {
+                background: transparent;
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                -webkit-app-region: no-drag;
+
+                svg {
+                    width: 16px;
+                    height: 16px;
+
+                    fill: var(--g4-app-foreground);
+                }
+            }
+
+            button:active {
+                background: var(--g4-app-foreground);
+
+                svg {
+                    fill: var(--g4-app-background);
+                }
+            }
+        }
+    }
+
+    main div.game {
+        header {
+            top: 40px;
+        }
+        
+        canvas {
+            top: calc(50% + 40px);
+        }
+    }
+
+    aside, dialog {
+        padding-top: 40px;
+    }
+}
+
+body:not(.maximized) {
+    button#restoreBtn {
+        display: none;
+    }
+}
+
+body.maximized {
+    button#maximizeBtn {
+        display: none;
+    }
+}
+
 @media (max-width: 768px) {
+    body.electron {
+        aside:not(.expanded) button.expander {
+            top: 40px;
+        }
+    }
+
     main {
         right: 0;
     }
@@ -1031,4 +1143,24 @@ dialog#playerStats {
     main div.game header {
         padding-right: 52px;
     }
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--g4-app-scroll-track);
+
+    border-radius: 6px;
+
+    box-shadow: inset 0px 0px 0px 3px var(--g4-app-background);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--g4-app-scroll-thumb);
+
+    border-radius: 6px;
+
+    box-shadow: inset 0px 0px 0px 3px var(--g4-app-background);
 }
