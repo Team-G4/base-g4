@@ -231,12 +231,23 @@
                     </div>
 
                     <h2>Color themes</h2>
-                    <div class="themeList">
-                        <div class="theme">
-                            <p class="name">Dark</p>
-                            <button class="primary">Set theme</button>
-                        </div>
-                    </div>
+
+                    <div class="themeList"></div>
+
+                    <button id="copyCurrentThemeBtn">Create new theme from current</button>
+                </content>
+            </dialog>
+
+            <dialog id="themeEditor" class="">
+                <header>
+                    <button class="close">Back</button>
+                    Theme editor
+                </header>
+
+                <content>
+                    <input id="themeName" type="text" value="Theme 10">
+
+                    <div class="themeColors"></div>
                 </content>
             </dialog>
         </div>

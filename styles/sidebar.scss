@@ -389,14 +389,6 @@ dialog {
     pointer-events: all;
 }
 
-@supports (backdrop-filter: blur(24px)) {
-    dialog {
-        background: var(--g4-app-header-translucent);
-
-        backdrop-filter: blur(24px);
-    }
-}
-
 dialog.open {
     left: 0;
 

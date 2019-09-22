@@ -6,7 +6,6 @@
             "background": "#ffffff",
             "foreground": "#000000",
             "headerBackground": "#ebebeb",
-            "headerTranslucent": "#ebebeb50",
             "accent": "#e63b24",
             
             "scrollTrack": "#f1f1f1",

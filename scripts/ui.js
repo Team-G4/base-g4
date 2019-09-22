@@ -155,6 +155,11 @@ document.querySelector("button#openSettingsBtn").addEventListener("click", () =>
     openWindow("settings")
 })
 
+// Create a new theme
+document.querySelector("button#copyCurrentThemeBtn").addEventListener("click", () => {
+    duplicateCurrentTheme()
+})
+
 // Music playback
 document.querySelector("input#settingMusic").addEventListener("input", function() {
     /**
