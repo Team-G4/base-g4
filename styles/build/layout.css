@@ -5,7 +5,7 @@
   --g4-app-header-background: #0f0f0f;
   --g4-app-accent: #ff523b;
   --g4-app-scroll-track: #111111;
-  --g4-app-scroll-thumb: rgb(77, 77, 77);
+  --g4-app-scroll-thumb: #4d4d4d;
 }
 
 body.light {
@@ -14,7 +14,7 @@ body.light {
   --g4-app-header-background: #ebebeb;
   --g4-app-accent: #e63b24;
   --g4-app-scroll-track: #f1f1f1;
-  --g4-app-scroll-thumb: rgb(148, 148, 148);
+  --g4-app-scroll-thumb: #949494;
 }
 
 [data-mode=easy] {
@@ -113,7 +113,7 @@ body.light [data-mode=hades] {
   --g4-game-foreground: #7b788a;
   --g4-game-obstacle1: var(--g4-game-foreground);
   --g4-game-obstacle2: var(--g4-game-foreground);
-  --g4-game-cannon: rgb(17, 85, 233);
+  --g4-game-cannon: #1155e9;
   --g4-game-bullet: #1c1f20;
 }
 
@@ -159,22 +159,22 @@ body.light [data-mode=reverse] {
 
 [data-mode=nox] {
   --g4-game-background: #000;
-  --g4-game-damage: rgb(22, 10, 18);
-  --g4-game-foreground: rgb(65, 209, 84);
+  --g4-game-damage: #160a12;
+  --g4-game-foreground: #41d154;
   --g4-game-obstacle1: var(--g4-game-foreground);
-  --g4-game-obstacle2: rgb(52, 66, 199);
+  --g4-game-obstacle2: #3442c7;
   --g4-game-cannon: #fff;
-  --g4-game-bullet: rgb(255, 0, 85);
+  --g4-game-bullet: #ff0055;
 }
 
 body.light [data-mode=nox] {
   --g4-game-background: #fff;
-  --g4-game-damage: rgb(255, 225, 235);
-  --g4-game-foreground: rgb(35, 202, 20);
+  --g4-game-damage: #ffe1eb;
+  --g4-game-foreground: #23ca14;
   --g4-game-obstacle1: var(--g4-game-foreground);
-  --g4-game-obstacle2: rgb(35, 68, 211);
-  --g4-game-cannon: rgb(0, 0, 0);
-  --g4-game-bullet: rgb(255, 0, 85);
+  --g4-game-obstacle2: #2344d3;
+  --g4-game-cannon: #000000;
+  --g4-game-bullet: #ff0055;
 }
 
 main {
@@ -594,26 +594,37 @@ aside footer a {
   text-decoration: none;
 }
 
-dialog {
+div.dialogContainer {
   position: fixed;
   top: 0;
-  right: -500px;
-  left: unset;
+  right: 0;
   width: 100%;
   max-width: 400px;
+  bottom: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+dialog {
+  position: absolute;
+  top: 0;
+  left: 432px;
+  width: 100%;
   height: 100%;
   background: var(--g4-app-header-background);
   color: var(--g4-app-foreground);
   margin: 0px;
   padding: 0px;
   border: none;
+  box-shadow: 0px 0px 16px #00000050;
   display: flex;
   flex-direction: column;
-  transition: right 0.2s;
+  transition: left 0.2s;
+  pointer-events: all;
 }
 
 dialog.open {
-  right: 0;
+  left: 0;
 }
 dialog.open header {
   top: 0;

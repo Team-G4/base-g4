@@ -153,72 +153,74 @@
             </footer>
         </aside>
 
-        <dialog id="login" class="">
-            <header>
-                <button class="close">Back</button>
-                Log in
-            </header>
+        <div class="dialogContainer">
+            <dialog id="login" class="">
+                <header>
+                    <button class="close">Back</button>
+                    Log in
+                </header>
 
-            <content>
-                <h2>Log in to your G4 account to save your scores on the leaderboard.</h2>
+                <content>
+                    <h2>Log in to your G4 account to save your scores on the leaderboard.</h2>
 
-                <p class="error"></p>
+                    <p class="error"></p>
 
-                <form id="loginForm">
-                    <label for="loginUsername">Username:</label>
-                    <input id="loginUsername" maxlength="20">
+                    <form id="loginForm">
+                        <label for="loginUsername">Username:</label>
+                        <input id="loginUsername" maxlength="20">
 
-                    <label for="loginPassword">Password:</label>
-                    <input id="loginPassword" type="password">
-                </form>
+                        <label for="loginPassword">Password:</label>
+                        <input id="loginPassword" type="password">
+                    </form>
 
-                <div class="buttons">
-                    <button id="loginBtn" class="primary">Log in</button>
-                    <button id="goToRegisterBtn">Create an account</button>
-                </div>
-            </content>
-        </dialog>
+                    <div class="buttons">
+                        <button id="loginBtn" class="primary">Log in</button>
+                        <button id="goToRegisterBtn">Create an account</button>
+                    </div>
+                </content>
+            </dialog>
 
-        <dialog id="register" class="">
-            <header>
-                <button class="close">Back</button>
-                Register
-            </header>
+            <dialog id="register" class="">
+                <header>
+                    <button class="close">Back</button>
+                    Register
+                </header>
 
-            <content>
-                <h2>Create a G4 account.</h2>
+                <content>
+                    <h2>Create a G4 account.</h2>
 
-                <p class="error"></p>
+                    <p class="error"></p>
 
-                <form id="registerForm">
-                    <label for="registerUsername">Username:</label>
-                    <input id="registerUsername" maxlength="20">
+                    <form id="registerForm">
+                        <label for="registerUsername">Username:</label>
+                        <input id="registerUsername" maxlength="20">
 
-                    <label for="registerPassword">Password:</label>
-                    <input id="registerPassword" type="password">
-                </form>
+                        <label for="registerPassword">Password:</label>
+                        <input id="registerPassword" type="password">
+                    </form>
 
-                <p>By clicking "Register", you agree to the <a href="about:blank">G4 Terms of Service</a>.</p>
+                    <p>By clicking "Register", you agree to the <a href="about:blank">G4 Terms of Service</a>.</p>
 
-                <div class="buttons">
-                    <button id="registerBtn" class="primary">Register</button>
-                </div>
-            </content>
-        </dialog>
+                    <div class="buttons">
+                        <button id="registerBtn" class="primary">Register</button>
+                    </div>
+                </content>
+            </dialog>
 
-        <dialog id="playerStats" class="">
-            <header>
-                <button class="close">Back</button>
-                Player stats
-            </header>
+            <dialog id="playerStats" class="">
+                <header>
+                    <button class="close">Back</button>
+                    Player stats
+                </header>
 
-            <content>
-                <h2></h2>
+                <content>
+                    <h2></h2>
 
-                <div class="scores">
-                </div>
-            </content>
-        </dialog>
+                    <div class="scores">
+                    </div>
+                </content>
+            </dialog>
+        </div>
 
         <script src="scripts/assets.js"></script>
         <script src="scripts/levelgen.js"></script>

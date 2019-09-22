@@ -36,11 +36,11 @@ document.querySelectorAll("dialog").forEach(dialog => {
 })
 
 function openWindow(id) {
-    if (document.querySelector("dialog.open")) {
-        document.querySelector("dialog.open").classList.remove("open")
-    }
+    let zIndex = 2000 + document.querySelectorAll("dialog.open").length
+    let dialog = document.querySelector("dialog#" + id)
 
-    document.querySelector("dialog#" + id).classList.add("open")
+    dialog.classList.add("open")
+    dialog.style.zIndex = zIndex
 }
 
 function closeWindows() {
