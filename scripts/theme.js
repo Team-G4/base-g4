@@ -232,6 +232,8 @@ function duplicateCurrentTheme() {
     themes.push(theme)
 
     localStorage["g4_themes"] = JSON.stringify(themes)
+    localStorage["g4_currentTheme"] = themes.length
+    applyTheme()
     updateThemeList()
 }
 
