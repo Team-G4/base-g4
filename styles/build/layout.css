@@ -697,7 +697,7 @@ div.setting input[type=checkbox] + label:before {
   position: absolute;
   right: 0;
   top: 50%;
-  width: 32px;
+  width: 36px;
   height: 24px;
   background: var(--g4-app-foreground);
   content: "";
@@ -707,7 +707,7 @@ div.setting input[type=checkbox] + label:before {
 }
 div.setting input[type=checkbox] + label:after {
   position: absolute;
-  right: 10px;
+  right: 14px;
   top: 50%;
   width: 20px;
   height: 20px;
@@ -748,6 +748,9 @@ div.themeList div.theme.current p:after {
 }
 div.themeList div.theme button {
   margin-left: 8px;
+}
+div.themeList div.theme.current {
+  box-shadow: inset 0px 0px 0px 2px var(--g4-app-accent);
 }
 
 dialog#themeEditor input[type=text] {

@@ -103,10 +103,10 @@ div.themeList {
         button {
             margin-left: 8px;
         }
+    }
 
-        &.current {
-            box-shadow: inset 0px 0px 0px 2px var(--g4-app-accent);
-        }
+    div.theme.current {
+        box-shadow: inset 0px 0px 0px 2px var(--g4-app-accent);
     }
 }
 
