@@ -1,6 +1,6 @@
 'use strict';
 
-const DEV_BUILD_VERSION = 10
+const DEV_BUILD_VERSION = 11
 
 const CACHE_NAME = `static-cache-g4.6-dev${DEV_BUILD_VERSION}`;
 const DATA_CACHE_NAME = `static-cache-g4.6-dev${DEV_BUILD_VERSION}`;
@@ -14,12 +14,14 @@ const FILES_TO_CACHE = [
     'res/images/gameHint.svg',
 
     'res/themes/dark.json',
+    'res/themes/light.json',
 
     'scripts/assets.js',
     'scripts/game.js',
     'scripts/leaderboard.js',
     'scripts/levelgen.js',
     'scripts/main.js',
+    'scripts/theme.js',
     'scripts/ui.js',
     'scripts/install.js',
 

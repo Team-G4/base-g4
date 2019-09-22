@@ -1,3 +1,11 @@
+dialog#settings h2 {
+  margin-bottom: 0px;
+}
+
+dialog#settings h2:not(:first-child) {
+  margin-top: 32px;
+}
+
 div.setting {
   display: flex;
   align-items: center;
@@ -41,6 +49,25 @@ div.setting input[type=checkbox]:checked + label:before {
 div.setting input[type=checkbox]:checked + label:after {
   right: 2px;
   background: var(--g4-app-background);
+}
+
+div.themeList div.theme {
+  background: var(--g4-app-header-background);
+  color: var(--g4-app-foreground);
+  padding: 8px 16px;
+  margin-bottom: 8px;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+}
+div.themeList div.theme p {
+  font-size: 14pt;
+  margin: 0px 16px 0px 0px;
+  flex-grow: 1;
+}
+div.themeList div.theme.current p:after {
+  content: " current";
+  font-size: 11pt;
 }
 
 /*# sourceMappingURL=settings.css.map */

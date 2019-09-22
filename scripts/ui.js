@@ -151,6 +151,7 @@ function prepG4AccountUI(leaderboard) {
 
 // Open settings
 document.querySelector("button#openSettingsBtn").addEventListener("click", () => {
+    updateThemeList()
     openWindow("settings")
 })
 

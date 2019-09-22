@@ -1,180 +1,91 @@
 :root {
-  --g4-app-background: #000000;
-  --g4-app-foreground: #d1d1d1;
-  --g4-app-header-background: #0f0f0f;
-  --g4-app-header-translucent: #0f0f0f50;
-  --g4-app-accent: #ff523b;
-  --g4-app-scroll-track: #111111;
-  --g4-app-scroll-thumb: #4d4d4d;
-}
-
-body.light {
-  --g4-app-background: #ffffff;
-  --g4-app-foreground: #000000;
-  --g4-app-header-background: #ebebeb;
-  --g4-app-accent: #e63b24;
-  --g4-app-scroll-track: #f1f1f1;
-  --g4-app-scroll-thumb: #949494;
+  --g4-app-background: var(--g4-theme-app-background);
+  --g4-app-foreground: var(--g4-theme-app-foreground);
+  --g4-app-header-background: var(--g4-theme-app-headerBackground);
+  --g4-app-header-translucent: var(--g4-theme-app-headerTranslucent);
+  --g4-app-accent: var(--g4-theme-app-accent);
+  --g4-app-scroll-track: var(--g4-theme-app-scrollTrack);
+  --g4-app-scroll-thumb: var(--g4-theme-app-scrollThumb);
 }
 
 [data-mode=easy] {
-  --g4-game-background: #070f0e;
-  --g4-game-damage: #0c0f07;
-  --g4-game-foreground: #4c7d45;
-  --g4-game-obstacle1: var(--g4-game-foreground);
-  --g4-game-obstacle2: var(--g4-game-foreground);
-  --g4-game-cannon: var(--g4-game-foreground);
-  --g4-game-bullet: #e5ff00;
-}
-
-body.light [data-mode=easy] {
-  --g4-game-background: #e0f3f1;
-  --g4-game-damage: #ffe4ee;
-  --g4-game-foreground: #25691c;
-  --g4-game-obstacle1: var(--g4-game-foreground);
-  --g4-game-obstacle2: var(--g4-game-foreground);
-  --g4-game-cannon: var(--g4-game-foreground);
-  --g4-game-bullet: #07a6ce;
+  --g4-game-background: var(--g4-theme-game-easy-background);
+  --g4-game-damage: var(--g4-theme-game-easy-damage);
+  --g4-game-foreground: var(--g4-theme-game-easy-foreground);
+  --g4-game-obstacle1: var(--g4-theme-game-easy-obstacle1);
+  --g4-game-obstacle2: var(--g4-theme-game-easy-obstacle2);
+  --g4-game-cannon: var(--g4-theme-game-easy-cannon);
+  --g4-game-bullet: var(--g4-theme-game-easy-bullet);
 }
 
 [data-mode=normal] {
-  --g4-game-background: #1c1b1a;
-  --g4-game-damage: #2b1616;
-  --g4-game-foreground: #dbb986;
-  --g4-game-obstacle1: var(--g4-game-foreground);
-  --g4-game-obstacle2: var(--g4-game-foreground);
-  --g4-game-cannon: var(--g4-game-obstacle1);
-  --g4-game-bullet: #ff523b;
-}
-
-body.light [data-mode=normal] {
-  --g4-game-background: #f1ece7;
-  --g4-game-damage: #ffe4ee;
-  --g4-game-foreground: #8b3716;
-  --g4-game-obstacle1: var(--g4-game-foreground);
-  --g4-game-obstacle2: var(--g4-game-foreground);
-  --g4-game-cannon: var(--g4-game-obstacle1);
-  --g4-game-bullet: #ff893b;
+  --g4-game-background: var(--g4-theme-game-normal-background);
+  --g4-game-damage: var(--g4-theme-game-normal-damage);
+  --g4-game-foreground: var(--g4-theme-game-normal-foreground);
+  --g4-game-obstacle1: var(--g4-theme-game-normal-obstacle1);
+  --g4-game-obstacle2: var(--g4-theme-game-normal-obstacle2);
+  --g4-game-cannon: var(--g4-theme-game-normal-cannon);
+  --g4-game-bullet: var(--g4-theme-game-normal-bullet);
 }
 
 [data-mode=hard] {
-  --g4-game-background: #151523;
-  --g4-game-damage: #271620;
-  --g4-game-foreground: #9bd1ba;
-  --g4-game-obstacle1: var(--g4-game-foreground);
-  --g4-game-obstacle2: var(--g4-game-foreground);
-  --g4-game-cannon: var(--g4-game-obstacle1);
-  --g4-game-bullet: #ffcb3b;
-}
-
-body.light [data-mode=hard] {
-  --g4-game-background: #efeffa;
-  --g4-game-damage: #ffe4ee;
-  --g4-game-foreground: #466281;
-  --g4-game-obstacle1: var(--g4-game-foreground);
-  --g4-game-obstacle2: var(--g4-game-foreground);
-  --g4-game-cannon: var(--g4-game-obstacle1);
-  --g4-game-bullet: #d36307;
+  --g4-game-background: var(--g4-theme-game-hard-background);
+  --g4-game-damage: var(--g4-theme-game-hard-damage);
+  --g4-game-foreground: var(--g4-theme-game-hard-foreground);
+  --g4-game-obstacle1: var(--g4-theme-game-hard-obstacle1);
+  --g4-game-obstacle2: var(--g4-theme-game-hard-obstacle2);
+  --g4-game-cannon: var(--g4-theme-game-hard-cannon);
+  --g4-game-bullet: var(--g4-theme-game-hard-bullet);
 }
 
 [data-mode=hell] {
-  --g4-game-background: #200c0c;
-  --g4-game-damage: #000000;
-  --g4-game-foreground: #e20000;
-  --g4-game-obstacle1: var(--g4-game-foreground);
-  --g4-game-obstacle2: var(--g4-game-foreground);
-  --g4-game-cannon: var(--g4-game-obstacle1);
-  --g4-game-bullet: #ffa600;
-}
-
-body.light [data-mode=hell] {
-  --g4-game-background: #ff2323;
-  --g4-game-damage: #a10000;
-  --g4-game-foreground: #000000;
-  --g4-game-obstacle1: var(--g4-game-foreground);
-  --g4-game-obstacle2: var(--g4-game-foreground);
-  --g4-game-cannon: var(--g4-game-obstacle1);
-  --g4-game-bullet: #f1ff34;
+  --g4-game-background: var(--g4-theme-game-hell-background);
+  --g4-game-damage: var(--g4-theme-game-hell-damage);
+  --g4-game-foreground: var(--g4-theme-game-hell-foreground);
+  --g4-game-obstacle1: var(--g4-theme-game-hell-obstacle1);
+  --g4-game-obstacle2: var(--g4-theme-game-hell-obstacle2);
+  --g4-game-cannon: var(--g4-theme-game-hell-cannon);
+  --g4-game-bullet: var(--g4-theme-game-hell-bullet);
 }
 
 [data-mode=hades] {
-  --g4-game-background: #000000;
-  --g4-game-damage: #0e0909;
-  --g4-game-foreground: #302f35;
-  --g4-game-obstacle1: var(--g4-game-foreground);
-  --g4-game-obstacle2: var(--g4-game-foreground);
-  --g4-game-cannon: #fff;
-  --g4-game-bullet: #227892;
-}
-
-body.light [data-mode=hades] {
-  --g4-game-background: #ffffff;
-  --g4-game-damage: #fae2e2;
-  --g4-game-foreground: #7b788a;
-  --g4-game-obstacle1: var(--g4-game-foreground);
-  --g4-game-obstacle2: var(--g4-game-foreground);
-  --g4-game-cannon: #1155e9;
-  --g4-game-bullet: #1c1f20;
+  --g4-game-background: var(--g4-theme-game-hades-background);
+  --g4-game-damage: var(--g4-theme-game-hades-damage);
+  --g4-game-foreground: var(--g4-theme-game-hades-foreground);
+  --g4-game-obstacle1: var(--g4-theme-game-hades-obstacle1);
+  --g4-game-obstacle2: var(--g4-theme-game-hades-obstacle2);
+  --g4-game-cannon: var(--g4-theme-game-hades-cannon);
+  --g4-game-bullet: var(--g4-theme-game-hades-bullet);
 }
 
 [data-mode=denise] {
-  --g4-game-background: #1e1e1e;
-  --g4-game-damage: #292425;
-  --g4-game-foreground: #929292;
-  --g4-game-obstacle1: var(--g4-game-foreground);
-  --g4-game-obstacle2: #67d387;
-  --g4-game-cannon: var(--g4-game-obstacle1);
-  --g4-game-bullet: #67d387;
-}
-
-body.light [data-mode=denise] {
-  --g4-game-background: #dadada;
-  --g4-game-damage: #ecc7c7;
-  --g4-game-foreground: #414141;
-  --g4-game-obstacle1: var(--g4-game-foreground);
-  --g4-game-obstacle2: #1c923f;
-  --g4-game-cannon: var(--g4-game-obstacle1);
-  --g4-game-bullet: #1c923f;
+  --g4-game-background: var(--g4-theme-game-denise-background);
+  --g4-game-damage: var(--g4-theme-game-denise-damage);
+  --g4-game-foreground: var(--g4-theme-game-denise-foreground);
+  --g4-game-obstacle1: var(--g4-theme-game-denise-obstacle1);
+  --g4-game-obstacle2: var(--g4-theme-game-denise-obstacle2);
+  --g4-game-cannon: var(--g4-theme-game-denise-cannon);
+  --g4-game-bullet: var(--g4-theme-game-denise-bullet);
 }
 
 [data-mode=reverse] {
-  --g4-game-background: #231935;
-  --g4-game-damage: #250e27;
-  --g4-game-foreground: #d37cdf;
-  --g4-game-obstacle1: var(--g4-game-foreground);
-  --g4-game-obstacle2: var(--g4-game-foreground);
-  --g4-game-cannon: #c2fc22;
-  --g4-game-bullet: #552eff;
-}
-
-body.light [data-mode=reverse] {
-  --g4-game-background: #d8caeb;
-  --g4-game-damage: #e6c3db;
-  --g4-game-foreground: #231935;
-  --g4-game-obstacle1: var(--g4-game-foreground);
-  --g4-game-obstacle2: var(--g4-game-foreground);
-  --g4-game-cannon: #1e0b8b;
-  --g4-game-bullet: #552eff;
+  --g4-game-background: var(--g4-theme-game-reverse-background);
+  --g4-game-damage: var(--g4-theme-game-reverse-damage);
+  --g4-game-foreground: var(--g4-theme-game-reverse-foreground);
+  --g4-game-obstacle1: var(--g4-theme-game-reverse-obstacle1);
+  --g4-game-obstacle2: var(--g4-theme-game-reverse-obstacle2);
+  --g4-game-cannon: var(--g4-theme-game-reverse-cannon);
+  --g4-game-bullet: var(--g4-theme-game-reverse-bullet);
 }
 
 [data-mode=nox] {
-  --g4-game-background: #000;
-  --g4-game-damage: #160a12;
-  --g4-game-foreground: #41d154;
-  --g4-game-obstacle1: var(--g4-game-foreground);
-  --g4-game-obstacle2: #3442c7;
-  --g4-game-cannon: #fff;
-  --g4-game-bullet: #ff0055;
-}
-
-body.light [data-mode=nox] {
-  --g4-game-background: #fff;
-  --g4-game-damage: #ffe1eb;
-  --g4-game-foreground: #23ca14;
-  --g4-game-obstacle1: var(--g4-game-foreground);
-  --g4-game-obstacle2: #2344d3;
-  --g4-game-cannon: #000000;
-  --g4-game-bullet: #ff0055;
+  --g4-game-background: var(--g4-theme-game-nox-background);
+  --g4-game-damage: var(--g4-theme-game-nox-damage);
+  --g4-game-foreground: var(--g4-theme-game-nox-foreground);
+  --g4-game-obstacle1: var(--g4-theme-game-nox-obstacle1);
+  --g4-game-obstacle2: var(--g4-theme-game-nox-obstacle2);
+  --g4-game-cannon: var(--g4-theme-game-nox-cannon);
+  --g4-game-bullet: var(--g4-theme-game-nox-bullet);
 }
 
 /*# sourceMappingURL=colors.css.map */
