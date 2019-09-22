@@ -10,7 +10,10 @@ const FILES_TO_CACHE = [
     'index.html',
 
     'res/music/default.mp3',
+
     'res/images/gameHint.svg',
+
+    'res/themes/dark.json',
 
     'scripts/assets.js',
     'scripts/game.js',
