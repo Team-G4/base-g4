@@ -89,10 +89,15 @@ class Game {
         </footer>`
 
         if (!this.isSpectated) {
-            div.querySelector("canvas").addEventListener("click", () => {
+            div.querySelector("canvas").addEventListener("mouseup", (e) => {
+                if (!this.data.projectile && e.button == 0)
+                    this.shoot()
+            })
+            div.querySelector("canvas").addEventListener("touchend", (e) => {
                 if (!this.data.projectile)
                     this.shoot()
             })
+
             div.querySelector("footer button").addEventListener("click", () => {
                 if (this.data.slow && !this.data.slow.isSlow)
                     this.data.slow.isSlow = true
