@@ -653,7 +653,10 @@ class Game {
         if (event.target instanceof HTMLInputElement ||
             event.target instanceof HTMLButtonElement) return
 
-        if (event.code == "Space" && !this.data.projectile)
+        if (
+            (event.code == "Space" || event.code == "ArrowUp") &&
+            !this.data.projectile
+        )
             this.shoot()
         else if (event.code == "KeyS" && !this.data.slow.isSlow && this.data.slow.time) {
             this.data.slow.isSlow = true
