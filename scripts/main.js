@@ -11,7 +11,7 @@
 
     prepG4AccountUI(mainGame.leaderboard)
 
-    mainGame.generateLevel("normal", 0)
+    mainGame.generateLevel("easy", 0)
 
     document.querySelector("main").appendChild(mainGame.dom)
     mainGame.resizeCanvas()
@@ -20,7 +20,7 @@
 
     // Load audio & stuff
     loadAssets().then(() => {
-        document.querySelector("audio#gameAudio").src = "res/music/normal.mp3"
+        document.querySelector("audio#gameAudio").src = "res/music/easy.mp3"
         document.querySelector("label[for=settingMusic]").classList.remove("loading")
     })
 
