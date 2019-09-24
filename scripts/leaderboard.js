@@ -45,6 +45,14 @@ class Leaderboard {
             this.setAuthData(username, data.uuid, data.accesstoken)
             this.updateUI()
 
+            window.dispatchEvent(new CustomEvent(
+                "g4login", {
+                    detail: {
+                        username: username
+                    }
+                }
+            ))
+
             return true
         }
     }
@@ -78,6 +86,14 @@ class Leaderboard {
             this.setAuthData(username, data.uuid, data.accesstoken)
             this.updateUI()
 
+            window.dispatchEvent(new CustomEvent(
+                "g4login", {
+                    detail: {
+                        username: username
+                    }
+                }
+            ))
+
             return true
         }
     }
@@ -104,6 +120,10 @@ class Leaderboard {
         this.userID = null
         this.userName = null
         this.accessToken = null
+
+        window.dispatchEvent(new CustomEvent(
+            "g4logout"
+        ))
 
         this.updateUI()
     }
