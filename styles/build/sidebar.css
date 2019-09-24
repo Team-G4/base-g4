@@ -15,6 +15,10 @@ aside header {
   display: flex;
   flex-wrap: wrap;
 }
+aside header content {
+  display: flex;
+  flex-grow: 1;
+}
 aside header svg#g4logo {
   height: 32px;
   width: auto;
@@ -274,11 +278,7 @@ dialog {
   transition: left 0.2s;
   pointer-events: all;
 }
-
-dialog.open {
-  left: 0;
-}
-dialog.open header {
+dialog header {
   top: 0;
   font-weight: 500;
   font-size: 15pt;
@@ -286,36 +286,36 @@ dialog.open header {
   display: flex;
   align-items: center;
 }
-dialog.open header button {
+dialog header button {
   margin-right: 16px;
 }
-dialog.open content {
+dialog content {
   background: var(--g4-app-background);
   padding: 16px;
   border-radius: 24px 0px 0px 0px;
   flex-grow: 1;
   overflow: auto;
 }
-dialog.open content h2 {
+dialog content h2 {
   font-size: 16pt;
   font-weight: 400;
   margin: 0px 0px 32px 0px;
 }
-dialog.open content p.error {
+dialog content p.error {
   color: var(--g4-app-accent);
   display: none;
 }
-dialog.open content p.error.visible {
+dialog content p.error.visible {
   display: block;
 }
-dialog.open content form {
+dialog content form {
   display: flex;
   flex-direction: column;
 }
-dialog.open content form label {
+dialog content form label {
   margin: 8px 0px 0px 0px;
 }
-dialog.open content form input {
+dialog content form input {
   background: transparent;
   color: var(--g4-app-foreground);
   font-family: "Poppins", sans-serif;
@@ -323,15 +323,19 @@ dialog.open content form input {
   padding: 4px 8px;
   border: 1px solid var(--g4-app-accent);
 }
-dialog.open content div.buttons {
+dialog content div.buttons {
   height: 40px;
   margin-top: 16px;
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-between;
 }
-dialog.open content div.buttons button.primary {
+dialog content div.buttons button.primary {
   color: var(--g4-app-accent);
+}
+
+dialog.open {
+  left: 0;
 }
 
 dialog#playerStats content {
@@ -365,6 +369,39 @@ dialog#playerStats content div.highScore table th {
 dialog#playerStats content div.highScore table td {
   font-weight: 500;
   font-size: 13pt;
+}
+
+body.left aside {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: unset;
+  width: 400px;
+  transition: left 0.2s;
+}
+body.left aside > header {
+  flex-direction: row-reverse;
+}
+body.left aside.expanded button.expander div:before {
+  top: calc(50% + 4.5px);
+}
+body.left aside.expanded button.expander div:after {
+  top: calc(50% - 4.5px);
+}
+body.left div.dialogContainer {
+  left: 0;
+  right: unset;
+}
+body.left dialog {
+  left: unset;
+  right: 432px;
+  transition: right 0.2s;
+}
+body.left dialog.open {
+  left: unset;
+  right: 0px;
+  transition: right 0.2s;
 }
 
 @media (max-width: 768px) {
@@ -410,6 +447,14 @@ dialog#playerStats content div.highScore table td {
     background: var(--g4-app-foreground);
     content: "";
     transform: translate(-50%, -50%);
+  }
+
+  body.left aside:not(.expanded) {
+    left: -100%;
+  }
+  body.left aside:not(.expanded) button.expander {
+    left: 0;
+    right: unset;
   }
 }
 

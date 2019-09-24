@@ -18,6 +18,11 @@ aside {
         display: flex;
         flex-wrap: wrap;
 
+        content {
+            display: flex;
+            flex-grow: 1;
+        }
+
         svg#g4logo {
             height: 32px;
             width: auto;
@@ -387,10 +392,6 @@ dialog {
     transition: left 0.2s;
 
     pointer-events: all;
-}
-
-dialog.open {
-    left: 0;
 
     header {
         top: 0;
@@ -471,6 +472,10 @@ dialog.open {
     }
 }
 
+dialog.open {
+    left: 0;
+}
+
 dialog#playerStats {
     content {
         padding: 8px;
@@ -513,6 +518,54 @@ dialog#playerStats {
                     font-size: 13pt;
                 }
             }
+        }
+    }
+}
+
+body.left {
+    aside {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: unset;
+        width: 400px;
+
+        transition: left 0.2s;
+
+        & > header {
+            flex-direction: row-reverse;
+        }
+    }
+
+    aside.expanded {
+        button.expander {    
+            div:before {
+                top: calc(50% + 4.5px);
+            }
+
+            div:after {
+                top: calc(50% - 4.5px);
+            }
+        }
+    }
+    
+    div.dialogContainer {
+        left: 0;
+        right: unset;
+    }
+    
+    dialog {
+        left: unset;
+        right: 432px;
+
+        transition: right 0.2s;
+
+        &.open {
+            left: unset;
+            right: 0px;
+
+            transition: right 0.2s;
         }
     }
 }
@@ -569,6 +622,15 @@ dialog#playerStats {
 
                 transform: translate(-50%, -50%);
             }
+        }
+    }
+
+    body.left aside:not(.expanded) {
+        left: -100%;
+
+        button.expander {
+            left: 0;
+            right: unset;
         }
     }
 }

@@ -168,11 +168,22 @@ document.querySelector("input#settingMusic").addEventListener("input", function(
     let audio = document.querySelector("audio#gameAudio")
 
     let state = this.checked
-    console.log(state)
 
     if (state) {
         audio.play()
     } else {
         audio.pause()
     }
+})
+
+// Left side sidebar
+if (!localStorage.getItem("g4_leftSidebar")) localStorage["g4_leftSidebar"] = false
+if (localStorage["g4_leftSidebar"] == "true") {
+    document.querySelector("input#settingLeftBar").checked = true
+    document.body.classList.add("left", this.checked)
+}
+
+document.querySelector("input#settingLeftBar").addEventListener("input", function() {
+    localStorage["g4_leftSidebar"] = this.checked
+    document.body.classList.toggle("left", this.checked)
 })
