@@ -1,4 +1,4 @@
-loadAssets().then(() => {
+(() => {
     /**
      * @type {Game[]}
      */
@@ -18,7 +18,11 @@ loadAssets().then(() => {
 
     games.push(mainGame)
 
-    document.querySelector("audio#gameAudio").src = "res/music/default.mp3"
+    // Load audio & stuff
+    loadAssets().then(() => {
+        document.querySelector("audio#gameAudio").src = "res/music/normal.mp3"
+        document.querySelector("label[for=settingMusic]").classList.remove("loading")
+    })
 
     // On window resize, resize the canvases
     window.addEventListener("resize", () => {
@@ -86,7 +90,13 @@ loadAssets().then(() => {
 
             let currentTime = audio.currentTime
 
-            audio.src = "res/music/default.mp3"
+            // Temporary (until we get all modes music'd up)
+            audio.src = "res/music/normal.mp3"
+            if (mainGame.data.mode == "easy") {
+                audio.src = "res/music/easy.mp3"
+            } else if (mainGame.data.mode == "hell") {
+                audio.src = "res/music/hell.mp3"
+            }
 
             if (audioState) {
                 audio.play().then(() => {
@@ -99,4 +109,4 @@ loadAssets().then(() => {
     addEventListener("keyup", (e) => {
         games.forEach(game => game.handleKeyboardEvent(e))
     })
-})
+})()
