@@ -99,8 +99,9 @@
             }
 
             if (audioState) {
+                let timestamp = Date.now()
                 audio.play().then(() => {
-                    audio.currentTime = currentTime % audio.duration
+                    audio.currentTime = currentTime % audio.duration + (Date.now() - timestamp) / 1000
                 })
             }
         })
