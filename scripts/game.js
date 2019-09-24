@@ -332,8 +332,8 @@ class Game {
 
         if (this.data.projectile) {
             // move the bullet
-            this.data.projectile.x += this.data.projectile.velocityX * physTime
-            this.data.projectile.y += this.data.projectile.velocityY * physTime
+            this.data.projectile.x += this.data.projectile.velocityX * dTime
+            this.data.projectile.y += this.data.projectile.velocityY * dTime
         }
 
         // move the cannon
