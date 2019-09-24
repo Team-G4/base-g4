@@ -15,9 +15,19 @@ div.setting label {
   font-size: 13pt;
   flex-grow: 1;
 }
+div.setting input[type=number] {
+  width: 64px;
+  background: transparent;
+  color: var(--g4-app-foreground);
+  font-family: "Poppins", sans-serif;
+  font-size: 14pt;
+  padding: 4px 8px;
+  border: 1px solid var(--g4-app-accent);
+}
 div.setting input[type=checkbox] {
   position: absolute;
   opacity: 0;
+  pointer-events: none;
 }
 div.setting input[type=checkbox] + label:before {
   position: absolute;
@@ -29,7 +39,7 @@ div.setting input[type=checkbox] + label:before {
   content: "";
   border-radius: 12px;
   transform: translateY(-50%);
-  transition: background 0.2s;
+  transition: all 0.2s;
 }
 div.setting input[type=checkbox] + label:after {
   position: absolute;
@@ -49,6 +59,29 @@ div.setting input[type=checkbox]:checked + label:before {
 div.setting input[type=checkbox]:checked + label:after {
   right: 2px;
   background: var(--g4-app-background);
+}
+div.setting input[type=checkbox] + label.loading {
+  opacity: 0.8;
+  pointer-events: none;
+}
+@keyframes LabelThrobber {
+  0% {
+    transform: translateY(-50%);
+  }
+  100% {
+    transform: translateY(-50%) rotate(360deg);
+  }
+}
+div.setting input[type=checkbox] + label.loading:before {
+  width: 18px;
+  height: 18px;
+  background: transparent;
+  border: 3px solid transparent;
+  border-right: 3px solid var(--g4-app-accent);
+  animation: LabelThrobber 0.7s infinite linear;
+}
+div.setting input[type=checkbox] + label.loading:after {
+  opacity: 0;
 }
 
 div.themeList div.theme {
