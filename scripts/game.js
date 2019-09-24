@@ -115,12 +115,17 @@ class Game {
             ring.items.forEach(item => {
                 switch (item.type) {
                     case "ball":
-                    case "pulsingBall":
                     case "bar":
                     case "marqueeBar":
                         radius = Math.max(
                             radius,
                             item.distance + item.radius + ring.distance
+                        )
+                        break
+                    case "pulsingBall":
+                        radius = Math.max(
+                            radius,
+                            item.distance + item.baseRadius * 2 + ring.distance
                         )
                         break
                 }
@@ -140,7 +145,7 @@ class Game {
      * @param {Number} dTime 
      * @param {Ring} ring
      */
-    advanceRing(dTime, ring) {
+    advanceRing(dTime, dRawTime, ring) {
         ring.rotation += dTime
 
         let phase = 2 * Math.PI * ring.revolvePhase
@@ -157,6 +162,7 @@ class Game {
                     break
                 case "pulsingBall":
                     item.angle += dTime
+                    item.pulseTime += dRawTime
                     item.radius = item.baseRadius + Math.sin(
                         item.pulseTime * 2 * Math.PI * item.pulseFreq
                     ) * item.baseRadius / 3
@@ -168,7 +174,7 @@ class Game {
                     item.baseStart += dTime
                     item.baseEnd += dTime
 
-                    item.sweepTime += dTime
+                    item.sweepTime += dRawTime
 
                     let sin = Math.sin(
                         item.sweepTime * 2 * Math.PI * item.sweepFreq
@@ -261,7 +267,7 @@ class Game {
 
         this.data.rotation += beatTime
         this.data.rings.forEach(ring => this.advanceRing(
-            beatTime * ring.speedMult,
+            beatTime * ring.speedMult, beatTime,
             ring
         ))
     }
