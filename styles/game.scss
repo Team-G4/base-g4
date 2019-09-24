@@ -235,4 +235,9 @@ body.left main {
     main div.game header {
         padding-right: 52px;
     }
+
+    body.left main div.game header {
+        padding-left: 52px;
+        padding-right: 0;
+    }
 }

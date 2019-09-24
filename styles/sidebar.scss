@@ -41,6 +41,10 @@ aside {
         button.expander {
             display: none;
 
+            &:not(:active) {                
+                background: transparent;
+            }
+
             div {
                 position: relative;
                 width: 20px;
@@ -222,11 +226,11 @@ aside {
                 }
             }
             button.mode:hover {
-                box-shadow: inset 0px 0px 0px 4px var(--g4-app-foreground);
+                box-shadow: inset 0px 0px 0px 4px var(--g4-game-foreground);
             }
             button.mode.active {
-                background: var(--g4-app-foreground);
-                color: var(--g4-app-background);
+                background: var(--g4-game-foreground);
+                color: var(--g4-game-background);
             }
 
             button[data-mode=reverse] p {

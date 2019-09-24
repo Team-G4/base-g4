@@ -266,6 +266,11 @@ body.left main {
   main div.game header {
     padding-right: 52px;
   }
+
+  body.left main div.game header {
+    padding-left: 52px;
+    padding-right: 0;
+  }
 }
 aside {
   position: fixed;
@@ -301,6 +306,9 @@ aside header button#musicToggleBtn.playing:after {
 }
 aside header button.expander {
   display: none;
+}
+aside header button.expander:not(:active) {
+  background: transparent;
 }
 aside header button.expander div {
   position: relative;
@@ -434,11 +442,11 @@ aside section.gameMode content button.mode p {
   text-transform: uppercase;
 }
 aside section.gameMode content button.mode:hover {
-  box-shadow: inset 0px 0px 0px 4px var(--g4-app-foreground);
+  box-shadow: inset 0px 0px 0px 4px var(--g4-game-foreground);
 }
 aside section.gameMode content button.mode.active {
-  background: var(--g4-app-foreground);
-  color: var(--g4-app-background);
+  background: var(--g4-game-foreground);
+  color: var(--g4-game-background);
 }
 aside section.gameMode content button[data-mode=reverse] p {
   transform: scaleX(-1);
