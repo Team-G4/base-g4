@@ -45,9 +45,7 @@ function openWindow(id) {
 }
 
 function closeWindows() {
-    if (document.querySelector("dialog.open")) {
-        document.querySelector("dialog.open").classList.remove("open")
-    }
+    document.querySelectorAll("dialog.open").forEach(d => d.classList.remove("open"))
 }
 
 // G4 Account
