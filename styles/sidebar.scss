@@ -30,14 +30,6 @@ aside {
             margin: 8px 16px;
         }
 
-        button#musicToggleBtn:after {
-            content: ": OFF";
-        }
-
-        button#musicToggleBtn.playing:after {
-            content: ": ON";
-        }
-
         button.expander {
             display: none;
 
@@ -83,69 +75,6 @@ aside {
             --g4-app-foreground: var(--g4-app-background);
         }
 
-        button.daynight {
-            background: transparent;
-
-            div {
-                position: relative;
-                width: 20px;
-                height: 20px;
-                
-                background: var(--g4-app-foreground);
-
-                border: 2px solid var(--g4-app-background);
-                border-radius: 12px;
-            }
-
-            div:before {
-                position: absolute;
-                left: 100%;
-                top: 50%;
-                width: 20px;
-                height: 20px;
-
-                background: var(--g4-app-background);
-                content: "";
-
-                border-radius: 10px;
-
-                transform: translate(-50%, -50%);
-
-                z-index: 1;
-            }
-
-            div:after {
-                position: absolute;
-                left: 50%;
-                top: 50%;
-                width: 20px;
-                height: 20px;
-
-                background: var(--g4-app-foreground);
-                content: "";
-
-                border-radius: 10px;
-
-                transform: translate(-50%, -50%) rotate(45deg);
-
-                z-index: -1;
-            }
-        }
-
-        button.daynight:active {
-            background: var(--g4-app-foreground);
-
-            div {
-                background: var(--g4-app-background);
-
-                border: 2px solid var(--g4-app-foreground);
-            }
-
-            div:before, div:after {
-                display: none;
-            }
-        }
-
         div.accountInfo {
             width: 100%;
 
@@ -186,7 +115,7 @@ aside {
 
         display: flex;
         flex-direction: column;
-        
+
         header {            
             font-weight: 500;
             font-size: 15pt;

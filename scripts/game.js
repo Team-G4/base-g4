@@ -543,10 +543,6 @@ class Game {
         this.sendStateChange()
 
         this.updateLeaderboard()
-
-        // Leaderboard.setScore(mode, levelIndex).then(() => {
-        //     Leaderboard.updateLeaderboard(mode)
-        // })
     }
 
     async updateLeaderboard() {

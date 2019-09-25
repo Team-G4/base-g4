@@ -298,12 +298,6 @@ aside header svg#g4logo {
   width: auto;
   margin: 8px 16px;
 }
-aside header button#musicToggleBtn:after {
-  content: ": OFF";
-}
-aside header button#musicToggleBtn.playing:after {
-  content: ": ON";
-}
 aside header button.expander {
   display: none;
 }
@@ -338,51 +332,6 @@ aside header button.expander div:after {
 }
 aside header button:active div {
   --g4-app-foreground: var(--g4-app-background);
-}
-aside header button.daynight {
-  background: transparent;
-}
-aside header button.daynight div {
-  position: relative;
-  width: 20px;
-  height: 20px;
-  background: var(--g4-app-foreground);
-  border: 2px solid var(--g4-app-background);
-  border-radius: 12px;
-}
-aside header button.daynight div:before {
-  position: absolute;
-  left: 100%;
-  top: 50%;
-  width: 20px;
-  height: 20px;
-  background: var(--g4-app-background);
-  content: "";
-  border-radius: 10px;
-  transform: translate(-50%, -50%);
-  z-index: 1;
-}
-aside header button.daynight div:after {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 20px;
-  height: 20px;
-  background: var(--g4-app-foreground);
-  content: "";
-  border-radius: 10px;
-  transform: translate(-50%, -50%) rotate(45deg);
-  z-index: -1;
-}
-aside header button.daynight:active {
-  background: var(--g4-app-foreground);
-}
-aside header button.daynight:active div {
-  background: var(--g4-app-background);
-  border: 2px solid var(--g4-app-foreground);
-}
-aside header button.daynight:active div:before, aside header button.daynight:active div:after {
-  display: none;
 }
 aside header div.accountInfo {
   width: 100%;
