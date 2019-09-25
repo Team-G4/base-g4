@@ -96,6 +96,10 @@
                 audio.src = "res/music/easy.mp3"
             } else if (mainGame.data.mode == "hell") {
                 audio.src = "res/music/hell.mp3"
+            } else if (mainGame.data.mode == "hades") {
+                audio.src = "res/music/hades.mp3"
+            } else if (mainGame.data.mode == "reverse") {
+                audio.src = "res/music/reverse.mp3"
             }
 
             if (audioState) {
