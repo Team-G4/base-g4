@@ -33,13 +33,21 @@ async function loadTheme(name) {
     return await data.json()
 }
 
-async function loadDefaultThemes() {
+async function loadDefaultThemes(replace) {
     let themes = [
         await loadTheme("dark"),
         await loadTheme("light")
     ]
 
-    localStorage["g4_themes"] = JSON.stringify(themes)
+    if (replace) {
+        let storedThemes = JSON.parse(localStorage["g4_themes"])
+        
+        themes.forEach((t, i) => storedThemes[i] = t)
+
+        localStorage["g4_themes"] = JSON.stringify(storedThemes)
+    } else {
+        localStorage["g4_themes"] = JSON.stringify(themes)
+    }
 }
 
 function createCSSVars(compStyles, obj, prefix) {
@@ -193,15 +201,15 @@ function updateThemeList() {
         name.textContent = theme.name
         div.appendChild(name)
 
-        let editBtn = document.createElement("button")
-        editBtn.textContent = "Edit"
-        div.appendChild(editBtn)
-
-        editBtn.addEventListener("click", () => {
-            editTheme(themeId)
-        })
-
         if (localStorage.g4_currentTheme != themeId && themeId > 2) {
+            let editBtn = document.createElement("button")
+            editBtn.textContent = "Edit"
+            div.appendChild(editBtn)
+    
+            editBtn.addEventListener("click", () => {
+                editTheme(themeId)
+            })
+
             let deleteBtn = document.createElement("button")
             deleteBtn.textContent = "Delete"
             div.appendChild(deleteBtn)
@@ -237,8 +245,4 @@ function duplicateCurrentTheme() {
     updateThemeList()
 }
 
-if (!localStorage.getItem("g4_themes")) {
-    loadDefaultThemes().then(() => applyTheme())
-} else {
-    applyTheme()
-}
+loadDefaultThemes(!!localStorage.getItem("g4_themes")).then(() => applyTheme())

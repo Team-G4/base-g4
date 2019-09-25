@@ -774,7 +774,7 @@ div.themeList div.theme {
   background: var(--g4-app-header-background);
   color: var(--g4-app-foreground);
   padding: 8px 16px;
-  margin-bottom: 8px;
+  margin-top: 8px;
   border-radius: 24px;
   display: flex;
   flex-wrap: wrap;
