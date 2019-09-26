@@ -100,6 +100,8 @@
                 audio.src = "res/music/hades.mp3"
             } else if (mainGame.data.mode == "reverse") {
                 audio.src = "res/music/reverse.mp3"
+            } else if (mainGame.data.mode == "denise") {
+                audio.src = "res/music/denise.mp3"
             }
 
             if (audioState) {
