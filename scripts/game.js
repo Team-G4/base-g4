@@ -1,3 +1,16 @@
+class RunAction {
+    /**
+     * @param {Number} timestamp 
+     * @param {String} type 
+     * @param {any} data 
+     */
+    constructor(timestamp, type, data) {
+        this.timestamp = time
+        this.type = type
+        this.data = data
+    }
+}
+
 class Game {
     /**
      * @param {GameData} gameData 
@@ -44,6 +57,16 @@ class Game {
          * @type {Leaderboard}
          */
         this.leaderboard = leaderboard
+
+        /**
+         * @type {Number}
+         */
+        this.speedrunTimer = null
+
+        /**
+         * @type {RunAction}
+         */
+        this.runActions = []
     }
 
     /**
@@ -445,6 +468,36 @@ class Game {
         })
     }
 
+    parseTime(time) {
+        let min = 0, sec = 0, ms = 0
+        
+        time = Math.floor(time)
+
+        ms = time % 1000
+        time = Math.floor(time / 1000)
+
+        sec = time % 60
+        min = Math.floor(time / 60)
+
+        return {min, sec, ms}
+    }
+
+    updateTimer() {
+        let mins = 0, secs = 0, ms = 0
+
+        if (this.speedrunTimer) {
+            let time = this.parseTime(Date.now() - this.speedrunTimer)
+
+            mins = time.min,
+            secs = time.sec
+            ms = time.ms
+        }
+
+        document.querySelector("div.timer span.min").textContent = mins.toString().padStart(3, "0")
+        document.querySelector("div.timer span.sec").textContent = secs.toString().padStart(2, "0")
+        document.querySelector("div.timer span.ms").textContent = ms.toString().padStart(3, "0")
+    }
+
     updateDOM() {
         if (this.dom.getAttribute("data-mode") != this.data.mode)
             this.dom.setAttribute("data-mode", this.data.mode)
@@ -455,6 +508,8 @@ class Game {
 
         this.dom.querySelector("div.progress p.time").textContent = this.data.slow.time.toFixed(1) + " s"
         this.dom.querySelector("div.progress div").style.width = `${this.data.slow.time * 10}%`
+
+        this.updateTimer()
     }
 
     resizeCanvas() {
@@ -576,10 +631,13 @@ class Game {
         this.generateLevel(
             this.data.mode, this.data.levelIndex + 1
         )
+
+        if (!this.speedrunTimer) this.speedrunTimer = Date.now()
     }
 
     resetProgress() {
         this.data.slow.time = Math.min(this.data.slow.time, 0.6)
+        this.speedrunTimer = null
 
         this.generateLevel(
             this.data.mode, 0

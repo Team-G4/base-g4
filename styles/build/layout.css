@@ -372,6 +372,16 @@ aside section header {
 aside section content {
   flex-grow: 1;
 }
+aside section.speedrun div.timer {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 32pt;
+  font-variant-numeric: tabular-nums lining-nums;
+  padding: 8px 16px;
+  text-align: center;
+}
+aside section.speedrun div.timer span.ms {
+  font-size: 24pt;
+}
 aside section.gameMode content {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
