@@ -240,23 +240,23 @@
                     <h3>Keyboard controls</h3>
                     <div class="setting">
                         <label>Shoot</label>
-                        <button class="keyboardInput">Space</button>
+                        <button class="keyboardInput" data-control="keyboardShoot">Space</button>
                     </div>
                     <div class="setting">
                         <label>Enable slow mode</label>
-                        <button class="keyboardInput waiting">Press a key...</button>
+                        <button class="keyboardInput" data-control="keyboardSlow">Press a key...</button>
                     </div>
 
                     <h3>Gamepad controls</h3>
 
-                    No gamepads connected.
-                    <div class="setting disabled">
+                    <span id="noGamepads">No gamepads connected.</span>
+                    <div class="gamepad setting disabled">
                         <label>Shoot</label>
-                        <button class="gamepadInput">---</button>
+                        <button class="gamepadInput" data-control="gamepadShoot">---</button>
                     </div>
-                    <div class="setting disabled">
+                    <div class="gamepad setting disabled">
                         <label>Enable slow mode</label>
-                        <button class="gamepadInput">---</button>
+                        <button class="gamepadInput" data-control="gamepadSlow">---</button>
                     </div>
 
                     <h2>Color themes</h2>

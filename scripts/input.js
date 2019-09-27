@@ -4,6 +4,22 @@
 let lastGamepadData = []
 
 /**
+ * @param {HTMLElement} domElement 
+ * @param {string} eventName 
+ */
+function promisifyEvent(domElement, eventName) {
+    return new Promise((resolve, reject) => {
+        let callback = (event) => {
+            domElement.removeEventListener(eventName, callback)
+            
+            resolve(event)
+        }
+
+        domElement.addEventListener(eventName, callback)
+    })
+}
+
+/**
  * @param {Gamepad} gamepad 
  */
 function getLastGamepadData(gamepad) {
@@ -58,7 +74,7 @@ function processGamepadInputs() {
                         "g4gamepadbuttonpressed",
                         {
                             detail: {
-                                gamepad, button: i
+                                gamepad, button: `Button${i}`
                             }
                         }
                     ))
@@ -67,7 +83,7 @@ function processGamepadInputs() {
                         "g4gamepadbuttonreleased",
                         {
                             detail: {
-                                gamepad, button: i
+                                gamepad, button: `Button${i}`
                             }
                         }
                     ))
@@ -78,3 +94,55 @@ function processGamepadInputs() {
         setLastGamepadData(gamepad)
     })
 }
+
+function initInputSettings() {
+    if (!localStorage.getItem("g4input_keyboardShoot")) localStorage["g4input_keyboardShoot"] = "Space"
+    if (!localStorage.getItem("g4input_keyboardSlow")) localStorage["g4input_keyboardSlow"] = "KeyS"
+    if (!localStorage.getItem("g4input_gamepadShoot")) localStorage["g4input_gamepadShoot"] = null
+    if (!localStorage.getItem("g4input_gamepadSlow")) localStorage["g4input_gamepadSlow"] = null
+}
+
+function anyGamepadsConnected() {
+    let gamepads = navigator.getGamepads()
+
+    return Object.values(gamepads).some(gamepad => gamepad)
+}
+
+initInputSettings()
+
+// Change keyboard input
+document.querySelectorAll("button.keyboardInput").forEach(button => {
+    let promise = null
+    let input = button.getAttribute("data-control")
+
+    button.textContent = localStorage[`g4input_${input}`]
+
+    button.addEventListener("click", (e) => {
+        button.blur()
+
+        if (button.classList.contains("waiting")) {
+            button.classList.remove("waiting")
+            button.textContent = localStorage[`g4input_${input}`]
+
+            promise = null
+        } else {
+            button.classList.add("waiting")
+            button.textContent = "Press for key..."
+
+            promise = promisifyEvent(window, "keyup").then((e) => {
+                localStorage[`g4input_${input}`] = e.code
+
+                button.classList.remove("waiting")    
+                button.textContent = localStorage[`g4input_${input}`]
+    
+                promise = null
+            })
+        }
+    })
+})
+
+// Change gamepad input
+// ...
+
+// Detect gamepads
+// ...
