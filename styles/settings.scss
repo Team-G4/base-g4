@@ -28,7 +28,7 @@ div.setting {
         background: transparent;
         color: var(--g4-app-foreground);
 
-        font-family: "Poppins", sans-serif;
+        font-family: var(--g4-app-typeface);
         font-size: 14pt;
         
         padding: 4px 8px;
@@ -164,7 +164,7 @@ dialog#themeEditor {
         background: transparent;
         color: var(--g4-app-foreground);
 
-        font-family: "Poppins", sans-serif;
+        font-family: var(--g4-app-typeface);
         font-size: 14pt;
         
         padding: 4px 8px;

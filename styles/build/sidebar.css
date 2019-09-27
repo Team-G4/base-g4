@@ -111,7 +111,7 @@ aside section.gameMode content button.mode {
 }
 aside section.gameMode content button.mode p {
   margin: 0px;
-  font-family: Poppins;
+  font-family: var(--g4-app-typeface);
   font-weight: 500;
   font-size: 12pt;
   text-transform: uppercase;
@@ -267,7 +267,7 @@ dialog content form label {
 dialog content form input {
   background: transparent;
   color: var(--g4-app-foreground);
-  font-family: "Poppins", sans-serif;
+  font-family: var(--g4-app-typeface);
   font-size: 12pt;
   padding: 4px 8px;
   border: 1px solid var(--g4-app-accent);

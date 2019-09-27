@@ -19,7 +19,7 @@ div.setting input[type=number] {
   width: 64px;
   background: transparent;
   color: var(--g4-app-foreground);
-  font-family: "Poppins", sans-serif;
+  font-family: var(--g4-app-typeface);
   font-size: 14pt;
   padding: 4px 8px;
   border: 1px solid var(--g4-app-accent);
@@ -116,7 +116,7 @@ dialog#themeEditor input[type=text] {
   width: calc(100% - 16px);
   background: transparent;
   color: var(--g4-app-foreground);
-  font-family: "Poppins", sans-serif;
+  font-family: var(--g4-app-typeface);
   font-size: 14pt;
   padding: 4px 8px;
   border: 1px solid var(--g4-app-accent);
