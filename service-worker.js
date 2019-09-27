@@ -23,6 +23,7 @@ const FILES_TO_CACHE = [
 
     'scripts/assets.js',
     'scripts/game.js',
+    'scripts/input.js',
     'scripts/leaderboard.js',
     'scripts/levelgen.js',
     'scripts/main.js',

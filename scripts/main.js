@@ -37,6 +37,7 @@
     // Rendering "loop"
     let previousTimestamp = null
     let fpsCounter = document.querySelector("span.fpsCounter")
+
     function renderAllGames(timestamp) {
         if (previousTimestamp) {
             let frameTime = timestamp - previousTimestamp
@@ -66,6 +67,8 @@
         })
 
         processSpectated = !processSpectated
+
+        processGamepadInputs()
     }, 1000 / physicsFps)
 
     // Mode changing buttons
