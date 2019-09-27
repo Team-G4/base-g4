@@ -776,7 +776,7 @@ div.setting input[type=checkbox] + label.loading:after {
   opacity: 0;
 }
 div.setting button.keyboardInput, div.setting button.gamepadInput {
-  width: 150px;
+  width: 180px;
   text-transform: none;
 }
 div.setting button.keyboardInput.waiting, div.setting button.gamepadInput.waiting {

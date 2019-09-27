@@ -18,6 +18,14 @@
 
     games.push(mainGame)
 
+    // Game interaction events
+    addEventListener("keyup", (e) => {
+        games.forEach(game => game.handleKeyboardEvent(e))
+    })
+    addEventListener("g4gamepadbuttonpressed", (e) => {
+        games.forEach(game => game.handleGamepadEvent(e))
+    })
+
     // Load audio & stuff
     loadAssets().then(() => {
         document.querySelector("audio#gameAudio").src = "res/music/easy.mp3"
@@ -114,9 +122,5 @@
                 })
             }
         })
-    })
-
-    addEventListener("keyup", (e) => {
-        games.forEach(game => game.handleKeyboardEvent(e))
     })
 })()

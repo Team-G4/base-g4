@@ -660,6 +660,23 @@ class Game {
         }
     }
 
+    handleGamepadEvent(event) {
+        if (this.isSpectated) return
+
+        if (
+            event.detail.button == localStorage["g4input_gamepadShoot"] &&
+            !this.data.projectile
+        ) {
+            this.shoot()
+        } else if (
+            event.detail.button == localStorage["g4input_gamepadSlow"] &&
+            !this.data.slow.isSlow && this.data.slow.time
+        ) {
+            this.data.slow.isSlow = true
+                this.dom.classList.add("slow")
+        }
+    }
+
     static modeIDToDisplayName(mode) {
         let modeAlias = {
             easy: "Easy",
