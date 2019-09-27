@@ -1,3 +1,19 @@
+/**
+ * @param {HTMLElement} domElement 
+ * @param {string} eventName 
+ */
+function promisifyEvent(domElement, eventName) {
+    return new Promise((resolve, reject) => {
+        let callback = (event) => {
+            domElement.removeEventListener(eventName, callback)
+            
+            resolve(event)
+        }
+
+        domElement.addEventListener(eventName, callback)
+    })
+}
+
 function loadAudio(audioFile) {
     return new Promise((resolve, reject) => {
         let audio = new Audio()

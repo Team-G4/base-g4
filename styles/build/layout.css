@@ -519,6 +519,12 @@ dialog content {
   flex-grow: 1;
   overflow: auto;
 }
+dialog content button {
+  background: var(--g4-app-header-background);
+}
+dialog content button:active {
+  background: var(--g4-app-foreground);
+}
 dialog content h2 {
   font-size: 16pt;
   font-weight: 400;
@@ -680,7 +686,7 @@ body.left dialog.open {
     right: unset;
   }
 }
-dialog#settings h2, dialog#themeEditor h2 {
+dialog#settings h2, dialog#settings h3, dialog#themeEditor h2, dialog#themeEditor h3 {
   margin-bottom: 0px;
 }
 dialog#settings h2:not(:first-child), dialog#themeEditor h2:not(:first-child) {
@@ -691,6 +697,10 @@ div.setting {
   padding: 4px 0px;
   display: flex;
   align-items: center;
+}
+div.setting.disabled {
+  opacity: 0.7;
+  pointer-events: none;
 }
 div.setting label {
   position: relative;
@@ -764,6 +774,13 @@ div.setting input[type=checkbox] + label.loading:before {
 }
 div.setting input[type=checkbox] + label.loading:after {
   opacity: 0;
+}
+div.setting button.keyboardInput, div.setting button.gamepadInput {
+  width: 150px;
+  text-transform: none;
+}
+div.setting button.keyboardInput.waiting, div.setting button.gamepadInput.waiting {
+  background: var(--g4-app-accent);
 }
 
 div.themeList div.theme {

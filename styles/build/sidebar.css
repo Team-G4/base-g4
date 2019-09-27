@@ -245,6 +245,12 @@ dialog content {
   flex-grow: 1;
   overflow: auto;
 }
+dialog content button {
+  background: var(--g4-app-header-background);
+}
+dialog content button:active {
+  background: var(--g4-app-foreground);
+}
 dialog content h2 {
   font-size: 16pt;
   font-weight: 400;
