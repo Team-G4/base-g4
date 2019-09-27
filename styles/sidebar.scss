@@ -145,6 +145,34 @@ aside {
                 font-size: 24pt;
             }
         }
+
+        content.runActions {
+            max-height: 150px;
+
+            padding: 0px 16px;
+
+            overflow: auto;
+
+            div.action {
+                display: flex;
+
+                p {
+                    margin: 0px;
+
+                    &:not(:last-child) {
+                        margin-bottom: 8px;
+                    }
+
+                    &.title {
+                        flex-grow: 1;
+                    }
+
+                    &.time {
+                        font-family: "IBM Plex Mono", monospace;
+                    }
+                }
+            }
+        }
     }
 
     section.gameMode {

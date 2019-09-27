@@ -5,7 +5,7 @@ class RunAction {
      * @param {any} data 
      */
     constructor(timestamp, type, data) {
-        this.timestamp = time
+        this.timestamp = timestamp
         this.type = type
         this.data = data
     }
@@ -64,7 +64,7 @@ class Game {
         this.speedrunTimer = null
 
         /**
-         * @type {RunAction}
+         * @type {RunAction[]}
          */
         this.runActions = []
     }
@@ -123,8 +123,7 @@ class Game {
 
             div.querySelector("footer button").addEventListener("click", () => {
                 if (this.data.slow && !this.data.slow.isSlow)
-                    this.data.slow.isSlow = true
-                    this.dom.classList.add("slow")
+                    this.enableSlow()
             })
         }
 
@@ -367,8 +366,7 @@ class Game {
 
             slow.time = Math.max(0, slow.time - dTime)
             if (slow.time == 0) {
-                slow.isSlow = false
-                this.dom.classList.remove("slow")
+                this.disableSlow()
             }
         }
     }
@@ -383,6 +381,8 @@ class Game {
             velocityX: 750 * Math.cos(2 * Math.PI * cannon.angle),
             velocityY: 750 * Math.sin(2 * Math.PI * cannon.angle)
         }
+
+        this.registerAction("shoot")
     }
 
     /**
@@ -479,11 +479,15 @@ class Game {
         sec = time % 60
         min = Math.floor(time / 60)
 
-        return {min, sec, ms}
+        return {
+            min: min.toString().padStart(3, "0"),
+            sec: sec.toString().padStart(2, "0"),
+            ms: ms.toString().padStart(3, "0")
+        }
     }
 
     updateTimer() {
-        let mins = 0, secs = 0, ms = 0
+        let mins = "000", secs = "00", ms = "000"
 
         if (this.speedrunTimer) {
             let time = this.parseTime(Date.now() - this.speedrunTimer)
@@ -493,9 +497,84 @@ class Game {
             ms = time.ms
         }
 
-        document.querySelector("div.timer span.min").textContent = mins.toString().padStart(3, "0")
-        document.querySelector("div.timer span.sec").textContent = secs.toString().padStart(2, "0")
-        document.querySelector("div.timer span.ms").textContent = ms.toString().padStart(3, "0")
+        document.querySelector("div.timer span.min").textContent = mins
+        document.querySelector("div.timer span.sec").textContent = secs
+        document.querySelector("div.timer span.ms").textContent = ms
+    }
+
+    registerAction(type, data) {
+        if (!this.speedrunTimer) return
+
+        let action = new RunAction(
+            Date.now() - this.speedrunTimer,
+            type, data
+        )
+
+        this.runActions.push(action)
+        this.addActionDOM(action)
+    }
+
+    addActionDOM(action) {
+        let list = document.querySelector("content.runActions")
+
+        let div = document.createElement("div")
+        div.classList.add("action")
+
+        let title = document.createElement("p")
+        title.classList.add("title")
+
+        let titleText = ""
+
+        switch (action.type) {
+            case "level":
+                titleText = `Reached level ${action.data.levelIndex}`
+                break
+            case "slow":
+                titleText = `Entered slow mode`
+                break
+            case "noslow":
+                titleText = `Exited slow mode`
+                break
+            case "shoot":
+                titleText = `Shot the bullet`
+                break
+        }
+        title.textContent = titleText
+
+        div.appendChild(title)
+
+        let time = document.createElement("p")
+        time.classList.add("time")
+        
+        let timeObj = this.parseTime(action.timestamp)
+        time.textContent = `${timeObj.min}:${timeObj.sec}.${timeObj.ms}`
+
+        div.appendChild(time)
+
+        list.appendChild(div)
+        list.scrollTop = list.scrollHeight
+    }
+
+    resetActionDOM() {
+        let list = document.querySelector("content.runActions")
+        list.innerHTML = ""
+    }
+
+    enableSlow() {
+        this.data.slow.isSlow = true
+        
+        this.registerAction("slow")
+
+        this.dom.classList.add("slow")
+    }
+
+    disableSlow() {
+        if (!this.data.slow.isSlow) return
+        this.data.slow.isSlow = false
+        
+        this.registerAction("noslow")
+
+        this.dom.classList.remove("slow")
     }
 
     updateDOM() {
@@ -590,7 +669,7 @@ class Game {
             this.data.rings = LevelGenerator.generateRings(mode, levelIndex)
         }
         
-        this.data.slow.isSlow = false
+        this.disableSlow()
 
         this.advanceLevel(this.gameTime)
 
@@ -633,6 +712,9 @@ class Game {
         )
 
         if (!this.speedrunTimer) this.speedrunTimer = Date.now()
+        this.registerAction("level", {
+            levelIndex: this.data.levelIndex
+        })
     }
 
     resetProgress() {
@@ -649,6 +731,8 @@ class Game {
         setTimeout(() => {
             this.dom.classList.remove("hit")
         }, 500)
+
+        this.resetActionDOM()
     }
 
     updateDeaths() {
@@ -715,8 +799,7 @@ class Game {
         )
             this.shoot()
         else if (event.code == localStorage["g4input_keyboardSlow"] && !this.data.slow.isSlow && this.data.slow.time) {
-            this.data.slow.isSlow = true
-            this.dom.classList.add("slow")
+            this.enableSlow()
         }
     }
 
@@ -732,8 +815,7 @@ class Game {
             event.detail.button == localStorage["g4input_gamepadSlow"] &&
             !this.data.slow.isSlow && this.data.slow.time
         ) {
-            this.data.slow.isSlow = true
-                this.dom.classList.add("slow")
+            this.enableSlow()
         }
     }
 

@@ -92,6 +92,7 @@
                 time: 0,
                 isSlow: false
             }
+            mainGame.resetActionDOM()
 
             document.querySelector("section.gameMode button.active").classList.remove("active")
             button.classList.add("active")
