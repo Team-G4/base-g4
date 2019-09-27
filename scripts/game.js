@@ -534,6 +534,8 @@ class Game {
 
             this.data.rings = LevelGenerator.generateRings(mode, levelIndex)
         }
+        
+        this.data.slow.isSlow = false
 
         this.advanceLevel(this.gameTime)
 
