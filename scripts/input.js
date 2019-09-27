@@ -142,6 +142,8 @@ document.querySelectorAll("button.keyboardInput").forEach(button => {
             button.textContent = "Press a key..."
 
             promise = promisifyEvent(window, "keyup").then((e) => {
+                if (!button.classList.contains("waiting")) return
+                
                 localStorage[`g4input_${input}`] = e.code
 
                 button.classList.remove("waiting")    
@@ -173,6 +175,8 @@ document.querySelectorAll("button.gamepadInput").forEach(button => {
             button.textContent = "Press a button..."
 
             promise = promisifyEvent(window, "g4gamepadbuttonpressed").then((e) => {
+                if (!button.classList.contains("waiting")) return
+
                 localStorage[`g4input_${input}`] = e.detail.button
 
                 button.classList.remove("waiting")    

@@ -201,29 +201,41 @@ function updateThemeList() {
         name.textContent = theme.name
         div.appendChild(name)
 
-        if (localStorage.g4_currentTheme != themeId && themeId > 2) {
+        let cloneBtn = document.createElement("button")
+        cloneBtn.textContent = "Clone"
+        div.appendChild(cloneBtn)
+
+        cloneBtn.addEventListener("click", (e) => {
+            duplicateTheme(themeId)
+
+            e.stopPropagation()
+        })
+
+        if (themeId > 2) {
             let editBtn = document.createElement("button")
             editBtn.textContent = "Edit"
             div.appendChild(editBtn)
     
-            editBtn.addEventListener("click", () => {
+            editBtn.addEventListener("click", (e) => {
                 editTheme(themeId)
+
+                e.stopPropagation()
             })
 
-            let deleteBtn = document.createElement("button")
-            deleteBtn.textContent = "Delete"
-            div.appendChild(deleteBtn)
-    
-            deleteBtn.addEventListener("click", () => {
-                deleteTheme(themeId)
-            })
+            if (localStorage.g4_currentTheme != themeId) {
+                let deleteBtn = document.createElement("button")
+                deleteBtn.textContent = "Delete"
+                div.appendChild(deleteBtn)
+        
+                deleteBtn.addEventListener("click", (e) => {
+                    deleteTheme(themeId)
+
+                    e.stopPropagation()
+                })
+            }
         }
 
-        let applyBtn = document.createElement("button")
-        applyBtn.textContent = "Apply"
-        div.appendChild(applyBtn)
-
-        applyBtn.addEventListener("click", () => {
+        div.addEventListener("click", () => {
             setTheme(themeId)
         })
 
@@ -242,6 +254,19 @@ function duplicateCurrentTheme() {
     localStorage["g4_themes"] = JSON.stringify(themes)
     localStorage["g4_currentTheme"] = themes.length
     applyTheme()
+    updateThemeList()
+}
+
+function duplicateTheme(themeId) {
+    let themes = JSON.parse(localStorage["g4_themes"])
+    let theme = {...themes[themeId - 1]}
+
+    theme.name = theme.name + " - copy"
+
+    themes.push(theme)
+
+    localStorage["g4_themes"] = JSON.stringify(themes)
+    localStorage["g4_currentTheme"] = themes.length
     updateThemeList()
 }
 

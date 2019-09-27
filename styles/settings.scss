@@ -173,10 +173,14 @@ div.themeList {
             background: var(--g4-app-foreground);
             color: var(--g4-app-background);
         }
-    }
 
-    div.theme.current {
-        box-shadow: inset 0px 0px 0px 2px var(--g4-app-accent);
+        &:hover {
+            box-shadow: inset 0px 0px 0px 2px var(--g4-app-accent);
+        }
+
+        &.current {
+            box-shadow: inset 0px 0px 0px 2px var(--g4-app-foreground);
+        }
     }
 }
 

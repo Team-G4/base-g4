@@ -812,8 +812,11 @@ div.themeList div.theme button:active {
   background: var(--g4-app-foreground);
   color: var(--g4-app-background);
 }
-div.themeList div.theme.current {
+div.themeList div.theme:hover {
   box-shadow: inset 0px 0px 0px 2px var(--g4-app-accent);
+}
+div.themeList div.theme.current {
+  box-shadow: inset 0px 0px 0px 2px var(--g4-app-foreground);
 }
 
 dialog#themeEditor input[type=text] {
