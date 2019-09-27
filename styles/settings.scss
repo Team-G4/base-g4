@@ -130,7 +130,7 @@ div.setting {
         text-transform: none;
 
         &.waiting {
-            background: var(--g4-app-accent);
+            color: var(--g4-app-accent);
         }
     }
 }
@@ -164,7 +164,14 @@ div.themeList {
         }
 
         button {
+            background: var(--g4-app-background);
+
             margin-left: 8px;
+        }
+
+        button:active {
+            background: var(--g4-app-foreground);
+            color: var(--g4-app-background);
         }
     }
 

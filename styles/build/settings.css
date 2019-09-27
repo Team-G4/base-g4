@@ -92,7 +92,7 @@ div.setting button.keyboardInput, div.setting button.gamepadInput {
   text-transform: none;
 }
 div.setting button.keyboardInput.waiting, div.setting button.gamepadInput.waiting {
-  background: var(--g4-app-accent);
+  color: var(--g4-app-accent);
 }
 
 div.themeList div.theme {
@@ -117,7 +117,12 @@ div.themeList div.theme.current p:after {
   font-size: 11pt;
 }
 div.themeList div.theme button {
+  background: var(--g4-app-background);
   margin-left: 8px;
+}
+div.themeList div.theme button:active {
+  background: var(--g4-app-foreground);
+  color: var(--g4-app-background);
 }
 div.themeList div.theme.current {
   box-shadow: inset 0px 0px 0px 2px var(--g4-app-accent);
