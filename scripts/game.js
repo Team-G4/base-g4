@@ -566,6 +566,8 @@ class Game {
         this.registerAction("slow")
 
         this.dom.classList.add("slow")
+
+        enableSlowAudioEffect()
     }
 
     disableSlow() {
@@ -575,6 +577,8 @@ class Game {
         this.registerAction("noslow")
 
         this.dom.classList.remove("slow")
+
+        disableSlowAudioEffect()
     }
 
     updateDOM() {
