@@ -61,7 +61,7 @@ class Game {
         /**
          * @type {Number}
          */
-        this.speedrunTimer = null
+        this.speedrunTimer = Date.now()
 
         /**
          * @type {RunAction[]}
@@ -745,7 +745,7 @@ class Game {
             freqMultiplier: 1, angle: 0
         }
 
-        this.speedrunTimer = null
+        this.speedrunTimer = Date.now()
         this.gameTime = 0
 
         if (!this.isSeedLocked) this.gameSeed = G4Random.randomSeed()
