@@ -98,64 +98,67 @@ aside section header {
 aside section content {
   flex-grow: 1;
 }
-aside section.speedrun div.timer {
+aside section.dashboard:not(.speedrun) .speedrunOnly {
+  display: none;
+}
+aside section.dashboard div.timer {
   font-family: "IBM Plex Mono", monospace;
   font-size: 32pt;
   font-variant-numeric: tabular-nums lining-nums;
   padding: 8px 16px;
   text-align: center;
 }
-aside section.speedrun div.timer span.ms {
+aside section.dashboard div.timer span.ms {
   font-size: 24pt;
 }
-aside section.speedrun content.runActions {
-  max-height: 150px;
-  padding: 0px 16px;
-  overflow: auto;
-}
-aside section.speedrun content.runActions div.action {
-  display: flex;
-}
-aside section.speedrun content.runActions div.action p {
-  margin: 0px;
-}
-aside section.speedrun content.runActions div.action p:not(:last-child) {
-  margin-bottom: 8px;
-}
-aside section.speedrun content.runActions div.action p.title {
-  flex-grow: 1;
-}
-aside section.speedrun content.runActions div.action p.time {
-  font-family: "IBM Plex Mono", monospace;
-}
-aside section.speedrun content.gameMode {
+aside section.dashboard content.gameMode {
   padding: 0px 16px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
 }
-aside section.speedrun content.gameMode button.mode {
+aside section.dashboard content.gameMode button.mode {
   background: transparent;
   color: var(--g4-app-foreground);
   padding: 4px 8px;
   border: none;
   flex-grow: 1;
 }
-aside section.speedrun content.gameMode button.mode p {
+aside section.dashboard content.gameMode button.mode p {
   margin: 0px;
   font-family: var(--g4-app-typeface);
   font-weight: 500;
   font-size: 12pt;
   text-transform: uppercase;
 }
-aside section.speedrun content.gameMode button.mode:hover {
+aside section.dashboard content.gameMode button.mode:hover {
   box-shadow: inset 0px 0px 0px 4px var(--g4-game-foreground);
 }
-aside section.speedrun content.gameMode button.mode.active {
+aside section.dashboard content.gameMode button.mode.active {
   background: var(--g4-game-foreground);
   color: var(--g4-game-background);
 }
-aside section.speedrun content.gameMode button[data-mode=reverse] p {
+aside section.dashboard content.gameMode button[data-mode=reverse] p {
   transform: scaleX(-1);
+}
+aside section.dashboard content.runActions {
+  max-height: 150px;
+  padding: 0px 16px;
+  overflow: auto;
+}
+aside section.dashboard content.runActions div.action {
+  display: flex;
+}
+aside section.dashboard content.runActions div.action p {
+  margin: 0px;
+}
+aside section.dashboard content.runActions div.action p:not(:last-child) {
+  margin-bottom: 8px;
+}
+aside section.dashboard content.runActions div.action p.title {
+  flex-grow: 1;
+}
+aside section.dashboard content.runActions div.action p.time {
+  font-family: "IBM Plex Mono", monospace;
 }
 aside section.spectating content div.player {
   position: relative;

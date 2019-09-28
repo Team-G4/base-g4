@@ -94,11 +94,12 @@
                     </content>
                 </section>
 
-                <section class="speedrun">
-                    <div class="timer">
+                <section class="dashboard">
+                    <div class="timer speedrunOnly">
                         <span class="min">000</span>:<span class="sec">00</span>.<span class="ms">000</span>
                     </div>
 
+                    <header>Game mode</header>
                     <content class="gameMode">
                         <button data-mode="easy" class="mode active">
                             <p class="name">Easy</p>
@@ -126,13 +127,13 @@
                         </button>
                     </content>
 
-                    <header>
+                    <header class="speedrunOnly">
                         <span class="gameSeed"></span>
                         <button id="lockGameSeed">Lock seed</button>
                     </header>
 
-                    <header>Actions</header>
-                    <content class="runActions">
+                    <header class="speedrunOnly">Actions</header>
+                    <content class="runActions speedrunOnly">
                     </content>
                 </section>
                 

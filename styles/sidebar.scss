@@ -131,7 +131,13 @@ aside {
         }
     }
 
-    section.speedrun {
+    section.dashboard {
+        &:not(.speedrun) {
+            .speedrunOnly {
+                display: none;
+            }
+        }
+
         div.timer {
             font-family: "IBM Plex Mono", monospace;
             font-size: 32pt;
@@ -143,34 +149,6 @@ aside {
 
             span.ms {
                 font-size: 24pt;
-            }
-        }
-
-        content.runActions {
-            max-height: 150px;
-
-            padding: 0px 16px;
-
-            overflow: auto;
-
-            div.action {
-                display: flex;
-
-                p {
-                    margin: 0px;
-
-                    &:not(:last-child) {
-                        margin-bottom: 8px;
-                    }
-
-                    &.title {
-                        flex-grow: 1;
-                    }
-
-                    &.time {
-                        font-family: "IBM Plex Mono", monospace;
-                    }
-                }
             }
         }
 
@@ -208,6 +186,34 @@ aside {
 
             button[data-mode=reverse] p {
                 transform: scaleX(-1);
+            }
+        }
+
+        content.runActions {
+            max-height: 150px;
+
+            padding: 0px 16px;
+
+            overflow: auto;
+
+            div.action {
+                display: flex;
+
+                p {
+                    margin: 0px;
+
+                    &:not(:last-child) {
+                        margin-bottom: 8px;
+                    }
+
+                    &.title {
+                        flex-grow: 1;
+                    }
+
+                    &.time {
+                        font-family: "IBM Plex Mono", monospace;
+                    }
+                }
             }
         }
     }

@@ -739,16 +739,8 @@ class Game {
     }
 
     resetProgress(noHit) {
-        this.data.slow.time = 0
-        this.data.cannon = {
-            x: 0, y: 0,
-            freqMultiplier: 1, angle: 0
-        }
+        this.data.slow.time = Math.min(this.data.slow.time, 0.6)
 
-        this.speedrunTimer = Date.now()
-        this.gameTime = 0
-
-        if (!this.isSeedLocked) this.gameSeed = G4Random.randomSeed()
         this.generateLevel(
             this.data.mode, 0
         )
@@ -862,5 +854,35 @@ class Game {
         }
 
         return modeAlias[mode]
+    }
+}
+
+class SpeedrunGame extends Game {
+
+    resetProgress(noHit) {
+        this.data.slow.time = 0
+        this.data.cannon = {
+            x: 0, y: 0,
+            freqMultiplier: 1, angle: 0
+        }
+
+        this.speedrunTimer = Date.now()
+        this.gameTime = 0
+
+        if (!this.isSeedLocked) this.gameSeed = G4Random.randomSeed()
+        this.generateLevel(
+            this.data.mode, 0
+        )
+
+        if (!noHit) {
+            this.addDeath()
+
+            this.dom.classList.add("hit")
+            setTimeout(() => {
+                this.dom.classList.remove("hit")
+            }, 500)
+        }
+
+        this.resetActionDOM()
     }
 }
