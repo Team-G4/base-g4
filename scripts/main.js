@@ -83,6 +83,8 @@
     // Mode changing buttons
     document.querySelectorAll("content.gameMode button").forEach(button => {
         button.addEventListener("click", () => {
+            button.blur()
+
             if (mainGame.data.mode == button.getAttribute("data-mode")) return
 
             mainGame.resetProgress(true)
