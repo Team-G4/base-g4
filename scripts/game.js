@@ -858,6 +858,25 @@ class Game {
 }
 
 class SpeedrunGame extends Game {
+    /**
+     * @param {GameData} gameData 
+     * @param {Boolean} isSpectated 
+     * @param {String} spectatedUser
+     * @param {Leaderboard} leaderboard
+     */
+    constructor(
+        seed,
+        gameData,
+        leaderboard
+    ) {
+        super(gameData, false, null, leaderboard)
+
+        /**
+         * @type {String}
+         */
+        this.gameSeed = seed
+        this.isSeedLocked = true
+    }
 
     resetProgress(noHit) {
         this.data.slow.time = 0
