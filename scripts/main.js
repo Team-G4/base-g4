@@ -85,6 +85,7 @@
         button.addEventListener("click", () => {
             if (mainGame.data.mode == button.getAttribute("data-mode")) return
 
+            mainGame.resetProgress(true)
             mainGame.gameSeed = G4Random.randomSeed()
             mainGame.generateLevel(
                 button.getAttribute("data-mode"),
@@ -94,9 +95,6 @@
                 time: 0,
                 isSlow: false
             }
-            
-            mainGame.speedrunTimer = null
-            mainGame.resetActionDOM()
 
             document.querySelector("content.gameMode button.active").classList.remove("active")
             button.classList.add("active")

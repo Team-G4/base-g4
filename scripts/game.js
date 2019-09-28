@@ -738,21 +738,29 @@ class Game {
         })
     }
 
-    resetProgress() {
+    resetProgress(noHit) {
         this.data.slow.time = 0
+        this.data.cannon = {
+            x: 0, y: 0,
+            freqMultiplier: 1, angle: 0
+        }
+
         this.speedrunTimer = null
+        this.gameTime = 0
 
         if (!this.isSeedLocked) this.gameSeed = G4Random.randomSeed()
         this.generateLevel(
             this.data.mode, 0
         )
 
-        this.addDeath()
+        if (!noHit) {
+            this.addDeath()
 
-        this.dom.classList.add("hit")
-        setTimeout(() => {
-            this.dom.classList.remove("hit")
-        }, 500)
+            this.dom.classList.add("hit")
+            setTimeout(() => {
+                this.dom.classList.remove("hit")
+            }, 500)
+        }
 
         this.resetActionDOM()
     }
