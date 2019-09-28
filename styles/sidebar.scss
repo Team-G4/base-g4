@@ -173,10 +173,10 @@ aside {
                 }
             }
         }
-    }
 
-    section.gameMode {
-        content {
+        content.gameMode {
+            padding: 0px 16px;
+            
             display: grid;
             grid-template-columns: repeat(4, 1fr);
 

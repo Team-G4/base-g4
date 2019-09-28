@@ -99,19 +99,7 @@
                         <span class="min">000</span>:<span class="sec">00</span>.<span class="ms">000</span>
                     </div>
 
-                    <header>Actions</header>
-                    <content class="runActions">
-                    </content>
-
-                    <header>
-                        Previous runs
-                        <button id="openRunsPanel">View all</button>
-                    </header>
-                </section>
-    
-                <section class="gameMode">
-                    <header>Game mode</header>
-                    <content>
+                    <content class="gameMode">
                         <button data-mode="easy" class="mode active">
                             <p class="name">Easy</p>
                         </button>
@@ -136,6 +124,15 @@
                         <button data-mode="nox" class="mode">
                             <p class="name">Nox</p>
                         </button>
+                    </content>
+
+                    <header>
+                        <span class="gameSeed"></span>
+                        <button id="lockGameSeed">Lock seed</button>
+                    </header>
+
+                    <header>Actions</header>
+                    <content class="runActions">
                     </content>
                 </section>
                 
@@ -294,6 +291,7 @@
         </div>
 
         <script src="scripts/theme.js"></script>
+        <script src="scripts/random.js"></script>
 
         <script src="scripts/assets.js"></script>
         <script src="scripts/levelgen.js"></script>

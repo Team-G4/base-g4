@@ -403,32 +403,33 @@ aside section.speedrun content.runActions div.action p.title {
 aside section.speedrun content.runActions div.action p.time {
   font-family: "IBM Plex Mono", monospace;
 }
-aside section.gameMode content {
+aside section.speedrun content.gameMode {
+  padding: 0px 16px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
 }
-aside section.gameMode content button.mode {
+aside section.speedrun content.gameMode button.mode {
   background: transparent;
   color: var(--g4-app-foreground);
   padding: 4px 8px;
   border: none;
   flex-grow: 1;
 }
-aside section.gameMode content button.mode p {
+aside section.speedrun content.gameMode button.mode p {
   margin: 0px;
   font-family: var(--g4-app-typeface);
   font-weight: 500;
   font-size: 12pt;
   text-transform: uppercase;
 }
-aside section.gameMode content button.mode:hover {
+aside section.speedrun content.gameMode button.mode:hover {
   box-shadow: inset 0px 0px 0px 4px var(--g4-game-foreground);
 }
-aside section.gameMode content button.mode.active {
+aside section.speedrun content.gameMode button.mode.active {
   background: var(--g4-game-foreground);
   color: var(--g4-game-background);
 }
-aside section.gameMode content button[data-mode=reverse] p {
+aside section.speedrun content.gameMode button[data-mode=reverse] p {
   transform: scaleX(-1);
 }
 aside section.spectating content div.player {
