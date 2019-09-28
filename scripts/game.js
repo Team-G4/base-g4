@@ -67,6 +67,12 @@ class Game {
          * @type {RunAction[]}
          */
         this.runActions = []
+
+        /**
+         * @type {String}
+         */
+        this.gameSeed = G4Random.randomSeed()
+        this.isSeedLocked = false
     }
 
     /**
@@ -592,6 +598,8 @@ class Game {
         this.dom.querySelector("div.progress p.time").textContent = this.data.slow.time.toFixed(1) + " s"
         this.dom.querySelector("div.progress div").style.width = `${this.data.slow.time * 10}%`
 
+        document.querySelector("span.gameSeed").textContent = this.gameSeed
+
         this.updateTimer()
     }
 
@@ -657,11 +665,20 @@ class Game {
         }
     }
 
+    getLevelSeed(levelIndex) {
+        let fract = G4Random.seedToFraction(this.gameSeed)
+        let golden = (1 + Math.sqrt(5)) / 2
+
+        return (fract + levelIndex * golden) % 1
+    }
+
     /**
      * @param {String} mode 
      * @param {Number} levelIndex 
      */
     generateLevel(mode, levelIndex) {
+        Math.random = G4Random.generate(this.getLevelSeed(levelIndex))
+
         if (!this.data) {
             this.data = LevelGenerator.generate(
                 levelIndex, 0, mode
@@ -722,9 +739,10 @@ class Game {
     }
 
     resetProgress() {
-        this.data.slow.time = Math.min(this.data.slow.time, 0.6)
+        this.data.slow.time = 0
         this.speedrunTimer = null
 
+        if (!this.isSeedLocked) this.gameSeed = G4Random.randomSeed()
         this.generateLevel(
             this.data.mode, 0
         )

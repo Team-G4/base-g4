@@ -1,9 +1,9 @@
 'use strict';
 
-const DEV_BUILD_VERSION = 14
+const DEV_BUILD_VERSION = 15
 
-const CACHE_NAME = `static-cache-g4.6-dev${DEV_BUILD_VERSION}`;
-const DATA_CACHE_NAME = `static-cache-g4.6-dev${DEV_BUILD_VERSION}`;
+const CACHE_NAME = `static-cache-g4.7-dev${DEV_BUILD_VERSION}`;
+const DATA_CACHE_NAME = `static-cache-g4.7-dev${DEV_BUILD_VERSION}`;
 
 const FILES_TO_CACHE = [
     ' ',
@@ -27,6 +27,7 @@ const FILES_TO_CACHE = [
     'scripts/leaderboard.js',
     'scripts/levelgen.js',
     'scripts/main.js',
+    'scripts/random.js',
     'scripts/theme.js',
     'scripts/ui.js',
     'scripts/install.js',
