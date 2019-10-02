@@ -54,7 +54,7 @@
         </main>
         <aside>
             <header>
-                <content>
+                <div class="content">
                     <svg id="g4logo" viewBox="0 0 400 288">
                         <path d="M224,112V263.74a143.0544,143.0544,0,0,1-64,23.38,145.6907,145.6907,0,0,1-16,.88A144,144,0,0,1,144,0a145.6907,145.6907,0,0,1,16,.88V65.61a80,80,0,1,0,0,156.78V176H128V112Z"/>
                         <polygon points="400 112 400 176 352 176 352 288 288 288 288 112 400 112"/>
@@ -68,7 +68,7 @@
                     <button id="openLoginBtn">
                         Log in
                     </button>
-                </content>
+                </div>
 
                 <button class="expander">
                     <div></div>
@@ -89,14 +89,14 @@
                             Click to Install
                         </button>
                     </header>
-                    <content>
+                    <div class="content">
                         You can install G4 on your device as a Progressive Web App to play it without an internet connection.
-                    </content>
+                    </div>
                 </section>
     
                 <section class="gameMode">
                     <header>Game mode</header>
-                    <content>
+                    <div class="content">
                         <button data-mode="easy" class="mode active">
                             <p class="name">Easy</p>
                         </button>
@@ -121,14 +121,14 @@
                         <button data-mode="nox" class="mode">
                             <p class="name">Nox</p>
                         </button>
-                    </content>
+                    </div>
                 </section>
                 
                 <section class="leaderboard">
                     <header>
                         Leaderboard
                     </header>
-                    <content>
+                    <div class="content">
                         <table>
                             <thead>
                                 <tr>
@@ -140,7 +140,7 @@
                             <tbody>
                             </tbody>
                         </table>
-                    </content>
+                    </div>
                 </section>
             </div>
 
@@ -156,7 +156,7 @@
                     Log in
                 </header>
 
-                <content>
+                <div class="content">
                     <h2>Log in to your G4 account to save your scores on the leaderboard.</h2>
 
                     <p class="error"></p>
@@ -173,7 +173,7 @@
                         <button id="loginBtn" class="primary">Log in</button>
                         <button id="goToRegisterBtn">Create an account</button>
                     </div>
-                </content>
+                </div>
             </dialog>
 
             <dialog id="register" class="">
@@ -182,7 +182,7 @@
                     Register
                 </header>
 
-                <content>
+                <div class="content">
                     <h2>Create a G4 account.</h2>
 
                     <p class="error"></p>
@@ -200,7 +200,7 @@
                     <div class="buttons">
                         <button id="registerBtn" class="primary">Register</button>
                     </div>
-                </content>
+                </div>
             </dialog>
 
             <dialog id="playerStats" class="">
@@ -209,12 +209,12 @@
                     Player stats
                 </header>
 
-                <content>
+                <div class="content">
                     <h2></h2>
 
                     <div class="scores">
                     </div>
-                </content>
+                </div>
             </dialog>
 
             <dialog id="settings" class="">
@@ -223,7 +223,7 @@
                     Settings
                 </header>
 
-                <content>
+                <div class="content">
                     <h2>General</h2>
                     <div class="setting">
                         <input type="checkbox" id="settingMusic">
@@ -261,7 +261,7 @@
                     Note: you cannot delete the current custom theme. Switch to a different one first.
 
                     <div class="themeList"></div>
-                </content>
+                </div>
             </dialog>
 
             <dialog id="themeEditor" class="">
@@ -270,11 +270,11 @@
                     Theme editor
                 </header>
 
-                <content>
+                <div class="content">
                     <input id="themeName" type="text" value="Theme 10">
 
                     <div class="themeColors"></div>
-                </content>
+                </div>
             </dialog>
         </div>
 
