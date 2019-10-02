@@ -98,67 +98,33 @@ aside section header {
 aside section content {
   flex-grow: 1;
 }
-aside section.dashboard:not(.speedrun) .speedrunOnly {
-  display: none;
-}
-aside section.dashboard div.timer {
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 32pt;
-  font-variant-numeric: tabular-nums lining-nums;
-  padding: 8px 16px;
-  text-align: center;
-}
-aside section.dashboard div.timer span.ms {
-  font-size: 24pt;
-}
-aside section.dashboard content.gameMode {
-  padding: 0px 16px;
+aside section.gameMode content {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
 }
-aside section.dashboard content.gameMode button.mode {
+aside section.gameMode content button.mode {
   background: transparent;
   color: var(--g4-app-foreground);
   padding: 4px 8px;
   border: none;
   flex-grow: 1;
 }
-aside section.dashboard content.gameMode button.mode p {
+aside section.gameMode content button.mode p {
   margin: 0px;
   font-family: var(--g4-app-typeface);
   font-weight: 500;
   font-size: 12pt;
   text-transform: uppercase;
 }
-aside section.dashboard content.gameMode button.mode:hover {
+aside section.gameMode content button.mode:hover {
   box-shadow: inset 0px 0px 0px 4px var(--g4-game-foreground);
 }
-aside section.dashboard content.gameMode button.mode.active {
+aside section.gameMode content button.mode.active {
   background: var(--g4-game-foreground);
   color: var(--g4-game-background);
 }
-aside section.dashboard content.gameMode button[data-mode=reverse] p {
+aside section.gameMode content button[data-mode=reverse] p {
   transform: scaleX(-1);
-}
-aside section.dashboard content.runActions {
-  max-height: 150px;
-  padding: 0px 16px;
-  overflow: auto;
-}
-aside section.dashboard content.runActions div.action {
-  display: flex;
-}
-aside section.dashboard content.runActions div.action p {
-  margin: 0px;
-}
-aside section.dashboard content.runActions div.action p:not(:last-child) {
-  margin-bottom: 8px;
-}
-aside section.dashboard content.runActions div.action p.title {
-  flex-grow: 1;
-}
-aside section.dashboard content.runActions div.action p.time {
-  font-family: "IBM Plex Mono", monospace;
 }
 aside section.spectating content div.player {
   position: relative;

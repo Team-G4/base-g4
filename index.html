@@ -93,14 +93,10 @@
                         You can install G4 on your device as a Progressive Web App to play it without an internet connection.
                     </content>
                 </section>
-
-                <section class="dashboard">
-                    <div class="timer speedrunOnly">
-                        <span class="min">000</span>:<span class="sec">00</span>.<span class="ms">000</span>
-                    </div>
-
+    
+                <section class="gameMode">
                     <header>Game mode</header>
-                    <content class="gameMode">
+                    <content>
                         <button data-mode="easy" class="mode active">
                             <p class="name">Easy</p>
                         </button>
@@ -126,15 +122,6 @@
                             <p class="name">Nox</p>
                         </button>
                     </content>
-
-                    <header class="speedrunOnly">
-                        <span class="gameSeed"></span>
-                        <button id="lockGameSeed">Lock seed</button>
-                    </header>
-
-                    <header class="speedrunOnly">Actions</header>
-                    <content class="runActions speedrunOnly">
-                    </content>
                 </section>
                 
                 <section class="leaderboard">
@@ -158,7 +145,7 @@
             </div>
 
             <footer>
-                G4.7 by <a href="about:blank" target=_blank" rel="noopener" aria-label="Team G4's website">Team G4</a> | Frame rate: <span class="fpsCounter"></span>
+                G4.6 by <a href="about:blank" target=_blank" rel="noopener" aria-label="Team G4's website">Team G4</a> | Frame rate: <span class="fpsCounter"></span>
             </footer>
         </aside>
 
@@ -292,9 +279,9 @@
         </div>
 
         <script src="scripts/theme.js"></script>
-        <script src="scripts/random.js"></script>
 
         <script src="scripts/assets.js"></script>
+        <script src="scripts/coverage.js"></script>
         <script src="scripts/levelgen.js"></script>
         <script src="scripts/leaderboard.js"></script>
         <script src="scripts/game.js"></script>

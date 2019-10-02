@@ -1,16 +1,3 @@
-class RunAction {
-    /**
-     * @param {Number} timestamp 
-     * @param {String} type 
-     * @param {any} data 
-     */
-    constructor(timestamp, type, data) {
-        this.timestamp = timestamp
-        this.type = type
-        this.data = data
-    }
-}
-
 class Game {
     /**
      * @param {GameData} gameData 
@@ -57,22 +44,6 @@ class Game {
          * @type {Leaderboard}
          */
         this.leaderboard = leaderboard
-
-        /**
-         * @type {Number}
-         */
-        this.speedrunTimer = Date.now()
-
-        /**
-         * @type {RunAction[]}
-         */
-        this.runActions = []
-
-        /**
-         * @type {String}
-         */
-        this.gameSeed = G4Random.randomSeed()
-        this.isSeedLocked = false
     }
 
     /**
@@ -387,8 +358,6 @@ class Game {
             velocityX: 750 * Math.cos(2 * Math.PI * cannon.angle),
             velocityY: 750 * Math.sin(2 * Math.PI * cannon.angle)
         }
-
-        this.registerAction("shoot")
     }
 
     /**
@@ -474,102 +443,8 @@ class Game {
         })
     }
 
-    parseTime(time) {
-        let min = 0, sec = 0, ms = 0
-        
-        time = Math.floor(time)
-
-        ms = time % 1000
-        time = Math.floor(time / 1000)
-
-        sec = time % 60
-        min = Math.floor(time / 60)
-
-        return {
-            min: min.toString().padStart(3, "0"),
-            sec: sec.toString().padStart(2, "0"),
-            ms: ms.toString().padStart(3, "0")
-        }
-    }
-
-    updateTimer() {
-        let mins = "000", secs = "00", ms = "000"
-
-        if (this.speedrunTimer) {
-            let time = this.parseTime(Date.now() - this.speedrunTimer)
-
-            mins = time.min,
-            secs = time.sec
-            ms = time.ms
-        }
-
-        document.querySelector("div.timer span.min").textContent = mins
-        document.querySelector("div.timer span.sec").textContent = secs
-        document.querySelector("div.timer span.ms").textContent = ms
-    }
-
-    registerAction(type, data) {
-        if (!this.speedrunTimer) return
-
-        let action = new RunAction(
-            Date.now() - this.speedrunTimer,
-            type, data
-        )
-
-        this.runActions.push(action)
-        this.addActionDOM(action)
-    }
-
-    addActionDOM(action) {
-        let list = document.querySelector("content.runActions")
-
-        let div = document.createElement("div")
-        div.classList.add("action")
-
-        let title = document.createElement("p")
-        title.classList.add("title")
-
-        let titleText = ""
-
-        switch (action.type) {
-            case "level":
-                titleText = `Reached level ${action.data.levelIndex}`
-                break
-            case "slow":
-                titleText = `Entered slow mode`
-                break
-            case "noslow":
-                titleText = `Exited slow mode`
-                break
-            case "shoot":
-                titleText = `Shot the bullet`
-                break
-        }
-        title.textContent = titleText
-
-        div.appendChild(title)
-
-        let time = document.createElement("p")
-        time.classList.add("time")
-        
-        let timeObj = this.parseTime(action.timestamp)
-        time.textContent = `${timeObj.min}:${timeObj.sec}.${timeObj.ms}`
-
-        div.appendChild(time)
-
-        list.appendChild(div)
-        list.scrollTop = list.scrollHeight
-    }
-
-    resetActionDOM() {
-        let list = document.querySelector("content.runActions")
-        list.innerHTML = ""
-    }
-
     enableSlow() {
         this.data.slow.isSlow = true
-        
-        this.registerAction("slow")
 
         this.dom.classList.add("slow")
 
@@ -579,8 +454,6 @@ class Game {
     disableSlow() {
         if (!this.data.slow.isSlow) return
         this.data.slow.isSlow = false
-        
-        this.registerAction("noslow")
 
         this.dom.classList.remove("slow")
 
@@ -597,10 +470,6 @@ class Game {
 
         this.dom.querySelector("div.progress p.time").textContent = this.data.slow.time.toFixed(1) + " s"
         this.dom.querySelector("div.progress div").style.width = `${this.data.slow.time * 10}%`
-
-        document.querySelector("span.gameSeed").textContent = this.gameSeed
-
-        this.updateTimer()
     }
 
     resizeCanvas() {
@@ -665,20 +534,11 @@ class Game {
         }
     }
 
-    getLevelSeed(levelIndex) {
-        let fract = G4Random.seedToFraction(this.gameSeed)
-        let golden = (1 + Math.sqrt(5)) / 2
-
-        return (fract + levelIndex * golden) % 1
-    }
-
     /**
      * @param {String} mode 
      * @param {Number} levelIndex 
      */
     generateLevel(mode, levelIndex) {
-        Math.random = G4Random.generate(this.getLevelSeed(levelIndex))
-
         if (!this.data) {
             this.data = LevelGenerator.generate(
                 levelIndex, 0, mode
@@ -689,7 +549,6 @@ class Game {
 
             this.data.rings = LevelGenerator.generateRings(mode, levelIndex)
         }
-        
         this.disableSlow()
 
         this.advanceLevel(this.gameTime)
@@ -731,30 +590,21 @@ class Game {
         this.generateLevel(
             this.data.mode, this.data.levelIndex + 1
         )
-
-        if (!this.speedrunTimer) this.speedrunTimer = Date.now()
-        this.registerAction("level", {
-            levelIndex: this.data.levelIndex
-        })
     }
 
-    resetProgress(noHit) {
+    resetProgress() {
         this.data.slow.time = Math.min(this.data.slow.time, 0.6)
 
         this.generateLevel(
             this.data.mode, 0
         )
 
-        if (!noHit) {
-            this.addDeath()
+        this.addDeath()
 
-            this.dom.classList.add("hit")
-            setTimeout(() => {
-                this.dom.classList.remove("hit")
-            }, 500)
-        }
-
-        this.resetActionDOM()
+        this.dom.classList.add("hit")
+        setTimeout(() => {
+            this.dom.classList.remove("hit")
+        }, 500)
     }
 
     updateDeaths() {
@@ -854,54 +704,5 @@ class Game {
         }
 
         return modeAlias[mode]
-    }
-}
-
-class SpeedrunGame extends Game {
-    /**
-     * @param {GameData} gameData 
-     * @param {Boolean} isSpectated 
-     * @param {String} spectatedUser
-     * @param {Leaderboard} leaderboard
-     */
-    constructor(
-        seed,
-        gameData,
-        leaderboard
-    ) {
-        super(gameData, false, null, leaderboard)
-
-        /**
-         * @type {String}
-         */
-        this.gameSeed = seed
-        this.isSeedLocked = true
-    }
-
-    resetProgress(noHit) {
-        this.data.slow.time = 0
-        this.data.cannon = {
-            x: 0, y: 0,
-            freqMultiplier: 1, angle: 0
-        }
-
-        this.speedrunTimer = Date.now()
-        this.gameTime = 0
-
-        if (!this.isSeedLocked) this.gameSeed = G4Random.randomSeed()
-        this.generateLevel(
-            this.data.mode, 0
-        )
-
-        if (!noHit) {
-            this.addDeath()
-
-            this.dom.classList.add("hit")
-            setTimeout(() => {
-                this.dom.classList.remove("hit")
-            }, 500)
-        }
-
-        this.resetActionDOM()
     }
 }

@@ -22,12 +22,12 @@ const FILES_TO_CACHE = [
     'res/themes/light.json',
 
     'scripts/assets.js',
+    'scripts/coverage.js',
     'scripts/game.js',
     'scripts/input.js',
     'scripts/leaderboard.js',
     'scripts/levelgen.js',
     'scripts/main.js',
-    'scripts/random.js',
     'scripts/theme.js',
     'scripts/ui.js',
     'scripts/install.js',

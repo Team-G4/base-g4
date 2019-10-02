@@ -8,7 +8,7 @@
         null, false, "",
         new Leaderboard()
     )
-    
+
     prepG4AccountUI(mainGame.leaderboard)
 
     mainGame.generateLevel("easy", 0)
@@ -81,14 +81,10 @@
     }, 1000 / physicsFps)
 
     // Mode changing buttons
-    document.querySelectorAll("content.gameMode button").forEach(button => {
+    document.querySelectorAll("section.gameMode button").forEach(button => {
         button.addEventListener("click", () => {
-            button.blur()
-
             if (mainGame.data.mode == button.getAttribute("data-mode")) return
 
-            mainGame.resetProgress(true)
-            mainGame.gameSeed = G4Random.randomSeed()
             mainGame.generateLevel(
                 button.getAttribute("data-mode"),
                 0
@@ -98,7 +94,7 @@
                 isSlow: false
             }
 
-            document.querySelector("content.gameMode button.active").classList.remove("active")
+            document.querySelector("section.gameMode button.active").classList.remove("active")
             button.classList.add("active")
 
             playAudio(mainGame.data.mode)
