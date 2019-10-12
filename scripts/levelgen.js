@@ -86,6 +86,24 @@
  * @property {Number} baseEnd
  */
 
+ /**
+  * @typedef {Object} RingH
+  * 
+  * @property {String} type
+  * 
+  * @property {Number} centerX
+  * @property {Number} centerY
+  * 
+  * @property {Number} angle
+  * @property {Number} distance
+  * @property {Number} direction
+  * @property {Number} layout
+  * @property {Number} wingSpan
+  * 
+  * @property {Boolean} hasBase
+  * @property {Number} baseDistance
+  */
+
 /**
  * @typedef {Object} Ring
  * 
@@ -201,6 +219,39 @@ class LevelGenerator {
             sweepTime: 0,
             baseStart: angleStart,
             baseEnd: angleStart + angleLength,
+            centerX, centerY
+        }
+    }
+
+    /**
+     * @param {Number} angle 
+     * @param {Number} distance 
+     * @param {Number} direction 
+     * @param {Number} layout 
+     * @param {Number} wingSpan 
+     * @param {Boolean} hasBase 
+     * @param {Number} baseDistance 
+     * @param {Number} centerX 
+     * @param {Number} centerY 
+     */
+    createRingH(
+        angle, distance,
+        direction, layout, wingSpan,
+        hasBase, baseDistance,
+        centerX, centerY
+    ) {
+        if (!centerX) centerX = 0
+        if (!centerY) centerY = 0
+        if (!hasBase) {
+            hasBase = false
+            baseDistance = 1000
+        }
+
+        return {
+            type: "h",
+            angle, distance,
+            direction, layout, wingSpan,
+            hasBase, baseDistance,
             centerX, centerY
         }
     }
