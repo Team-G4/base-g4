@@ -88,3 +88,33 @@
     --g4-game-cannon: var(--g4-theme-game-nox-cannon);
     --g4-game-bullet: var(--g4-theme-game-nox-bullet);
 }
+
+[data-mode=h] {
+    --g4-game-background: var(--g4-theme-game-nox-background);
+    --g4-game-damage: var(--g4-theme-game-nox-damage);
+    --g4-game-foreground: var(--g4-theme-game-nox-foreground);
+    --g4-game-obstacle1: var(--g4-theme-game-nox-obstacle1);
+    --g4-game-obstacle2: var(--g4-theme-game-nox-obstacle2);
+    --g4-game-cannon: var(--g4-theme-game-nox-cannon);
+    --g4-game-bullet: var(--g4-theme-game-nox-bullet);
+}
+
+[data-mode=nard] {
+    --g4-game-background: var(--g4-theme-game-nox-background);
+    --g4-game-damage: var(--g4-theme-game-nox-damage);
+    --g4-game-foreground: var(--g4-theme-game-nox-foreground);
+    --g4-game-obstacle1: var(--g4-theme-game-nox-obstacle1);
+    --g4-game-obstacle2: var(--g4-theme-game-nox-obstacle2);
+    --g4-game-cannon: var(--g4-theme-game-nox-cannon);
+    --g4-game-bullet: var(--g4-theme-game-nox-bullet);
+}
+
+[data-mode=brexit] {
+    --g4-game-background: var(--g4-theme-game-nox-background);
+    --g4-game-damage: var(--g4-theme-game-nox-damage);
+    --g4-game-foreground: var(--g4-theme-game-nox-foreground);
+    --g4-game-obstacle1: var(--g4-theme-game-nox-obstacle1);
+    --g4-game-obstacle2: var(--g4-theme-game-nox-obstacle2);
+    --g4-game-cannon: var(--g4-theme-game-nox-cannon);
+    --g4-game-bullet: var(--g4-theme-game-nox-bullet);
+}
