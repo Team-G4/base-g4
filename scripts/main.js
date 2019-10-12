@@ -18,10 +18,27 @@
 
     games.push(mainGame)
 
-    window.mainGame = mainGame
+    // Music playback
+    document.querySelector("input#settingMusic").addEventListener("input", function() {
+        isAudioPlaying = !isAudioPlaying
+    
+        if (isAudioPlaying) {
+            playAudio(mainGame.data.mode, true)
+        } else {
+            stopAudio()
+        }
+    })
+
+    // Legit Verified Amirite
+    document.querySelector("input#settingVerifiedLegit").addEventListener("input", function() {
+        localStorage["g4_showLegitTM"] = this.checked ? "1": "0"
+        mainGame.leaderboard.updateLeaderboard(
+            mainGame.data.mode
+        )
+    })
 
     // Game interaction events
-    addEventListener("keyup", (e) => {
+    addEventListener("keydown", (e) => {
         games.forEach(game => game.handleKeyboardEvent(e))
     })
     addEventListener("g4gamepadbuttonpressed", (e) => {

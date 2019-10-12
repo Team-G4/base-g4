@@ -239,6 +239,8 @@ aside {
                 }
 
                 tr {
+                    font-family: "Noto Sans";
+                    
                     td:first-child {
                         width: 15%;
     
@@ -249,6 +251,33 @@ aside {
                         width: 25%;
     
                         text-align: center;
+                    }
+
+                    td.player {
+                        display: flex;
+                        align-items: center;
+                        overflow: hidden;
+
+                        span.verified {
+                            background: var(--g4-app-accent);
+                            color: var(--g4-app-background);
+                            content: "Verified Legit™";
+
+                            font-family: "Poppins";
+                            font-weight: 600;
+                            font-size: 80%;
+
+                            margin-left: 4px;
+                            padding: 0px 2px;
+                            border-radius: 2px;
+                        }
+
+                        span svg {
+                            width: 20px;
+                            height: auto;
+
+                            margin-left: 4px;
+                        }
                     }
                 }
 
@@ -359,6 +388,13 @@ dialog {
             font-weight: 400;
 
             margin: 0px 0px 32px 0px;
+
+            em {
+                color: var(--g4-app-accent);
+
+                font-size: 20pt;
+                font-style: normal;
+            }
         }
 
         p.error {

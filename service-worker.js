@@ -1,20 +1,28 @@
 'use strict';
 
-const DEV_BUILD_VERSION = 15
+const DEV_BUILD_VERSION = 23
 
-const CACHE_NAME = `static-cache-g4.7-dev${DEV_BUILD_VERSION}`;
-const DATA_CACHE_NAME = `static-cache-g4.7-dev${DEV_BUILD_VERSION}`;
+const CACHE_NAME = `static-cache-g4.7-stable${DEV_BUILD_VERSION}`;
+const DATA_CACHE_NAME = `static-cache-g4.7-stable${DEV_BUILD_VERSION}`;
 
 const FILES_TO_CACHE = [
     ' ',
     'index.html',
 
-    'res/music/easy.mp3',
-    'res/music/normal.mp3',
-    'res/music/hell.mp3',
-    'res/music/hades.mp3',
-    'res/music/reverse.mp3',
-    'res/music/denise.mp3',
+    'res/fonts/Poppins-Bold.ttf',
+    'res/fonts/Poppins-Medium.ttf',
+    'res/fonts/Poppins-Regular.ttf',
+    'res/fonts/Poppins-SemiBold.ttf',
+    'res/fonts/NotoSans-Regular.ttf',
+
+    'res/music/easy.ogg',
+    'res/music/normal.ogg',
+    'res/music/hard.ogg',
+    'res/music/hell.ogg',
+    'res/music/hades.ogg',
+    'res/music/reverse.ogg',
+    'res/music/denise.ogg',
+    'res/music/nox.ogg',
 
     'res/images/gameHint.svg',
 

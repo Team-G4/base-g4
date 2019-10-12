@@ -48,9 +48,6 @@
         </div>
 
         <main class="one">
-            <div class="firstTimeHint hidden">
-                <img src="res/images/gameHint.svg">
-            </div>
         </main>
         <aside>
             <header>
@@ -145,7 +142,7 @@
             </div>
 
             <footer>
-                G4.6 by <a href="about:blank" target=_blank" rel="noopener" aria-label="Team G4's website">Team G4</a> | Frame rate: <span class="fpsCounter"></span>
+                G4.6 by <a href="https://g4game.wtf/" target="_blank" rel="noopener" aria-label="Team G4's website">Team G4</a> | Frame rate: <span class="fpsCounter"></span>
             </footer>
         </aside>
 
@@ -195,7 +192,7 @@
                         <input id="registerPassword" type="password">
                     </form>
 
-                    <p>By clicking "Register", you agree to the <a href="about:blank">G4 Terms of Service</a>.</p>
+                    <p>By clicking "Register", you agree to the <a href="https://g4game.wtf/tos/">G4 Terms of Service</a>.</p>
 
                     <div class="buttons">
                         <button id="registerBtn" class="primary">Register</button>
@@ -232,6 +229,13 @@
                     <div class="setting">
                         <input type="checkbox" id="settingLeftBar">
                         <label for="settingLeftBar">Panel on the left side</label>
+                    </div>
+
+                    <h2>Leaderboard</h2>
+                    The "Verified Legit™" scores are the ones that have been verified as obtained in 100% legit ways, no bots here amirite? <sub>bot scores, duh</sub>
+                    <div class="setting">
+                        <input type="checkbox" id="settingVerifiedLegit">
+                        <label for="settingVerifiedLegit">Show Verified Legit™ scores</label>
                     </div>
 
                     <h2>Input</h2>
@@ -276,7 +280,50 @@
                     <div class="themeColors"></div>
                 </div>
             </dialog>
+
+            <dialog id="oobe" class="">
+                <header>
+                    <button class="close">Back</button>
+                    Welcome to G4
+                </header>
+
+                <div class="content">
+                    <h2>Hi sister!<br><em>Welcome to G4!</em></h2>
+
+                    G4 is a game inspired by The Theorist Gateway's Gate 4 (that's why it's called "G4", fun fact).<br>
+                    It started off as an "infinite version" of Gate 4, but now it could be considered a completely separate, full game.
+
+                    <h3>Objective</h3>
+
+                    Shoot through the rotating rings of obstacles. When the bullet escapes the construct, you get to the next level.<br>
+                    You can use your finger, mouse, keyboard or gamepad to play the game.<br>
+
+                    <h3>Controls</h3>
+                    
+                    You can change the controls here or in the settings later.
+                    <div class="setting">
+                        <label>Shoot</label>
+                        <button class="keyboardInput" data-control="keyboardShoot">Space</button>
+                    </div>
+                    <div class="setting">
+                        <label>Enable slow mode</label>
+                        <button class="keyboardInput" data-control="keyboardSlow">Press a key...</button>
+                    </div>
+                </div>
+            </dialog>
         </div>
+
+        <script src="scripts/install.js"></script>
+        <script>
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('service-worker.js')
+                        .then((reg) => {
+                            console.log('Service worker registered.', reg);
+                        });
+                });
+            }
+        </script>
 
         <script src="scripts/theme.js"></script>
 
@@ -289,15 +336,5 @@
         <script src="scripts/ui.js"></script>
 
         <script src="scripts/main.js"></script>
-
-        <script src="scripts/install.js"></script>
-        <script>if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-              navigator.serviceWorker.register('service-worker.js')
-                  .then((reg) => {
-                    console.log('Service worker registered.', reg);
-                  });
-            });
-          }</script>
     </body>
 </html>

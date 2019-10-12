@@ -1,5 +1,8 @@
 let leaderboardEndpoint = "https://g4-leaderboard.herokuapp.com"
 
+if (!localStorage.getItem("g4_showLegitTM")) localStorage["g4_showLegitTM"] = "0"
+if (localStorage["g4_showLegitTM"] == "1") document.querySelector("input#settingVerifiedLegit").checked = true
+
 class Leaderboard {
     constructor() {
         this.userID = null
@@ -145,8 +148,9 @@ class Leaderboard {
     }
 
     async getLeaderboard(mode) {
+        let legit = localStorage["g4_showLegitTM"]
         let data = await fetch(
-            leaderboardEndpoint + "/scores?mode=" + mode
+            leaderboardEndpoint + "/scores?mode=" + mode + "&legit=" + legit
         )
 
         return await data.json()
@@ -162,13 +166,27 @@ class Leaderboard {
             let tr = document.createElement("tr")
 
             if (score.username === this.userName) tr.classList.add("me")
+            if (score.verified) tr.classList.add("verified")
 
             let rank = document.createElement("td")
             rank.textContent = i + 1
             tr.appendChild(rank)
 
             let player = document.createElement("td")
-            player.textContent = score.username
+            player.classList.add("player")
+
+            let playerName = document.createElement("span")
+            playerName.classList.add("name")
+            playerName.textContent = score.username
+            player.appendChild(playerName)
+
+            if (score.verified) {
+                let verified = document.createElement("span")
+                verified.classList.add("verified")
+                verified.textContent = "Verified Legit™"
+                player.appendChild(verified)
+            }
+
             tr.appendChild(player)
 
             let scoreText = document.createElement("td")

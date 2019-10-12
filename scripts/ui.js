@@ -1,11 +1,7 @@
 // First time hint
 if (!localStorage.getItem("g4_hideHint")) {
-    document.querySelector("div.firstTimeHint").classList.remove("hidden")
+    openWindow("oobe")
     localStorage.setItem("g4_hideHint", true)
-
-    setTimeout(() => {
-        document.querySelector("div.firstTimeHint").classList.add("hidden")
-    }, 3500)
 }
 
 // Sidebar expander
@@ -135,17 +131,6 @@ function prepG4AccountUI(leaderboard) {
 document.querySelector("button#openSettingsBtn").addEventListener("click", () => {
     updateThemeList()
     openWindow("settings")
-})
-
-// Music playback
-document.querySelector("input#settingMusic").addEventListener("input", function() {
-    isAudioPlaying = !isAudioPlaying
-
-    if (isAudioPlaying) {
-        playAudio(mainGame.data.mode, true)
-    } else {
-        stopAudio()
-    }
 })
 
 // Left side sidebar
