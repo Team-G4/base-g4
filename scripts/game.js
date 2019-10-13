@@ -115,6 +115,7 @@ class Game {
                 switch (item.type) {
                     case "ball":
                     case "bar":
+                    case "h":
                     case "marqueeBar":
                         radius = Math.max(
                             radius,
@@ -183,6 +184,9 @@ class Game {
                     item.angleStart = (item.baseStart + item.baseStart) / 2 - item.angleLength / 2
 
                     break
+                case "h":
+                    item.angle += dTime * item.direction
+                    break
             }
         })
     }
@@ -196,6 +200,16 @@ class Game {
         let bulletX = bullet.x - item.centerX
         let bulletY = bullet.y - item.centerY
 
+        let bulletAngle = Math.atan2(
+            bulletY, bulletX
+        )
+        if (bulletAngle < 0) bulletAngle += Math.PI * 2
+        bulletAngle /= Math.PI * 2
+
+        let bulletDist = Math.hypot(bulletX, bulletY)
+
+        let clampedStart, clampedEnd, mightCollide
+
         switch (item.type) {
             case "ball":
             case "pulsingBall":
@@ -205,18 +219,10 @@ class Game {
                 ) < (item.radius + bullet.radius)
             case "bar":
             case "marqueeBar":
-                let bulletAngle = Math.atan2(
-                    bulletY, bulletX
-                )
-                if (bulletAngle < 0) bulletAngle += Math.PI * 2
-                bulletAngle /= Math.PI * 2
+                clampedStart = item.angleStart % 1
+                clampedEnd = (clampedStart + item.angleLength) % 1
 
-                let bulletDist = Math.hypot(bulletX, bulletY)
-
-                let clampedStart = item.angleStart % 1
-                let clampedEnd = (clampedStart + item.angleLength) % 1
-
-                let mightCollide = false
+                mightCollide = false
 
                 if (clampedStart < clampedEnd) {
                     mightCollide = bulletAngle > clampedStart && bulletAngle < clampedEnd
@@ -229,6 +235,7 @@ class Game {
                     Math.abs(bulletDist - item.distance) < (item.radius + bullet.radius)
                 )
                     return true
+            case "h":
         }
 
         return false
@@ -439,6 +446,39 @@ class Game {
                     )
 
                     ctx.stroke()
+                    break
+                case "h":
+                    let angle = 2 * Math.PI * item.angle
+                    let wingSpan = 2 * Math.PI * item.wingSpan
+
+                    ctx.beginPath()
+
+                    ctx.lineWidth = item.radius * 2
+
+                    let middleDistance = item.distance * Math.cos(wingSpan)
+
+                    ctx.moveTo(
+                        Math.sin(angle - wingSpan) * item.distance + item.centerX,
+                        Math.cos(angle - wingSpan) * item.distance + item.centerY
+                    )
+                    ctx.lineTo(
+                        Math.sin(angle + wingSpan) * item.distance + item.centerX,
+                        Math.cos(angle + wingSpan) * item.distance + item.centerY
+                    )
+
+                    if (item.hasBase) {
+                        ctx.moveTo(
+                            Math.sin(angle) * middleDistance + item.centerX,
+                            Math.cos(angle) * middleDistance + item.centerY
+                        )
+                        ctx.lineTo(
+                            Math.sin(angle) * item.baseDistance + item.centerX,
+                            Math.cos(angle) * item.baseDistance + item.centerY
+                        )
+                    }
+
+                    ctx.stroke()
+                    break
             }
         })
     }

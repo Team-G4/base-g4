@@ -96,6 +96,7 @@
   * 
   * @property {Number} angle
   * @property {Number} distance
+  * @property {Number} radius
   * @property {Number} direction
   * @property {Number} layout
   * @property {Number} wingSpan
@@ -226,6 +227,7 @@ class LevelGenerator {
     /**
      * @param {Number} angle 
      * @param {Number} distance 
+     * @param {Number} radius
      * @param {Number} direction 
      * @param {Number} layout 
      * @param {Number} wingSpan 
@@ -234,8 +236,8 @@ class LevelGenerator {
      * @param {Number} centerX 
      * @param {Number} centerY 
      */
-    createRingH(
-        angle, distance,
+    static createRingH(
+        angle, distance, radius,
         direction, layout, wingSpan,
         hasBase, baseDistance,
         centerX, centerY
@@ -249,7 +251,7 @@ class LevelGenerator {
 
         return {
             type: "h",
-            angle, distance,
+            angle, distance, radius,
             direction, layout, wingSpan,
             hasBase, baseDistance,
             centerX, centerY
@@ -616,6 +618,14 @@ class LevelGenerator {
         }
     }
 
+    static generateHRings(rings, level) {
+        let ring = LevelGenerator.createRing([
+            LevelGenerator.createRingH(0, 200, 10, 1, 1, 0.05, true, 50, 0, 0)
+        ], 1, false, 0, 0, 0)
+
+        rings.push(ring)
+    }
+
     /**
      * @param {RingElement} item 
      * @param {Number} ringLength
@@ -836,6 +846,10 @@ class LevelGenerator {
             case "nox":
 
                 LevelGenerator.generateNoxRings(rings, levelIndex)
+
+                break
+            case "h":
+                LevelGenerator.generateHRings(rings, levelIndex)
 
                 break
         }
