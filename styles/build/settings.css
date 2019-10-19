@@ -131,18 +131,22 @@ div.setting button.keyboardInput.waiting, div.setting button.gamepadInput.waitin
 div.themeList div.theme {
   background: var(--g4-app-header-background);
   color: var(--g4-app-foreground);
-  padding: 16px 16px;
+  padding: 0px;
   margin-top: 8px;
   border-radius: 24px;
+}
+div.themeList div.theme > div {
+  padding: 0px 16px 16px 16px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: flex-end;
 }
 div.themeList div.theme svg {
-  width: 100%;
+  width: calc(100% - 4px);
   height: auto;
-  border-radius: 8px;
+  margin: 2px 2px 0px 2px;
+  border-radius: 22px 22px 0px 0px;
 }
 div.themeList div.theme svg .st0 {
   fill: var(--g4-theme-game-normal-background);

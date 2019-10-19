@@ -251,13 +251,15 @@ function updateThemeList() {
 
         if (localStorage.g4_currentTheme == themeId) div.classList.add("current")
 
+        let optDiv = document.createElement("div")
+
         let name = document.createElement("p")
         name.textContent = theme.name
-        div.appendChild(name)
+        optDiv.appendChild(name)
 
         let cloneBtn = document.createElement("button")
         cloneBtn.textContent = "Clone"
-        div.appendChild(cloneBtn)
+        optDiv.appendChild(cloneBtn)
 
         cloneBtn.addEventListener("click", (e) => {
             duplicateTheme(themeId)
@@ -268,7 +270,7 @@ function updateThemeList() {
         if (themeId > 2) {
             let editBtn = document.createElement("button")
             editBtn.textContent = "Edit"
-            div.appendChild(editBtn)
+            optDiv.appendChild(editBtn)
     
             editBtn.addEventListener("click", (e) => {
                 editTheme(themeId)
@@ -279,7 +281,7 @@ function updateThemeList() {
             if (localStorage.g4_currentTheme != themeId) {
                 let deleteBtn = document.createElement("button")
                 deleteBtn.textContent = "Delete"
-                div.appendChild(deleteBtn)
+                optDiv.appendChild(deleteBtn)
         
                 deleteBtn.addEventListener("click", (e) => {
                     deleteTheme(themeId)
@@ -288,6 +290,8 @@ function updateThemeList() {
                 })
             }
         }
+
+        div.appendChild(optDiv)
 
         div.addEventListener("click", () => {
             setTheme(themeId)
