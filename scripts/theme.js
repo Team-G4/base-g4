@@ -206,6 +206,8 @@ function updateThemeList() {
         let div = document.createElement("div")
         div.classList.add("theme")
 
+        applyThemeToElement(div, theme)
+
         div.style.setProperty(
             "--g4-app-background",
             theme.colors.app.background
@@ -218,6 +220,34 @@ function updateThemeList() {
             "--g4-app-header-background",
             theme.colors.app.headerBackground
         )
+
+        console.log(theme)
+
+        div.innerHTML = `<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+        viewBox="0 0 512 320" style="enable-background:new 0 0 512 320;" xml:space="preserve">
+   <g>
+       <rect class="st0" width="320" height="320"/>
+   </g>
+   <g>
+       <rect x="320" class="st1" width="192" height="320"/>
+   </g>
+   <path class="st2" d="M288,160c0,17.7-14.3,32-32,32s-32-14.3-32-32c0-13.8,8.7-25.5,20.8-30c-9-25.5-29.3-45.8-54.8-54.8
+       C185.5,87.3,173.8,96,160,96c-17.7,0-32-14.3-32-32c0-17.7,14.3-32,32-32c17.4,0,31.5,13.9,32,31.1c30.5,10.1,54.8,34.3,64.9,64.9
+       C274.1,128.5,288,142.6,288,160z"/>
+   <circle class="st2" cx="160" cy="256" r="16"/>
+   <circle class="st2" cx="64" cy="160" r="32"/>
+   <polygon class="st2" points="171.3,148.7 141.1,163.8 156.2,178.9 "/>
+   <path class="st3" d="M320,0h192v48H352h0c-17.7,0-32,14.3-32,32v0V0z"/>
+   <rect x="352" y="16" class="st4" width="128" height="16"/>
+   <rect x="352" y="80" class="st4" width="128" height="16"/>
+   <rect x="352" y="112" class="st4" width="128" height="16"/>
+   <rect x="352" y="240" class="st4" width="32" height="16"/>
+   <rect x="400" y="240" class="st4" width="80" height="16"/>
+   <rect x="352" y="272" class="st4" width="80" height="16"/>
+   <rect x="352" y="144" class="st4" width="80" height="16"/>
+   <path class="st5" d="M407.5,208h65c4.1,0,7.5-3.4,7.5-7.5v-17c0-4.1-3.4-7.5-7.5-7.5h-65c-4.1,0-7.5,3.4-7.5,7.5v17
+       C400,204.6,403.4,208,407.5,208z"/>
+   </svg>`
 
         if (localStorage.g4_currentTheme == themeId) div.classList.add("current")
 
