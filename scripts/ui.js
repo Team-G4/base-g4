@@ -144,3 +144,17 @@ document.querySelector("input#settingLeftBar").addEventListener("input", functio
     localStorage["g4_leftSidebar"] = this.checked
     document.body.classList.toggle("left", this.checked)
 })
+
+// Settings section
+document.querySelector("#settingsMusicBtn").addEventListener("click", function() {
+    openWindow("settingsMusic")
+})
+document.querySelector("#settingsInputBtn").addEventListener("click", function() {
+    openWindow("settingsInput")
+})
+document.querySelector("#settingsAppearanceBtn").addEventListener("click", function() {
+    openWindow("settingsAppearance")
+})
+document.querySelector("#settingsLeaderboardBtn").addEventListener("click", function() {
+    openWindow("settingsLeaderboard")
+})

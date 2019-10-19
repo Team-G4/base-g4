@@ -1,10 +1,52 @@
-dialog#settings, dialog#themeEditor {
+dialog.settings {
     h2, h3 {
         margin-bottom: 0px;
     }
 
     h2:not(:first-child) {
         margin-top: 32px;
+    }
+}
+
+div.sectionLink {
+    padding: 8px 16px;
+    border-radius: 8px;
+
+    display: flex;
+    align-items: center;
+
+    &:hover {
+        background: var(--g4-app-header-background);
+    }
+
+    &:active {
+        background: var(--g4-app-foreground);
+        color: var(--g4-app-background);
+
+        svg {
+            fill: var(--g4-app-background);
+        }
+    }
+
+    svg {
+        width: 32px;
+        height: 32px;
+
+        fill: var(--g4-app-foreground);
+    }
+
+    div.info {
+        padding-left: 16px;
+
+        p {
+            font-size: 11pt;
+            margin: 0px;
+            
+            &.name {
+                font-size: 12pt;
+                font-weight: 600;
+            }
+        }
     }
 }
 

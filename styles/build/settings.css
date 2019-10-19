@@ -5,6 +5,39 @@ dialog#settings h2:not(:first-child), dialog#themeEditor h2:not(:first-child) {
   margin-top: 32px;
 }
 
+div.sectionLink {
+  padding: 8px 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+}
+div.sectionLink:hover {
+  background: var(--g4-app-header-background);
+}
+div.sectionLink:active {
+  background: var(--g4-app-foreground);
+  color: var(--g4-app-background);
+}
+div.sectionLink:active svg {
+  fill: var(--g4-app-background);
+}
+div.sectionLink svg {
+  width: 32px;
+  height: 32px;
+  fill: var(--g4-app-foreground);
+}
+div.sectionLink div.info {
+  padding-left: 16px;
+}
+div.sectionLink div.info p {
+  font-size: 11pt;
+  margin: 0px;
+}
+div.sectionLink div.info p.name {
+  font-size: 12pt;
+  font-weight: 600;
+}
+
 div.setting {
   padding: 4px 0px;
   display: flex;
