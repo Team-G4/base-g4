@@ -1,5 +1,5 @@
 dialog.settings h2, dialog.settings h3 {
-  margin-bottom: 0px;
+  margin-bottom: 0px !important;
 }
 dialog.settings h2:not(:first-child) {
   margin-top: 32px;
