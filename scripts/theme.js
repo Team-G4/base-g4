@@ -63,15 +63,19 @@ function createCSSVars(compStyles, obj, prefix) {
     }
 }
 
+function applyThemeToElement(domElement, theme) {
+    createCSSVars(
+        domElement.style,
+        theme.colors, "--g4-theme")
+}
+
 function applyTheme() {
     if (!localStorage.getItem("g4_currentTheme")) localStorage["g4_currentTheme"] = 1
 
     let themes = JSON.parse(localStorage["g4_themes"])
     let theme = themes[localStorage["g4_currentTheme"] - 1]
 
-    createCSSVars(
-        document.documentElement.style,
-        theme.colors, "--g4-theme")
+    applyThemeToElement(document.documentElement, theme)
 }
 
 function setTheme(id) {
@@ -168,6 +172,8 @@ function editTheme(id) {
 
     let colors = editor.querySelector("div.themeColors")
     colors.innerHTML = ""
+
+    applyThemeToElement(editor, theme)
 
     createThemeDOM(colors, theme, theme, id)
 

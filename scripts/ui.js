@@ -158,3 +158,6 @@ document.querySelector("#settingsAppearanceBtn").addEventListener("click", funct
 document.querySelector("#settingsLeaderboardBtn").addEventListener("click", function() {
     openWindow("settingsLeaderboard")
 })
+document.querySelector("#settingsAboutBtn").addEventListener("click", function() {
+    openWindow("settingsAbout")
+})
