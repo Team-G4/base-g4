@@ -129,6 +129,24 @@ function createThemeDOM(dom, obj, theme, id) {
             h2.textContent = themeKeyNames[key]
             div.appendChild(h2)
 
+            if (Game.modeIDToDisplayName(key)) {
+                let preview = new ModePreviewGame({})
+
+                preview.dom.children[0].width = 356
+                preview.dom.children[0].height = 356
+
+                preview.dom.game = preview
+
+                preview.generateLevel(key, 15)
+                preview.updateDOM()
+
+                div.appendChild(
+                    preview.dom
+                )
+
+                preview.render()
+            }
+
             createThemeDOM(div, value, theme, id)
         
             dom.appendChild(div)

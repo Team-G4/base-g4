@@ -772,10 +772,10 @@ body.left dialog.open {
     right: unset;
   }
 }
-dialog#settings h2, dialog#settings h3, dialog#themeEditor h2, dialog#themeEditor h3 {
+dialog.settings h2, dialog.settings h3 {
   margin-bottom: 0px;
 }
-dialog#settings h2:not(:first-child), dialog#themeEditor h2:not(:first-child) {
+dialog.settings h2:not(:first-child) {
   margin-top: 32px;
 }
 
@@ -938,6 +938,9 @@ div.themeList div.theme.current {
   box-shadow: inset 0px 0px 0px 2px var(--g4-app-foreground);
 }
 
+dialog#themeEditor canvas {
+  border-radius: 8px;
+}
 dialog#themeEditor input[type=text] {
   width: calc(100% - 16px);
   background: transparent;

@@ -227,6 +227,10 @@ div.themeList {
 }
 
 dialog#themeEditor {
+    canvas {
+        border-radius: 8px;
+    }
+    
     input[type=text] {
         width: calc(100% - 16px);
 

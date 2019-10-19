@@ -76,6 +76,13 @@
 
         games.forEach(game => game.render())
 
+        // Render static previews
+        document.querySelectorAll("dialog.open div.game.modePreview").forEach(gameDOM => {
+            // previews have dom.game attrs
+            gameDOM.game.advance(1 / 90)
+            gameDOM.game.render()            
+        })
+
         previousTimestamp = timestamp
     }
 

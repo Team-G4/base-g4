@@ -138,7 +138,7 @@ class Game {
 
         radius = Math.max(radius, cannonDistance + 20)
 
-        return radius
+        return radius + 20
     }
 
     /**
@@ -528,10 +528,10 @@ class Game {
     }
 
     render() {
-        let computedStyles = getComputedStyle(this.dom)
-
         let canvas = this.dom.querySelector("canvas")
         let minWidth = canvas.width
+
+        let computedStyles = getComputedStyle(canvas)
 
         let ctx = canvas.getContext("2d")
 
@@ -744,5 +744,32 @@ class Game {
         }
 
         return modeAlias[mode]
+    }
+}
+
+class ModePreviewGame extends Game {    
+    constructor(
+    ) {
+        super(null, true, "", null)
+    }
+
+    /**
+     * @returns {HTMLDivElement}
+     */
+    createDOM() {
+        let div = document.createElement("div")
+        div.classList.add("game")
+        div.classList.add("modePreview")
+
+        div.innerHTML = `<canvas class="viewport"></canvas>`
+
+        return div
+    }
+
+    updateLeaderboard() {}
+
+    updateDOM() {
+        if (this.dom.getAttribute("data-mode") != this.data.mode)
+            this.dom.setAttribute("data-mode", this.data.mode)
     }
 }
