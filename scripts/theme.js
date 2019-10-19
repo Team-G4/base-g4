@@ -121,6 +121,7 @@ function createThemeDOM(dom, obj, theme, id) {
                 this.colorObj[key] = this.value
 
                 updateTheme(id, theme)
+                applyThemeToElement(document.querySelector("dialog#themeEditor div.content"), theme)
             })
         
             dom.appendChild(div)
