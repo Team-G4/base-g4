@@ -1,0 +1,9 @@
+{
+    "name": "Test plugin",
+    "author": "scintilla4evr",
+
+    "version": 1,
+
+    "script": "plugin.js",
+    "icon": "icon.svg"
+}

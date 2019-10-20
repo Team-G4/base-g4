@@ -417,6 +417,25 @@
                             <p class="description">Adjust RPC appearance</p>
                         </div>
                     </div>
+                    <div class="sectionLink" id="settingsPluginsBtn">
+                        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 64 64" style="enable-background:new 0 0 64 64;" xml:space="preserve">
+                            <path d="M18.5,44c0.8,0,1.5,0.7,1.5,1.5v9c0,0.8-0.7,1.5-1.5,1.5h-9C8.7,56,8,55.3,8,54.5v-9C8,44.7,8.7,44,9.5,44H18.5 M18.5,40h-9
+                                c-3,0-5.5,2.5-5.5,5.5v9c0,3,2.5,5.5,5.5,5.5h9c3,0,5.5-2.5,5.5-5.5v-9C24,42.5,21.5,40,18.5,40L18.5,40z"/>
+                            <path d="M42.5,44c0.8,0,1.5,0.7,1.5,1.5v9c0,0.8-0.7,1.5-1.5,1.5h-9c-0.8,0-1.5-0.7-1.5-1.5v-9c0-0.8,0.7-1.5,1.5-1.5H42.5 M42.5,40
+                                h-9c-3,0-5.5,2.5-5.5,5.5v9c0,3,2.5,5.5,5.5,5.5h9c3,0,5.5-2.5,5.5-5.5v-9C48,42.5,45.5,40,42.5,40L42.5,40z"/>
+                            <path d="M18.5,20c0.8,0,1.5,0.7,1.5,1.5v9c0,0.8-0.7,1.5-1.5,1.5h-9C8.7,32,8,31.3,8,30.5v-9C8,20.7,8.7,20,9.5,20H18.5 M18.5,16h-9
+                                c-3,0-5.5,2.5-5.5,5.5v9c0,3,2.5,5.5,5.5,5.5h9c3,0,5.5-2.5,5.5-5.5v-9C24,18.5,21.5,16,18.5,16L18.5,16z"/>
+                            <path d="M48.6,6.7c0.7,0,1.4,0.4,1.8,1.1l6.7,14.6c0.4,1,0,2.1-1,2.6l-14.6,6.7C41.2,31.9,41,32,40.7,32c-0.7,0-1.4-0.4-1.8-1.1
+                                l-6.7-14.6c-0.4-1,0-2.1,1-2.6l14.6-6.7C48,6.8,48.3,6.7,48.6,6.7 M48.6,2.7c-0.9,0-1.7,0.2-2.5,0.5L31.5,10c-3,1.4-4.3,4.9-2.9,7.9
+                                l6.7,14.6c1,2.1,3.1,3.5,5.4,3.5c0.9,0,1.7-0.2,2.5-0.5l14.6-6.7c3-1.4,4.3-4.9,2.9-7.9L54,6.2C53,4.1,50.9,2.7,48.6,2.7L48.6,2.7z"
+                                />
+                        </svg>
+                        <div class="info">
+                            <p class="name">Plugins</p>
+                            <p class="description">Add and remove plugins</p>
+                        </div>
+                    </div>
                     <div class="sectionLink" id="settingsAboutBtn">
                         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                             viewBox="0 0 64 64" style="enable-background:new 0 0 64 64;" xml:space="preserve">
@@ -427,9 +446,9 @@
                         </svg>
                         <div class="info">
                             <p class="name">About G4</p>
-                            <p class="description">Credits and change log</p>
+                            <p class="description">Updates, credits and change log</p>
                         </div>
-                    </div>                    
+                    </div>
                 </div>
             </dialog>
 
@@ -510,6 +529,36 @@
                     <div class="setting">
                         <input type="checkbox" id="settingVerifiedLegit">
                         <label for="settingVerifiedLegit">Show Verified Legit™ scores</label>
+                    </div>
+                </div>
+            </dialog>
+
+            <dialog id="settingsPlugins" class="settings">
+                <header>
+                    <button class="close">Back</button>
+                    Plugins
+                </header>
+
+                <div class="content">
+                    <h2>Installed plugins</h2>
+                    
+                    <div class="pluginList">
+                        <div class="plugin">
+                            <div class="toggle">
+                                <input type="checkbox" id="gfdgsdf">
+                                <label for="gfdgsdf">
+                                    <img src="plugins/test/icon.svg">
+                                    <p>Test plugin</p>
+                                </label>
+                            </div>
+                            <p class="description">
+                                Adds another Easy mode - "Easy 2".
+                            </p>
+                            <div class="buttons">
+                                <button>Delete</button>
+                                <button>Show console</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </dialog>

@@ -779,35 +779,35 @@ dialog.settings h2:not(:first-child) {
   margin-top: 32px;
 }
 
-div.sectionLink {
+div.sectionLink, div.bigButton {
   padding: 8px 16px;
   border-radius: 8px;
   display: flex;
   align-items: center;
 }
-div.sectionLink:hover {
+div.sectionLink:hover, div.bigButton:hover {
   background: var(--g4-app-header-background);
 }
-div.sectionLink:active {
+div.sectionLink:active, div.bigButton:active {
   background: var(--g4-app-foreground);
   color: var(--g4-app-background);
 }
-div.sectionLink:active svg {
+div.sectionLink:active svg, div.bigButton:active svg {
   fill: var(--g4-app-background);
 }
-div.sectionLink svg {
+div.sectionLink svg, div.bigButton svg {
   width: 32px;
   height: 32px;
   fill: var(--g4-app-foreground);
 }
-div.sectionLink div.info {
+div.sectionLink div.info, div.bigButton div.info {
   padding-left: 16px;
 }
-div.sectionLink div.info p {
+div.sectionLink div.info p, div.bigButton div.info p {
   font-size: 11pt;
   margin: 0px;
 }
-div.sectionLink div.info p.name {
+div.sectionLink div.info p.name, div.bigButton div.info p.name {
   font-size: 12pt;
   font-weight: 600;
 }
@@ -997,6 +997,82 @@ dialog#themeEditor div.colors div.color label {
   position: relative;
   font-size: 13pt;
   flex-grow: 1;
+}
+
+div.pluginList div.plugin {
+  background: var(--g4-app-header-background);
+  margin-top: 8px;
+  border-radius: 16px;
+}
+div.pluginList div.plugin p.description {
+  font-size: 11pt;
+  margin: 0px 16px;
+}
+div.pluginList div.plugin div.toggle {
+  position: relative;
+  padding: 16px 16px 8px 16px;
+  display: flex;
+}
+div.pluginList div.plugin div.toggle label {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+div.pluginList div.plugin div.toggle label img {
+  width: 48px;
+  height: 48px;
+}
+div.pluginList div.plugin div.toggle label p {
+  font-size: 13pt;
+  font-weight: 600;
+  margin: 0px 0px 0px 12px;
+}
+div.pluginList div.plugin div.toggle input[type=checkbox] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+div.pluginList div.plugin div.toggle input[type=checkbox] + label:before {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  width: 36px;
+  height: 24px;
+  background: var(--g4-app-foreground);
+  content: "";
+  border-radius: 12px;
+  transform: translateY(-50%);
+  transition: all 0.2s;
+}
+div.pluginList div.plugin div.toggle input[type=checkbox] + label:after {
+  position: absolute;
+  right: 30px;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  background: var(--g4-app-background);
+  content: "";
+  border-radius: 10px;
+  transform: translateY(-50%);
+  transition: background 0.2s, right 0.2s;
+}
+div.pluginList div.plugin div.toggle input[type=checkbox]:checked + label:before {
+  background: var(--g4-app-accent);
+}
+div.pluginList div.plugin div.toggle input[type=checkbox]:checked + label:after {
+  right: 18px;
+  background: var(--g4-app-background);
+}
+div.pluginList div.plugin div.buttons {
+  padding: 0px 16px 16px 16px;
+  display: flex;
+}
+div.pluginList div.plugin div.buttons button {
+  background: var(--g4-app-background);
+}
+div.pluginList div.plugin div.buttons button:active {
+  background: var(--g4-app-foreground);
+  color: var(--g4-app-background);
 }
 
 div.titleBar {
