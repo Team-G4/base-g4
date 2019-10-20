@@ -9,7 +9,18 @@ plugin.popNotification({
             text: "Pop another one!",
             callback: () => {
                 plugin.popNotification({
-                    text: "Hell yeah!"
+                    text: "Hell yeah!",
+
+                    buttons: [
+                        {
+                            text: "MORE!",
+                            callback: () => {
+                                plugin.popNotification({
+                                    text: "uwu stahp"
+                                })
+                            }
+                        }
+                    ]
                 })
             }
         }

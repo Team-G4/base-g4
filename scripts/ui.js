@@ -237,6 +237,7 @@ function showNotification(notif) {
             button.textContent = btn.text
             button.addEventListener("click", () => {
                 btn.callback()
+                container.removeChild(notifSection)
             })
 
             buttons.appendChild(button)
