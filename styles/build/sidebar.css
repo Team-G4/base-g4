@@ -121,7 +121,7 @@ aside section.gameMode div.content button.mode p {
   text-transform: uppercase;
 }
 aside section.gameMode div.content button.mode:hover {
-  box-shadow: inset 0px 0px 0px 4px var(--g4-game-foreground);
+  box-shadow: inset 0px 0px 0px 2px var(--g4-game-foreground);
 }
 aside section.gameMode div.content button.mode.active {
   background: var(--g4-game-foreground);

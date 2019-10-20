@@ -11,6 +11,9 @@ div.notifications {
     }
 
     section.notification {
+        background: var(--g4-app-foreground);
+        color: var(--g4-app-background);
+
         animation: NotificationPop 0.2s forwards;
 
         header {
@@ -29,6 +32,20 @@ div.notifications {
     
                 flex-grow: 1;
             }
+
+            button {
+                background: var(--g4-app-foreground);
+                color: var(--g4-app-background);
+
+                &:hover {
+                    box-shadow: inset 0px 0px 0px 2px var(--g4-app-accent);
+                }
+
+                &:active {
+                    background: var(--g4-app-accent);
+                    color: var(--g4-app-foreground);
+                }
+            }
         }
     
         div.content {
@@ -36,6 +53,22 @@ div.notifications {
     
             p {
                 margin: 0px 0px 4px 0px;
+            }
+
+            button {
+                background: var(--g4-app-foreground);
+                color: var(--g4-app-background);
+
+                box-shadow: inset 0px 0px 0px 1px var(--g4-app-background);
+
+                &:hover {
+                    box-shadow: inset 0px 0px 0px 2px var(--g4-app-accent);
+                }
+
+                &:active {
+                    background: var(--g4-app-accent);
+                    color: var(--g4-app-foreground);
+                }
             }
         }
         
