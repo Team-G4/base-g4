@@ -164,3 +164,92 @@ document.querySelector("#settingsPluginsBtn").addEventListener("click", function
 document.querySelector("#settingsAboutBtn").addEventListener("click", function() {
     openWindow("settingsAbout")
 })
+
+// Notifications
+/**
+ * @typedef {Object} NotificationSpec
+ * 
+ * @property {Object} source
+ * 
+ * @property {String} text
+ * @property {NotificationButtonSpec[]} buttons
+ */
+
+/**
+ * @typedef {Object} NotificationButtonSpec
+ * 
+ * @property {String} text
+ * @property {Function} callback
+ */
+
+/**
+ * 
+ * @param {NotificationSpec} notif 
+ */
+function showNotification(notif) {
+    if (notif.text.length > 100) notif.text = notif.text.substring(0, 98) + "..."
+
+    let container = document.querySelector("div.notifications")
+
+    let notifSection = document.createElement("section")
+    notifSection.classList.add("notification")
+
+    let header = document.createElement("header")
+
+    let icon = "", name = "G4"
+    if (notif.source) {
+        icon = notif.source.icon
+        name = notif.source.name
+    }
+
+    let iconImg = document.createElement("img")
+    iconImg.src = icon
+    header.appendChild(iconImg)
+
+    let nameP = document.createElement("p")
+    nameP.classList.add("name")
+    nameP.textContent = name
+    header.appendChild(nameP)
+
+    let dismissBtn = document.createElement("button")
+    dismissBtn.textContent = "Dismiss"
+    dismissBtn.addEventListener("click", () => {
+        container.removeChild(notifSection)
+    })
+    header.appendChild(dismissBtn)
+
+    notifSection.appendChild(header)
+
+    let content = document.createElement("div")
+    content.classList.add("content")
+
+    let text = document.createElement("p")
+    text.textContent = notif.text
+    content.appendChild(text)
+
+    if (notif.buttons && notif.buttons.length) {
+        let buttons = document.createElement("div")
+        buttons.classList.add("buttons")
+
+        notif.buttons.forEach(btn => {
+            let button = document.createElement("button")
+
+            button.textContent = btn.text
+            button.addEventListener("click", () => {
+                btn.callback()
+            })
+
+            buttons.appendChild(button)
+        })
+
+        content.appendChild(buttons)
+    }
+
+    notifSection.appendChild(content)
+
+    if (container.children.length) {
+        container.insertBefore(notifSection, container.children[0])
+    } else {
+        container.appendChild(notifSection)
+    }
+}

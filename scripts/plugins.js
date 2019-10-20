@@ -78,6 +78,19 @@
                     if (index >= 0) this.eventHandlers.splice(index, 1)
                 },
 
+                popNotification: (notif) => {
+                    let source = {
+                        icon: path.join(pluginPath, this.directory, this.icon),
+                        name: this.name
+                    }
+
+                    showNotification({
+                        source,
+                        text: notif.text,
+                        buttons: notif.buttons
+                    })
+                },
+
                 // Debug messages
                 log: (message) => {
                     this.debugMessages.push(
