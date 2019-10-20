@@ -1,0 +1,20 @@
+section.notification header {
+  justify-content: flex-start;
+}
+section.notification header img {
+  width: 20px;
+  height: 20px;
+}
+section.notification header p {
+  font-size: 11pt;
+  margin: 0px 0px 0px 12px;
+  flex-grow: 1;
+}
+section.notification div.content {
+  padding: 0px 16px;
+}
+section.notification div.content p {
+  margin: 0px 0px 4px 0px;
+}
+
+/*# sourceMappingURL=notification.css.map */

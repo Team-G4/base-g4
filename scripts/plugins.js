@@ -8,10 +8,19 @@
     let loadedPlugins = []
 
     class PluginDebugMessage {
-        constructor(message, type) {
+        constructor(plugin) {
+            this.plugin = plugin
+
+            this.timestamp = new Date()
+        }
+    }
+
+    class PluginDebugTextMessage extends PluginDebugMessage {
+        constructor(plugin, message, type) {
+            super(plugin)
+
             this.message = message
             this.type = type
-            this.timestamp = new Date()
 
             console[this.type]("[PLUGIN] " + this.message)
         }
@@ -67,22 +76,22 @@
                 // Debug messages
                 log: (message) => {
                     this.debugMessages.push(
-                        new PluginDebugMessage(message, "log")
+                        new PluginDebugTextMessage(this, message, "log")
                     )
                 },
                 info: (message) => {
                     this.debugMessages.push(
-                        new PluginDebugMessage(message, "info")
+                        new PluginDebugTextMessage(this, message, "info")
                     )
                 },
                 warn: (message) => {
                     this.debugMessages.push(
-                        new PluginDebugMessage(message, "warn")
+                        new PluginDebugTextMessage(this, message, "warn")
                     )
                 },
                 error: (message) => {
                     this.debugMessages.push(
-                        new PluginDebugMessage(message, "error")
+                        new PluginDebugTextMessage(this, message, "error")
                     )
                 }
             }
@@ -106,6 +115,11 @@
         }
     }
 
+    function updatePluginList() {
+        for (let plugin of loadedPlugins) {
+        }
+    }
+
     fs.readdirSync(pluginPath, {
         withFileTypes: true
     }).filter(dirent => dirent.isDirectory()).map(dirent => dirent.name).forEach(dir => {
@@ -120,6 +134,8 @@
             )
         )
     })
+
+    updatePluginList()
 
     console.log(loadedPlugins)
 })()
