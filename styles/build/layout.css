@@ -1245,6 +1245,7 @@ button {
   text-transform: uppercase;
   padding: 4px 16px;
   border: none;
+  outline: none;
   border-radius: 8px;
 }
 
