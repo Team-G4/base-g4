@@ -330,6 +330,15 @@ div.pluginList {
             margin: 0px 16px;
         }
 
+        p.running {
+            color: var(--g4-app-accent);
+
+            font-size: 11pt;
+            font-weight: 600;
+
+            margin: 0px 0px 0px 16px;
+        }
+
         div.toggle {
             position: relative;
 

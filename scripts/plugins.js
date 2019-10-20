@@ -5,6 +5,9 @@
 
     const pluginPath = path.join(__dirname, "plugins")
 
+    /**
+     * @type {Plugin[]}
+     */
     let loadedPlugins = []
 
     class PluginDebugMessage {
@@ -34,11 +37,12 @@
     }
 
     class Plugin {
-        constructor(dir, manifestData) {
+        constructor(dir, manifestData, isRunning) {
             this.directory = dir
 
             this.name = manifestData.name
             this.author = manifestData.author
+            this.description = manifestData.description
 
             this.icon = manifestData.icon
 
@@ -56,7 +60,8 @@
              */
             this.eventHandlers = []
 
-            this.run()
+            this.isRunning = isRunning
+            if (isRunning) this.run()
         }
 
         getPluginContext() {
@@ -116,8 +121,103 @@
     }
 
     function updatePluginList() {
+        let list = document.querySelector("div.pluginList")
+        list.innerHTML = ""
+
         for (let plugin of loadedPlugins) {
+            let div = document.createElement("div")
+            div.classList.add("plugin")
+
+            let toggle = document.createElement("div")
+            toggle.classList.add("toggle")
+
+            let checkbox = document.createElement("input")
+            checkbox.type = "checkbox"
+            checkbox.id = Math.floor(Math.random() * 1000000)
+            if (plugin.isRunning) checkbox.checked = true
+            toggle.appendChild(checkbox)
+
+            checkbox.addEventListener("input", () => {
+                if (checkbox.checked) {
+                    setPluginAsRunning(plugin.directory)
+                } else {
+                    setPluginAsStopped(plugin.directory)
+                }
+            })
+
+            let label = document.createElement("label")
+            label.htmlFor = checkbox.id
+
+            let logo = document.createElement("img")
+            logo.src = path.join(pluginPath, plugin.directory, plugin.icon)
+            label.appendChild(logo)
+
+            let name = document.createElement("p")
+            name.textContent = plugin.name
+            label.appendChild(name)
+
+            toggle.appendChild(label)
+
+            div.appendChild(toggle)
+
+            let description = document.createElement("p")
+            description.classList.add("description")
+            description.textContent = plugin.description
+            div.appendChild(description)
+
+            if (plugin.isRunning) {
+                let running = document.createElement("p")
+                running.classList.add("running")
+                running.textContent = "The plugin is enabled."
+                div.appendChild(running)
+            }
+
+            let buttons = document.createElement("div")
+            buttons.classList.add("buttons")
+
+            let deleteBtn = document.createElement("button")
+            deleteBtn.textContent = "Delete"
+            buttons.appendChild(deleteBtn)
+
+            let consoleBtn = document.createElement("button")
+            consoleBtn.textContent = "Show console"
+            buttons.appendChild(consoleBtn)
+
+            div.appendChild(buttons)
+
+            list.appendChild(div)
         }
+    }
+
+    function getRunningPlugins() {
+        if (!localStorage.getItem("g4_runningPlugins")) localStorage["g4_runningPlugins"] = "[]"
+
+        return JSON.parse(localStorage["g4_runningPlugins"])
+    }
+
+    function setPluginAsRunning(pluginID) {
+        if (!localStorage.getItem("g4_runningPlugins")) localStorage["g4_runningPlugins"] = "[]"
+        let plugins = JSON.parse(localStorage["g4_runningPlugins"])
+
+        if (!plugins.includes(pluginID)) plugins.push(pluginID)
+
+        localStorage["g4_runningPlugins"] = JSON.stringify(plugins)
+    }
+
+    function setPluginAsStopped(pluginID) {
+        if (!localStorage.getItem("g4_runningPlugins")) localStorage["g4_runningPlugins"] = "[]"
+        let plugins = JSON.parse(localStorage["g4_runningPlugins"])
+
+        if (plugins.includes(pluginID)) plugins.splice(plugins.indexOf(pluginID), 1)
+
+        localStorage["g4_runningPlugins"] = JSON.stringify(plugins)
+    }
+
+    function isPluginRunning(pluginID) {
+        if (!localStorage.getItem("g4_runningPlugins")) localStorage["g4_runningPlugins"] = "[]"
+        let plugins = JSON.parse(localStorage["g4_runningPlugins"])
+
+        return plugins.includes(pluginID)
     }
 
     fs.readdirSync(pluginPath, {
@@ -130,12 +230,15 @@
                 dir,
                 JSON.parse(
                     fs.readFileSync(path.join(pluginPath, dir, "manifest.json"), "utf-8")
-                )
+                ),
+                isPluginRunning(dir)
             )
         )
     })
 
     updatePluginList()
 
-    console.log(loadedPlugins)
+    document.querySelector("button#reloadG4Btn").addEventListener("click", () => {
+        location.reload()
+    })
 })()

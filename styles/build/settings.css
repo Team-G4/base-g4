@@ -234,6 +234,12 @@ div.pluginList div.plugin p.description {
   font-size: 11pt;
   margin: 0px 16px;
 }
+div.pluginList div.plugin p.running {
+  color: var(--g4-app-accent);
+  font-size: 11pt;
+  font-weight: 600;
+  margin: 0px 0px 0px 16px;
+}
 div.pluginList div.plugin div.toggle {
   position: relative;
   padding: 16px 16px 8px 16px;
