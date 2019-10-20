@@ -14,9 +14,11 @@ aside {
 
     transition: right 0.2s;
 
-    header {
+    & > header {        
         min-height: 48px;
-        
+    }
+
+    header {
         display: flex;
         flex-wrap: wrap;
 
