@@ -1,91 +1,157 @@
-/**
- * @typedef {Object} Projectile
- * 
- * @property {Number} x
- * @property {Number} y
- * @property {Number} velocityX
- * @property {Number} velocityY
- * @property {Number} radius
- */
+class Projectile {
+    constructor(x, y, velocityX, velocityY, radius) {
+        /**
+         * @type {Number}
+         */
+        this.x = x
+        /**
+         * @type {Number}
+         */
+        this.y = y
 
-/**
- * @typedef {Object} Cannon
- * 
- * @property {Number} x
- * @property {Number} y
- * @property {Number} angle
- * @property {Number} freqMultiplier
- */
+        /**
+         * @type {Number}
+         */
+        this.velocityX = velocityX
+        /**
+         * @type {Number}
+         */
+        this.velocityY = velocityY
 
-/**
- * @typedef {Object} RingElement
- * 
- * @property {String} type
- */
+        /**
+         * @type {Number}
+         */
+        this.radius = radius
+    }
+}
 
-/**
- * @typedef {Object} RingBall
- * 
- * @property {String} type
- * 
- * @property {Number} centerX
- * @property {Number} centerY
- * 
- * @property {Number} angle
- * @property {Number} distance
- * @property {Number} radius
- */
+class Cannon {
+    constructor(x, y, angle, freqMultiplier) {
+        /**
+         * @type {Number}
+         */
+        this.x = x
+        /**
+         * @type {Number}
+         */
+        this.y = y
+        /**
+         * @type {Number}
+         */
+        this.angle = angle
+        /**
+         * @type {Number}
+         */
+        this.freqMultiplier = freqMultiplier
+    }
+}
 
-/**
- * @typedef {Object} RingPulsingBall
- * 
- * @property {String} type
- * 
- * @property {Number} centerX
- * @property {Number} centerY
- * 
- * @property {Number} angle
- * @property {Number} distance
- * @property {Number} radius
- * 
- * @property {Number} baseRadius
- * @property {Number} pulseTime
- * @property {Number} pulseFreq
- */
+class RingElement {
+    constructor(type, centerX, centerY) {
+        /**
+         * @type {String}
+         */
+        this.type = type
 
-/**
- * @typedef {Object} RingBar
- * 
- * @property {String} type
- * 
- * @property {Number} centerX
- * @property {Number} centerY
- * 
- * @property {Number} angleStart
- * @property {Number} angleLength
- * @property {Number} distance
- * @property {Number} radius
- */
+        /**
+         * @type {Number}
+         */
+        this.centerX = centerX ? 0 : centerX
+        /**
+         * @type {Number}
+         */
+        this.centerY = centerY ? 0 : centerY
+    }
+}
 
-/**
- * @typedef {Object} RingMarqueeBar
- * 
- * @property {String} type
- * 
- * @property {Number} centerX
- * @property {Number} centerY
- * 
- * @property {Number} angleStart
- * @property {Number} angleLength
- * @property {Number} distance
- * @property {Number} radius
- * 
- * @property {Number} sweepFreq
- * @property {Number} sweepTime
- * @property {Number} baseStart
- * @property {Number} baseEnd
- */
+class RingBall extends RingElement {
+    constructor(angle, distance, radius, centerX, centerY) {
+        super("ball", centerX, centerY)
 
+        /**
+         * @type {Number}
+         */
+        this.angle = angle
+        /**
+         * @type {Number}
+         */
+        this.distance = distance
+        /**
+         * @type {Number}
+         */
+        this.radius = radius
+    }
+}
+
+class RingPulsingBall extends RingBall {
+    constructor(angle, distance, radius, pulseFreq, centerX, centerY) {
+        super(angle, distance, radius, centerX, centerY)
+        this.type = "pulsingBall"
+
+        /**
+         * @type {Number}
+         */
+        this.baseRadius = radius
+
+        /**
+         * @type {Number}
+         */        
+        this.pulseFreq = pulseFreq
+
+        /**
+         * @type {Number}
+         */
+        this.pulseTime = 0
+    }
+}
+
+class RingBar extends RingElement {
+    constructor(angleStart, angleLength, distance, radius, centerX, centerY) {
+        super("bar", centerX, centerY)
+
+        /**
+         * @type {Number}
+         */
+        this.angleStart = angleStart
+        /**
+         * @type {Number}
+         */
+        this.angleLength = angleLength
+
+        /**
+         * @type {Number}
+         */
+        this.distance = distance
+        /**
+         * @type {Number}
+         */
+        this.radius = radius
+    }
+}
+
+class RingMarqueeBar extends RingBar {
+    constructor(angleStart, angleLength, distance, radius, sweepFreq, centerX, centerY) {
+        super(angleStart, angleLength, distance, radius, centerX, centerY)
+        this.type = "marqueeBar"
+
+        /**
+         * @type {Number}
+         */
+        this.baseStart = angleStart
+        /**
+         * @type {Number}
+         */
+        this.baseEnd = angleStart + angleLength
+        /**
+         * @type {Number}
+         */
+        this.sweepTime = 0
+        /**
+         * @type {Number}
+         */
+        this.sweepFreq = sweepFreq
+    }
+}
  /**
   * @typedef {Object} RingH
   * 
@@ -104,27 +170,59 @@
   * @property {Boolean} hasBase
   * @property {Number} baseDistance
   */
+class RingH extends RingElement {
+    constructor(
+        angle, distance, radius, direction,
+        layout, wingSpan, hasBase, baseDistance
+    ) {
+    }
+}
 
-/**
- * @typedef {Object} Ring
- * 
- * @property {RingElement[]} items
- * @property {Number} speedMult
- * @property {Number} rotation
- * @property {Boolean} isDistraction
- * 
- * @property {Number} distance
- * @property {Number} revolveFreq
- * @property {Number} revolvePhase
- */
+class Ring {
+    constructor(items, speedMult, isDistraction, distance, revolveFreq, revolvePhase) {
+        /**
+         * @type {RingElement[]}
+         */
+        this.items = items
 
-/**
- * @typedef {Object} SlowMode
- * 
- * @property {Number} time
- * @property {Boolean} isSlow
- */
+        this.rotation = 0
 
+        /**
+         * @type {Number}
+         */
+        this.speedMult = speedMult
+        /**
+         * @type {Boolean}
+         */
+        this.isDistraction = isDistraction
+
+        /**
+         * @type {Number}
+         */
+        this.distance = distance
+        /**
+         * @type {Number}
+         */
+        this.revolveFreq = revolveFreq
+        /**
+         * @type {Number}
+         */
+        this.revolvePhase = revolvePhase
+    }
+}
+
+class SlowMode {
+    constructor(time, isSlow) {
+        /**
+         * @type {Number}
+         */
+        this.time = time
+        /**
+         * @type {Boolean}
+         */
+        this.isSlow = isSlow
+    }
+}
 /**
  * @typedef {Object} GameData
  * 
@@ -148,14 +246,7 @@ class LevelGenerator {
      * @returns {RingBall}
      */
     static createRingBall(angle, distance, radius, centerX, centerY) {
-        if (!centerX) centerX = 0
-        if (!centerY) centerY = 0
-
-        return {
-            type: "ball",
-            angle, distance, radius,
-            centerX, centerY
-        }
+        return new RingBall(angle, distance, radius, centerX, centerY)
     }
 
     /**
@@ -166,17 +257,7 @@ class LevelGenerator {
      * @return {RingPulsingBall}
      */
     static createRingPulsingBall(angle, distance, radius, pulseFreq, centerX, centerY) {
-        if (!centerX) centerX = 0
-        if (!centerY) centerY = 0
-
-        return {
-            type: "pulsingBall",
-            angle, distance, radius,
-            pulseFreq,
-            pulseTime: 0,
-            baseRadius: radius,
-            centerX, centerY
-        }
+        return new RingPulsingBall(angle, distance, radius, pulseFreq, centerX, centerY)
     }
 
     /**
@@ -187,14 +268,7 @@ class LevelGenerator {
      * @returns {RingBar}
      */
     static createRingBar(angleStart, angleLength, distance, radius, centerX, centerY) {
-        if (!centerX) centerX = 0
-        if (!centerY) centerY = 0
-
-        return {
-            type: "bar",
-            angleStart, angleLength, distance, radius,
-            centerX, centerY
-        }
+        return new RingBar(angleStart, angleLength, distance, radius, centerX, centerY)
     }
 
     /**
@@ -210,18 +284,7 @@ class LevelGenerator {
         sweepFreq,
         centerX, centerY
     ) {
-        if (!centerX) centerX = 0
-        if (!centerY) centerY = 0
-
-        return {
-            type: "marqueeBar",
-            angleStart, angleLength, distance, radius,
-            sweepFreq,
-            sweepTime: 0,
-            baseStart: angleStart,
-            baseEnd: angleStart + angleLength,
-            centerX, centerY
-        }
+        return new RingMarqueeBar(angleStart, angleLength, distance, radius, sweepFreq, centerX, centerY)
     }
 
     /**
