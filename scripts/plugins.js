@@ -12,6 +12,8 @@
             this.message = message
             this.type = type
             this.timestamp = new Date()
+
+            console[this.type]("[PLUGIN] " + this.message)
         }
     }
 
