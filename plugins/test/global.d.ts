@@ -1,29 +1,5 @@
 declare namespace G4 {
-    interface Score {
-        mode: string;
-
-        score: number;
-        deathCount: number;
-
-        userName: string;
-    }
-
-    interface Achievement {
-        achievementId: string;
-        mode: string;
-    }
-
-    interface User {
-        userName: string;
-
-        getScores(): Promise<Score[]>;
-        getScore(mode: string): Promise<Score>;
-
-        getAchievements(): Promise<Achievement[]>
-    }
-
     type ModeInfo = {
-        id: string,
         name: string
     }
 
@@ -62,8 +38,6 @@ declare namespace G4 {
     }
 
     interface PluginContext {
-        getCurrentUser(): User;
-
         registerMode(mode: Mode);
         registerSound(path: string): Promise<Sound>;
 

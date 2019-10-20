@@ -881,28 +881,7 @@ class LevelGenerator {
 
         gameData.rotation = 0
 
-        gameData.rings = [
-            {
-                isDistraction: false,
-                rotation: 0,
-                speedMult: 1,
-                items: [
-                    {
-                        type: "ball",
-                        angle: 0,
-                        distance: 200,
-                        radius: 50
-                    },
-                    {
-                        type: "bar",
-                        angleStart: 0,
-                        angleLength: 0.3,
-                        distance: 200,
-                        radius: 10
-                    }
-                ]
-            }
-        ]
+        gameData.rings = []
         gameData.rings = LevelGenerator.generateRings(mode, levelIndex)
 
         gameData.cannon = {
