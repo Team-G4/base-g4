@@ -56,11 +56,11 @@ class RingElement {
         /**
          * @type {Number}
          */
-        this.centerX = centerX ? 0 : centerX
+        this.centerX = centerX ? centerX : 0
         /**
          * @type {Number}
          */
-        this.centerY = centerY ? 0 : centerY
+        this.centerY = centerY ? centerY : 0
     }
 }
 
@@ -152,29 +152,24 @@ class RingMarqueeBar extends RingBar {
         this.sweepFreq = sweepFreq
     }
 }
- /**
-  * @typedef {Object} RingH
-  * 
-  * @property {String} type
-  * 
-  * @property {Number} centerX
-  * @property {Number} centerY
-  * 
-  * @property {Number} angle
-  * @property {Number} distance
-  * @property {Number} radius
-  * @property {Number} direction
-  * @property {Number} layout
-  * @property {Number} wingSpan
-  * 
-  * @property {Boolean} hasBase
-  * @property {Number} baseDistance
-  */
+
 class RingH extends RingElement {
     constructor(
         angle, distance, radius, direction,
-        layout, wingSpan, hasBase, baseDistance
+        layout, wingSpan, hasBase, baseDistance,
+        centerX, centerY
     ) {
+        super("h", centerX, centerY)
+
+        this.angle = angle
+        this.distance = distance
+        this.radius = radius
+        this.direction = direction
+
+        this.layout = layout
+        this.wingSpan = wingSpan
+        this.hasBase = hasBase
+        this.baseDistance = baseDistance
     }
 }
 
@@ -199,15 +194,15 @@ class Ring {
         /**
          * @type {Number}
          */
-        this.distance = distance
+        this.distance = distance ? distance : 0
         /**
          * @type {Number}
          */
-        this.revolveFreq = revolveFreq
+        this.revolveFreq = revolveFreq ? distance : 0
         /**
          * @type {Number}
          */
-        this.revolvePhase = revolvePhase
+        this.revolvePhase = revolvePhase ? distance : 0
     }
 }
 
@@ -223,20 +218,24 @@ class SlowMode {
         this.isSlow = isSlow
     }
 }
-/**
- * @typedef {Object} GameData
- * 
- * @property {Projectile} projectile
- * @property {Cannon} cannon
- * @property {Ring[]} rings
- * @property {SlowMode} slow
- * @property {Number} rotation
- * 
- * @property {Number} levelIndex
- * @property {Number} userRecord
- * @property {Number} userDeaths
- * @property {String} mode
- */
+
+class GameData {
+    constructor(mode, cannon, rings, levelIndex, deathCount, record) {
+        this.mode = mode
+
+        this.projectile = null
+        this.cannon = cannon
+
+        this.rings = rings
+        this.rotation = 0
+
+        this.slow = new SlowMode(0, false)
+
+        this.levelIndex = levelIndex
+        this.userDeaths = deathCount
+        this.userRecord = record
+    }
+}
 
 class LevelGenerator {
     /**
@@ -759,204 +758,253 @@ class LevelGenerator {
         return coverage.getMaxLength() * ringLength
     }
 
+    static generate(
+        levelIndex, userRecord,
+        mode
+    ) {
+        let modeObj = gameModes.find(m => m.modeId == mode)
+
+        return new GameData(
+            mode,
+            new Cannon(0, 0, 0, 1),
+            modeObj.generateRings(levelIndex),
+            levelIndex, 0, userRecord
+        )
+    }
+}
+
+class Mode {
     /**
-     * @param {String} mode 
+     * @param {String} name 
+     */
+    constructor(name) {
+        this.name = name
+    }
+
+    /**
      * @param {Number} levelIndex 
      * @returns {Ring[]}
      */
-    static generateRings(mode, levelIndex) {
-        let rings = []
-
-        let defaultProgression = LevelGenerator.getDefaultDifficulties(levelIndex)
-
-        switch (mode) {
-            case "easy":
-                defaultProgression[0] = Math.max(defaultProgression[0], 2)
-                defaultProgression[1] = 0
-                defaultProgression[2] = 0
-
-                LevelGenerator.generateDefaultRings(rings, defaultProgression)
-
-                break
-            case "normal":
-                LevelGenerator.generateDefaultRings(rings, defaultProgression)
-
-                break
-            case "hard":
-                defaultProgression = defaultProgression.map(x => x ? 3 : 0)
-
-                LevelGenerator.generateDefaultRings(rings, defaultProgression)
-                
-                break
-            case "hell":
-                rings.push(
-                    LevelGenerator.createRing(
-                        LevelGenerator.generateInnerRing(2, 200),
-                        1, false
-                    )
-                )
-                rings.push(
-                    LevelGenerator.createRing(
-                        LevelGenerator.generateInnerRing(2, 200),
-                        0.5, false
-                    )
-                )
-                rings.push(
-                    LevelGenerator.createRing(
-                        LevelGenerator.generateMiddleRing(3, 300),
-                        0.5, false
-                    )
-                )
-                rings.push(
-                    LevelGenerator.createRing(
-                        LevelGenerator.generateOuterRing(3, 400),
-                        0.25, false
-                    )
-                )
-                rings.push(
-                    LevelGenerator.createRing(
-                        LevelGenerator.generateOuterRing(3, 400),
-                        0.125, false
-                    )
-                )
-                break
-            case "hades":
-                rings.push(
-                    LevelGenerator.createRing(
-                        LevelGenerator.generateInnerRing(1, 100),
-                        1, false
-                    )
-                )
-                rings.push(
-                    LevelGenerator.createRing(
-                        LevelGenerator.generateInnerRing(3, 300),
-                        0.5, false
-                    )
-                )
-                rings.push(
-                    LevelGenerator.createRing(
-                        LevelGenerator.generateOuterRing(3, 400),
-                        0.25, false
-                    )
-                )
-                rings.push(
-                    LevelGenerator.createRing(
-                        LevelGenerator.generateOuterRing(3, 400),
-                        0.125, false
-                    )
-                )
-
-                // Distractions
-                rings.push(
-                    LevelGenerator.createRing(
-                        LevelGenerator.generateMiddleRing(3, 300),
-                        1, true
-                    )
-                )
-                rings.push(
-                    LevelGenerator.createRing(
-                        LevelGenerator.generateOuterRing(3, 400),
-                        0.5, true
-                    )
-                )
-                rings.push(
-                    LevelGenerator.createRing(
-                        LevelGenerator.generateInnerRing(2, 150),
-                        0.75, true
-                    )
-                )
-                break
-            case "denise":
-                rings.push(
-                    LevelGenerator.createRing(
-                        LevelGenerator.generateDeniseRing(4, 200),
-                        1, false
-                    )
-                )
-                rings.push(
-                    LevelGenerator.createRing(
-                        LevelGenerator.generateDeniseRing(4, 266),
-                        0.5, false
-                    )
-                )
-                rings.push(
-                    LevelGenerator.createRing(
-                        LevelGenerator.generateDeniseRing(4, 333),
-                        0.25, false
-                    )
-                )
-                rings.push(
-                    LevelGenerator.createRing(
-                        LevelGenerator.generateDeniseRing(4, 400),
-                        0.125, false
-                    )
-                )
-                break
-            case "reverse":
-                rings.push(
-                    LevelGenerator.createRing(
-                        LevelGenerator.generateOuterRing(2, 150),
-                        1, false
-                    )
-                )
-                rings.push(
-                    LevelGenerator.createRing(
-                        LevelGenerator.generateOuterRing(3, 300),
-                        0.5, false
-                    )
-                )
-                break
-            case "nox":
-
-                LevelGenerator.generateNoxRings(rings, levelIndex)
-
-                break
-            case "h":
-                LevelGenerator.generateHRings(rings, levelIndex)
-
-                break
-        }
-
+    generateRings(levelIndex) {
+        let rings = this.getRings(levelIndex)
         let clearances = rings.map(ring => {
             return LevelGenerator.calculateRingClearance(ring)
         }).filter(n => isFinite(n))
 
         if (Math.min(...clearances) < 120) {
-            return LevelGenerator.generateRings(mode, levelIndex)
+            return this.generateRings(levelIndex)
         }
 
         return rings
     }
 
-    static generate(
-        levelIndex, userRecord,
-        mode
-    ) {
-        /**
-         * @type {GameData}
-         */
-        let gameData = {}
-
-        gameData.levelIndex = levelIndex
-        gameData.userRecord = userRecord
-        gameData.userDeaths = 0
-        gameData.mode = mode
-
-        gameData.rotation = 0
-
-        gameData.rings = []
-        gameData.rings = LevelGenerator.generateRings(mode, levelIndex)
-
-        gameData.cannon = {
-            x: 0, y: 0,
-            freqMultiplier: 1, angle: 0
-        }
-
-        gameData.slow = {
-            isSlow: false,
-            time: 0
-        }
-
-        return gameData
+    /**
+     * @param {Number} levelIndex 
+     * @returns {Ring[]}
+     */
+    getRings(levelIndex) {
+        return []
     }
 }
+
+class NativeMode extends Mode {
+    constructor(id, name) {
+        super(name)
+
+        this.modeId = id
+    }
+}
+
+class EasyNativeMode extends NativeMode {
+    constructor() {
+        super("easy", "Easy")
+    }
+
+    getRings(levelIndex) {
+        let prog = LevelGenerator.getDefaultDifficulties(levelIndex)
+        prog[0] = Math.max(prog[0], 2)
+        prog[1] = 0
+        prog[2] = 0
+
+        let rings = []
+        
+        LevelGenerator.generateDefaultRings(rings, prog)
+
+        return rings
+    }
+}
+
+class NormalNativeMode extends NativeMode {
+    constructor() {
+        super("normal", "Normal")
+    }
+
+    getRings(levelIndex) {
+        let prog = LevelGenerator.getDefaultDifficulties(levelIndex)
+        let rings = []
+        
+        LevelGenerator.generateDefaultRings(rings, prog)
+
+        return rings
+    }
+}
+
+class HardNativeMode extends NativeMode {
+    constructor() {
+        super("hard", "Hard")
+    }
+
+    getRings(levelIndex) {
+        let prog = LevelGenerator.getDefaultDifficulties(levelIndex).map(x => x ? 3 : 0)
+        let rings = []
+        
+        LevelGenerator.generateDefaultRings(rings, prog)
+
+        return rings
+    }
+}
+
+class HellNativeMode extends NativeMode {
+    constructor() {
+        super("hell", "Hell")
+    }
+
+    getRings(levelIndex) {
+        return [
+            new Ring(
+                LevelGenerator.generateInnerRing(2, 200),
+                1, false
+            ),
+            new Ring(
+                LevelGenerator.generateInnerRing(2, 200),
+                0.5, false
+            ),
+            new Ring(
+                LevelGenerator.generateMiddleRing(3, 300),
+                0.5, false
+            ),
+            new Ring(
+                LevelGenerator.generateOuterRing(3, 400),
+                0.25, false
+            ),
+            new Ring(
+                LevelGenerator.generateOuterRing(3, 400),
+                0.125, false
+            )
+        ]
+    }
+}
+
+class HadesNativeMode extends NativeMode {
+    constructor() {
+        super("hades", "Hades")
+    }
+
+    getRings(levelIndex) {
+        return [
+            new Ring(
+                LevelGenerator.generateInnerRing(1, 100),
+                1, false
+            ),
+            new Ring(
+                LevelGenerator.generateInnerRing(3, 300),
+                0.5, false
+            ),
+            new Ring(
+                LevelGenerator.generateOuterRing(3, 400),
+                0.25, false
+            ),
+            new Ring(
+                LevelGenerator.generateOuterRing(3, 400),
+                0.125, false
+            ),
+
+            new Ring(
+                LevelGenerator.generateMiddleRing(3, 300),
+                1, true
+            ),
+            new Ring(
+                LevelGenerator.generateOuterRing(3, 400),
+                0.5, true
+            ),
+            new Ring(
+                LevelGenerator.generateInnerRing(2, 150),
+                0.75, true
+            )
+        ]
+    }
+}
+
+class ChaosNativeMode extends NativeMode {
+    constructor() {
+        super("denise", "Chaos")
+    }
+
+    getRings(levelIndex) {
+        return [
+            new Ring(
+                LevelGenerator.generateDeniseRing(4, 200),
+                1, false
+            ),
+            new Ring(
+                LevelGenerator.generateDeniseRing(4, 266),
+                0.5, false
+            ),
+            new Ring(
+                LevelGenerator.generateDeniseRing(4, 333),
+                0.25, false
+            ),
+            new Ring(
+                LevelGenerator.generateDeniseRing(4, 400),
+                0.125, false
+            )
+        ]
+    }
+}
+
+class ReverseNativeMode extends NativeMode {
+    constructor() {
+        super("reverse", "Reverse")
+    }
+
+    getRings(levelIndex) {
+        return [
+            new Ring(
+                LevelGenerator.generateOuterRing(2, 150),
+                1, false
+            ),
+            new Ring(
+                LevelGenerator.generateOuterRing(3, 300),
+                0.5, false
+            )
+        ]
+    }
+}
+
+class NoxNativeMode extends NativeMode {
+    constructor() {
+        super("nox", "Nox")
+    }
+
+    getRings(levelIndex) {
+        let rings = []
+
+        LevelGenerator.generateNoxRings(rings, levelIndex)
+
+        return rings
+    }
+}
+
+/**
+ * @type {Mode[]}
+ */
+let gameModes = [
+    new EasyNativeMode(),
+    new NormalNativeMode(),
+    new HardNativeMode(),
+    new HellNativeMode(),
+    new HadesNativeMode(),
+    new ChaosNativeMode(),
+    new ReverseNativeMode(),
+    new NoxNativeMode()
+]

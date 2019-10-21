@@ -587,7 +587,8 @@ class Game {
             this.data.levelIndex = levelIndex
             this.data.mode = mode
 
-            this.data.rings = LevelGenerator.generateRings(mode, levelIndex)
+            let modeObj = gameModes.find(m => m.modeId == mode)
+            this.data.rings = modeObj.generateRings(levelIndex)
         }
         this.disableSlow()
 

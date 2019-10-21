@@ -105,23 +105,38 @@
     }, 1000 / physicsFps)
 
     // Mode changing buttons
-    document.querySelectorAll("section.gameMode button").forEach(button => {
-        button.addEventListener("click", () => {
-            if (mainGame.data.mode == button.getAttribute("data-mode")) return
+    let modeButtons = document.querySelector("section.gameMode div.content")
+    gameModes.forEach(mode => {
+        let button = document.createElement("button")
+        button.classList.add("mode")
 
-            mainGame.generateLevel(
-                button.getAttribute("data-mode"),
-                0
-            )
-            mainGame.data.slow = {
-                time: 0,
-                isSlow: false
+        if (mode instanceof NativeMode) {
+            button.setAttribute("data-mode", mode.modeId)
+
+            if (mode.modeId == "easy") button.classList.add("active")
+        }
+        button.textContent = mode.name
+
+        button.addEventListener("click", () => {
+            if (button.classList.contains("active")) return
+
+            if (mode instanceof NativeMode) {
+                mainGame.generateLevel(
+                    button.getAttribute("data-mode"),
+                    0
+                )
+                mainGame.data.slow = {
+                    time: 0,
+                    isSlow: false
+                }
+
+                playAudio(mainGame.data.mode)
             }
 
             document.querySelector("section.gameMode button.active").classList.remove("active")
             button.classList.add("active")
-
-            playAudio(mainGame.data.mode)
         })
+
+        modeButtons.appendChild(button)
     })
 })()
