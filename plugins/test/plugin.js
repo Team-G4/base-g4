@@ -54,47 +54,5 @@ class JasonMode extends G4.Mode {
     }
 }
 
-class Easy2Mode extends G4.Mode {
-    constructor() {
-        super("Easy 2") // name
-    }
-
-    getRings(
-        levelIndex // the number of the generated level
-    ) {
-        return [
-            new G4.Ring(
-                G4.levelGen.generateRing(
-                    G4.levelGen.ringTypes.TYPE_C,
-                    3, 200
-                ),
-                1, false
-            ),
-            new G4.Ring(
-                G4.levelGen.generateRing(
-                    G4.levelGen.ringTypes.TYPE_C,
-                    2, 300
-                ),
-                1, false
-            )
-        ]
-    }
-
-    getThemeColors() {
-        return {
-            background: "#1F342E",
-            damage: "#324B4F",
-
-            foreground: "#50B9C9",
-            obstacle1: "#50B9C9",
-            obstacle2: "#BEF386",
-
-            cannon: "#BEFBFF",
-            bullet: "#00A9CA"
-        }
-    }
-}
-
 // Register the new modes!
 plugin.registerMode(new JasonMode())
-plugin.registerMode(new Easy2Mode())

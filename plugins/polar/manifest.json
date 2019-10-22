@@ -1,0 +1,10 @@
+{
+    "name": "Polar Mode",
+    "author": "scintilla4evr",
+    "description": "Imperfect reflection.",    
+    "icon": "icon.svg",
+
+    "version": 1,
+
+    "script": "plugin.js"
+}
