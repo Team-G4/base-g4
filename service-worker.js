@@ -1,7 +1,7 @@
 'use strict';
 
 // bush me uwu
-const DEV_BUILD_VERSION = 23
+const DEV_BUILD_VERSION = 30
 
 const CACHE_NAME = `static-cache-g4.6-stable${DEV_BUILD_VERSION}`;
 const DATA_CACHE_NAME = `static-cache-g4.6-stable${DEV_BUILD_VERSION}`;
