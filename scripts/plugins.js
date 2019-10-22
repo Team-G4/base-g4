@@ -15,6 +15,15 @@
             this.plugin = plugin
 
             this.timestamp = new Date()
+
+            dispatchEvent(new CustomEvent(
+                "g4pluginmessage", {
+                    detail: {
+                        plugin: plugin,
+                        message: this
+                    }
+                }
+            ))
         }
     }
 
@@ -24,8 +33,14 @@
 
             this.apiFunc = apiFunc
             this.args = args
+        }
+    }
 
-            console.info("[PLUGIN] [API Call] Call to " + this.apiFunc)
+    class PluginExecutionErrorMessage extends PluginDebugMessage {
+        constructor(plugin, err) {
+            super(plugin)
+
+            this.error = err
         }
     }
 
@@ -35,8 +50,6 @@
 
             this.message = message
             this.type = type
-
-            console[this.type]("[PLUGIN] " + this.message)
         }
     }
 
@@ -217,7 +230,13 @@
                 "utf-8"
             )
 
-            vm.runInNewContext(scriptData, context)
+            try {
+                vm.runInNewContext(scriptData, context)
+            } catch(e) {
+                this.debugMessages.push(
+                    new PluginExecutionErrorMessage(this, e)
+                )
+            }
         }
     }
 
@@ -279,10 +298,6 @@
             let deleteBtn = document.createElement("button")
             deleteBtn.textContent = "Delete"
             buttons.appendChild(deleteBtn)
-
-            let consoleBtn = document.createElement("button")
-            consoleBtn.textContent = "Show console"
-            buttons.appendChild(consoleBtn)
 
             div.appendChild(buttons)
 
