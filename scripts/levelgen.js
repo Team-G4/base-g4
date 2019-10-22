@@ -198,11 +198,11 @@ class Ring {
         /**
          * @type {Number}
          */
-        this.revolveFreq = revolveFreq ? distance : 0
+        this.revolveFreq = revolveFreq ? revolveFreq : 0
         /**
          * @type {Number}
          */
-        this.revolvePhase = revolvePhase ? distance : 0
+        this.revolvePhase = revolvePhase ? revolvePhase : 0
     }
 }
 
