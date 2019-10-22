@@ -3,41 +3,13 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 128 128" style="enable-background:new 0 0 128 128;" xml:space="preserve">
 <style type="text/css">
-	.st0{fill:#507CD6;}
-	.st1{fill:#D62800;}
-	.st2{fill:#364A89;}
+	.st0{fill:#D73E71;}
+	.st1{fill:#0E29AD;}
+	.st2{fill:#1CABBA;}
 </style>
-<polygon class="st0" points="64,40 64,72 32,72 "/>
-<polygon class="st1" points="112,56 112,72 96,72 96,104 80,104 80,24 96,8 96,56 "/>
-<polygon class="st2" points="80,24 80,120 64,120 64,88 16,88 32,72 64,72 64,40 "/>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
+<path class="st0" d="M64,96c-6.7,5-15,8-24,8C17.9,104,0,86.1,0,64s17.9-40,40-40c9,0,17.3,3,24,8c-9.7,7.3-16,18.9-16,32
+	S54.3,88.7,64,96z"/>
+<ellipse class="st1" cx="64" cy="64" rx="16" ry="32"/>
+<path class="st2" d="M128,64c0,22.1-17.9,40-40,40c-9,0-17.3-3-24-8c9.7-7.3,16-18.9,16-32s-6.3-24.7-16-32c6.7-5,15-8,24-8
+	C110.1,24,128,41.9,128,64z"/>
 </svg>
