@@ -18,6 +18,17 @@
         }
     }
 
+    class PluginDebugAPICallMessage extends PluginDebugMessage {
+        constructor(plugin, apiFunc, args) {
+            super(plugin)
+
+            this.apiFunc = apiFunc
+            this.args = args
+
+            console.info("[PLUGIN] [API Call] Call to " + this.apiFunc)
+        }
+    }
+
     class PluginDebugTextMessage extends PluginDebugMessage {
         constructor(plugin, message, type) {
             super(plugin)
@@ -68,17 +79,30 @@
             return {
                 // Event handler creation/removal
                 addEventListener: (eventType, listener) => {
+                    this.debugMessages.push(
+                        new PluginDebugAPICallMessage(this, "addEventListener", arguments)
+                    )
+
                     let handler = new PluginEventHandler(eventType, listener)
 
                     this.eventHandlers.push(handler)
                 },
                 removeEventListener: (eventType, listener) => {
+                    this.debugMessages.push(
+                        new PluginDebugAPICallMessage(this, "removeEventListener", arguments)
+                    )
+
                     let index = this.eventHandlers.findIndex(h => h.eventType == eventType && h.listener == listener)
                     
                     if (index >= 0) this.eventHandlers.splice(index, 1)
                 },
 
+                // Notifications
                 popNotification: (notif) => {
+                    this.debugMessages.push(
+                        new PluginDebugAPICallMessage(this, "popNotification", arguments)
+                    )
+
                     let source = {
                         icon: path.join(pluginPath, this.directory, this.icon),
                         name: this.name
@@ -89,6 +113,22 @@
                         text: notif.text,
                         buttons: notif.buttons
                     })
+                },
+
+                // Object registration
+                registerMode: (mode) => {
+                    this.debugMessages.push(
+                        new PluginDebugAPICallMessage(this, "registerMode", arguments)
+                    )
+                    
+                    if (!(mode instanceof CustomMode)) return false
+
+                    mode.ownerPlugin = this
+
+                    gameModes.push(mode)
+                    updateModeButtons()
+
+                    return true
                 },
 
                 // Debug messages
@@ -116,7 +156,17 @@
         }
 
         getG4Object() {
-            return {}
+            return {
+                // Level gen elements
+                RingElement,
+                RingBall, RingPulsingBall,
+                RingBar, RingMarqueeBar,
+                RingH,
+
+                Ring,
+
+                Mode: CustomMode
+            }
         }
 
         run() {

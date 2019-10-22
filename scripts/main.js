@@ -11,7 +11,7 @@
 
     prepG4AccountUI(mainGame.leaderboard)
 
-    mainGame.generateLevel("easy", 0)
+    mainGame.generateLevel(gameModes[0], 0)
 
     document.querySelector("main").appendChild(mainGame.dom)
     mainGame.resizeCanvas()
@@ -104,39 +104,24 @@
         processGamepadInputs()
     }, 1000 / physicsFps)
 
-    // Mode changing buttons
-    let modeButtons = document.querySelector("section.gameMode div.content")
-    gameModes.forEach(mode => {
-        let button = document.createElement("button")
-        button.classList.add("mode")
+    addEventListener("g4modechange", (e) => {
+        let mode = e.detail.mode
 
         if (mode instanceof NativeMode) {
-            button.setAttribute("data-mode", mode.modeId)
-
-            if (mode.modeId == "easy") button.classList.add("active")
-        }
-        button.textContent = mode.name
-
-        button.addEventListener("click", () => {
-            if (button.classList.contains("active")) return
-
-            if (mode instanceof NativeMode) {
-                mainGame.generateLevel(
-                    button.getAttribute("data-mode"),
-                    0
-                )
-                mainGame.data.slow = {
-                    time: 0,
-                    isSlow: false
-                }
-
-                playAudio(mainGame.data.mode)
+            mainGame.generateLevel(
+                mode,
+                0
+            )
+            mainGame.data.slow = {
+                time: 0,
+                isSlow: false
             }
 
-            document.querySelector("section.gameMode button.active").classList.remove("active")
-            button.classList.add("active")
-        })
-
-        modeButtons.appendChild(button)
+            playAudio(mainGame.data.mode)
+        }
     })
+
+    window.getActiveMode = () => mainGame.currentMode
+
+    updateModeButtons()
 })()

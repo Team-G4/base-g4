@@ -41,6 +41,11 @@ class Game {
         this.gameTime = 0
 
         /**
+         * @type {Mode}
+         */
+        this.currentMode = null
+
+        /**
          * @type {Leaderboard}
          */
         this.leaderboard = leaderboard
@@ -575,10 +580,14 @@ class Game {
     }
 
     /**
-     * @param {String} mode 
+     * @param {Mode} modeObj 
      * @param {Number} levelIndex 
      */
-    generateLevel(mode, levelIndex) {
+    generateLevel(modeObj, levelIndex) {
+        let mode = modeObj.modeId
+
+        this.currentMode = modeObj
+
         if (!this.data) {
             this.data = LevelGenerator.generate(
                 levelIndex, 0, mode
@@ -587,7 +596,6 @@ class Game {
             this.data.levelIndex = levelIndex
             this.data.mode = mode
 
-            let modeObj = gameModes.find(m => m.modeId == mode)
             this.data.rings = modeObj.generateRings(levelIndex)
         }
         this.disableSlow()

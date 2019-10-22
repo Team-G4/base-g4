@@ -815,6 +815,14 @@ class NativeMode extends Mode {
     }
 }
 
+class CustomMode extends Mode {
+    constructor(name) {
+        super(name)
+
+        this.ownerPlugin = null
+    }
+}
+
 class EasyNativeMode extends NativeMode {
     constructor() {
         super("easy", "Easy")
@@ -1008,3 +1016,4 @@ let gameModes = [
     new ReverseNativeMode(),
     new NoxNativeMode()
 ]
+window.getActiveMode = () => null

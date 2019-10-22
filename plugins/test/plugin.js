@@ -1,28 +1,27 @@
-// Just shove a message into the console at launch
-plugin.log("Hello, G4!")
+class JasonMode extends G4.Mode {
+    constructor() {
+        super("Jason") // name
+    }
 
-plugin.popNotification({
-    text: "Hello from plugin land!",
+    getRings(
+        levelIndex // the number of the generated level
+    ) {
+        return [
+            new G4.Ring(
+                [
+                    new G4.RingBall(
+                        0, 200, 30
+                    ),
+                    new G4.RingBall(
+                        0.5, 200, 50
+                    )
+                ],
+                1, // frequency multiplier
+                false // not a distraction, enable collision
+            )
+        ]
+    }
+}
 
-    buttons: [
-        {
-            text: "Pop another one!",
-            callback: () => {
-                plugin.popNotification({
-                    text: "Hell yeah!",
-
-                    buttons: [
-                        {
-                            text: "MORE!",
-                            callback: () => {
-                                plugin.popNotification({
-                                    text: "uwu stahp"
-                                })
-                            }
-                        }
-                    ]
-                })
-            }
-        }
-    ]
-})
+// Register the new mode!
+plugin.registerMode(new JasonMode())

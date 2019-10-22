@@ -254,3 +254,40 @@ function showNotification(notif) {
         container.appendChild(notifSection)
     }
 }
+
+function updateModeButtons() {
+    let modeButtons = document.querySelector("section.gameMode div.content")
+    
+    modeButtons.innerHTML = ""
+    
+    gameModes.forEach(mode => {
+        let button = document.createElement("button")
+        button.classList.add("mode")
+
+        if (mode instanceof NativeMode) {
+            button.setAttribute("data-mode", mode.modeId)
+        }
+
+        if (mode == getActiveMode()) button.classList.add("active")
+
+        button.textContent = mode.name
+
+        button.addEventListener("click", () => {
+            if (button.classList.contains("active")) return
+
+            dispatchEvent(new CustomEvent(
+                "g4modechange",
+                {
+                    detail: {
+                        mode: mode
+                    }
+                }
+            ))
+
+            document.querySelector("section.gameMode button.active").classList.remove("active")
+            button.classList.add("active")
+        })
+
+        modeButtons.appendChild(button)
+    })
+}
