@@ -147,15 +147,14 @@ aside {
                 padding: 4px 8px;
                 border: none;
                 
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 flex-grow: 1;
 
-                p {
-                    margin: 0px;
-
-                    font-family: var(--g4-app-typeface);
-                    font-weight: 500;
-                    font-size: 12pt;
-                    text-transform: uppercase;
+                img {
+                    width: 20px;
+                    height: 20px;
                 }
             }
             button.mode:hover {

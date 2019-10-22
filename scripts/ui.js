@@ -280,6 +280,12 @@ function updateModeButtons() {
 
         button.textContent = mode.name
 
+        if (mode instanceof CustomMode) {
+            let icon = document.createElement("img")
+            icon.src = mode.ownerPlugin.getFilePath(mode.ownerPlugin.icon)
+            button.appendChild(icon)
+        }
+
         button.addEventListener("click", () => {
             if (button.classList.contains("active")) return
 

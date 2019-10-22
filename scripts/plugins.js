@@ -75,6 +75,10 @@
             if (isRunning) this.run()
         }
 
+        getFilePath(relPath) {
+            return path.join(pluginPath, this.directory, relPath)
+        }
+
         getPluginContext() {
             return {
                 // Event handler creation/removal
@@ -104,7 +108,7 @@
                     )
 
                     let source = {
-                        icon: path.join(pluginPath, this.directory, this.icon),
+                        icon: this.getFilePath(this.icon),
                         name: this.name
                     }
 
@@ -175,7 +179,7 @@
                 G4: this.getG4Object()
             }
             let scriptData = fs.readFileSync(
-                path.join(pluginPath, this.directory, this.scriptPath),
+                this.getFilePath(this.scriptPath),
                 "utf-8"
             )
 

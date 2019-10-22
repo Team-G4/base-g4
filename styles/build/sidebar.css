@@ -111,14 +111,14 @@ aside section.gameMode div.content button.mode {
   color: var(--g4-app-foreground);
   padding: 4px 8px;
   border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex-grow: 1;
 }
-aside section.gameMode div.content button.mode p {
-  margin: 0px;
-  font-family: var(--g4-app-typeface);
-  font-weight: 500;
-  font-size: 12pt;
-  text-transform: uppercase;
+aside section.gameMode div.content button.mode img {
+  width: 20px;
+  height: 20px;
 }
 aside section.gameMode div.content button.mode:hover {
   box-shadow: inset 0px 0px 0px 2px var(--g4-game-foreground);
