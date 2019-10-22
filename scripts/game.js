@@ -637,7 +637,7 @@ class Game {
     nextLevel() {
         this.data.slow.time = Math.min(this.data.slow.time + 0.2, 10)
         this.generateLevel(
-            this.data.mode, this.data.levelIndex + 1
+            this.currentMode, this.data.levelIndex + 1
         )
     }
 
@@ -645,7 +645,7 @@ class Game {
         this.data.slow.time = Math.min(this.data.slow.time, 0.6)
 
         this.generateLevel(
-            this.data.mode, 0
+            this.currentMode, 0
         )
 
         this.addDeath()
