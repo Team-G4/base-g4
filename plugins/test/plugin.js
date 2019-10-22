@@ -6,33 +6,50 @@ class JasonMode extends G4.Mode {
     getRings(
         levelIndex // the number of the generated level
     ) {
-        return [
-            new G4.Ring(
-                [
+        let ringBallCounts = []
+
+        levelIndex += 3
+        while (levelIndex) {
+            if (levelIndex > 6) {
+                ringBallCounts.unshift(6)
+                levelIndex -= 6
+            } else {
+                ringBallCounts.unshift(levelIndex)
+                levelIndex = 0
+            }
+        }
+
+        let rings = ringBallCounts.map((count, i) => {
+            let items = []
+            let angle = 1 / count, start = i * Math.sqrt(2)
+            let distance = 200 + i * 60
+
+            for (let i = 0; i < count; i++) {
+                items.push(
                     new G4.RingBall(
-                        0, 200, 30
-                    ),
-                    new G4.RingBall(
-                        0.5, 200, 50
+                        (i * angle + start) % 1,
+                        distance, 20
                     )
-                ],
-                1, // frequency multiplier
-                false // not a distraction, enable collision
-            )
-        ]
+                )
+            }
+
+            return new G4.Ring(items, (1/2)**i, false)
+        })
+
+        return rings
     }
 
     getThemeColors() {
         return {
-            background: "#ff0",
-            damage: "#fee",
+            background: "#1F342E",
+            damage: "#324B4F",
 
-            foreground: "#000",
-            obstacle1: "#000",
-            obstacle2: "#000",
+            foreground: "#50B9C9",
+            obstacle1: "#50B9C9",
+            obstacle2: "#BEF386",
 
-            cannon: "#f00",
-            bullet: "#00f"
+            cannon: "#BEFBFF",
+            bullet: "#00A9CA"
         }
     }
 }
