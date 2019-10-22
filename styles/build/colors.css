@@ -8,6 +8,16 @@
   --g4-app-scroll-thumb: var(--g4-theme-app-scrollThumb);
 }
 
+[data-mode=custom] {
+  --g4-game-background: #000;
+  --g4-game-damage: var(--g4-theme-game-easy-damage);
+  --g4-game-foreground: var(--g4-theme-game-easy-foreground);
+  --g4-game-obstacle1: var(--g4-theme-game-easy-obstacle1);
+  --g4-game-obstacle2: var(--g4-theme-game-easy-obstacle2);
+  --g4-game-cannon: var(--g4-theme-game-easy-cannon);
+  --g4-game-bullet: var(--g4-theme-game-easy-bullet);
+}
+
 [data-mode=easy] {
   --g4-game-background: var(--g4-theme-game-easy-background);
   --g4-game-damage: var(--g4-theme-game-easy-damage);

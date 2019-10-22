@@ -107,16 +107,16 @@
     addEventListener("g4modechange", (e) => {
         let mode = e.detail.mode
 
+        mainGame.generateLevel(
+            mode,
+            0
+        )
+        mainGame.data.slow = {
+            time: 0,
+            isSlow: false
+        }
+        
         if (mode instanceof NativeMode) {
-            mainGame.generateLevel(
-                mode,
-                0
-            )
-            mainGame.data.slow = {
-                time: 0,
-                isSlow: false
-            }
-
             playAudio(mainGame.data.mode)
         }
     })

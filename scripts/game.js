@@ -509,6 +509,14 @@ class Game {
         if (this.dom.getAttribute("data-mode") != this.data.mode)
             this.dom.setAttribute("data-mode", this.data.mode)
 
+        if (this.currentMode instanceof CustomMode) {
+            let colors = mode.getThemeColors()
+
+            for (let color in colors) {
+                this.dom.style.setProperty("--g4-game-" + color, colors[color])
+            }
+        }
+
         this.dom.querySelector("div.stat.level p.value").textContent = this.data.levelIndex
         this.dom.querySelector("div.stat.record p.value").textContent = this.data.userRecord
         this.dom.querySelector("div.stat.deaths p.value").textContent = this.data.userDeaths
@@ -584,9 +592,14 @@ class Game {
      * @param {Number} levelIndex 
      */
     generateLevel(modeObj, levelIndex) {
-        let mode = modeObj.modeId
+        let mode = "custom"
+        if (modeObj instanceof NativeMode) mode = modeObj.modeId
 
         this.currentMode = modeObj
+
+        window.mode = this.currentMode
+
+        console.log(modeObj)
 
         if (!this.data) {
             this.data = LevelGenerator.generate(
@@ -611,6 +624,8 @@ class Game {
     }
 
     async updateLeaderboard() {
+        if (this.currentMode instanceof CustomMode) return
+
         await this.leaderboard.postScore(
             this.data.mode,
             this.data.levelIndex,

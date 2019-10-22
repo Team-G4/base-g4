@@ -821,6 +821,20 @@ class CustomMode extends Mode {
 
         this.ownerPlugin = null
     }
+
+    getThemeColors() {
+        return {
+            background: "#333",
+            damage: "#311",
+
+            foreground: "#fff",
+            obstacle1: "#fff",
+            obstacle2: "#fff",
+
+            cannon: "#888",
+            bullet: "#08f"
+        }
+    }
 }
 
 class EasyNativeMode extends NativeMode {

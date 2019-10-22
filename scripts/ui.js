@@ -266,6 +266,12 @@ function updateModeButtons() {
 
         if (mode instanceof NativeMode) {
             button.setAttribute("data-mode", mode.modeId)
+        } else if (mode instanceof CustomMode) {
+            let colors = mode.getThemeColors()
+
+            for (let color in colors) {
+                button.style.setProperty("--g4-game-" + color, colors[color])
+            }
         }
 
         if (mode == getActiveMode()) button.classList.add("active")
