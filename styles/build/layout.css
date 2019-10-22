@@ -188,6 +188,9 @@ main div.game {
   background: var(--g4-game-background);
   color: var(--g4-game-foreground);
 }
+main div.game[data-mode=custom] div.stat:not(.level) {
+  display: none;
+}
 main div.game header {
   position: absolute;
   top: 0;

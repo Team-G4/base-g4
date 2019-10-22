@@ -44,6 +44,10 @@ main {
         background: var(--g4-game-background);
         color: var(--g4-game-foreground);
 
+        &[data-mode=custom] div.stat:not(.level) {
+            display: none;
+        }
+
         header {
             position: absolute;
             top: 0;
