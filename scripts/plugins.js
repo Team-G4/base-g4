@@ -84,7 +84,7 @@
                 // Event handler creation/removal
                 addEventListener: (eventType, listener) => {
                     this.debugMessages.push(
-                        new PluginDebugAPICallMessage(this, "addEventListener", arguments)
+                        new PluginDebugAPICallMessage(this, "[PluginContext].addEventListener", arguments)
                     )
 
                     let handler = new PluginEventHandler(eventType, listener)
@@ -93,7 +93,7 @@
                 },
                 removeEventListener: (eventType, listener) => {
                     this.debugMessages.push(
-                        new PluginDebugAPICallMessage(this, "removeEventListener", arguments)
+                        new PluginDebugAPICallMessage(this, "[PluginContext].removeEventListener", arguments)
                     )
 
                     let index = this.eventHandlers.findIndex(h => h.eventType == eventType && h.listener == listener)
@@ -104,7 +104,7 @@
                 // Notifications
                 popNotification: (notif) => {
                     this.debugMessages.push(
-                        new PluginDebugAPICallMessage(this, "popNotification", arguments)
+                        new PluginDebugAPICallMessage(this, "[PluginContext].popNotification", arguments)
                     )
 
                     let source = {
@@ -122,7 +122,7 @@
                 // Object registration
                 registerMode: (mode) => {
                     this.debugMessages.push(
-                        new PluginDebugAPICallMessage(this, "registerMode", arguments)
+                        new PluginDebugAPICallMessage(this, "[PluginContext].registerMode", arguments)
                     )
                     
                     if (!(mode instanceof CustomMode)) return false
@@ -169,7 +169,41 @@
 
                 Ring,
 
-                Mode: CustomMode
+                Mode: CustomMode,
+
+                levelGen: {
+                    ringTypes: {
+                        TYPE_A: 1,
+                        TYPE_B: 2,
+                        TYPE_C: 3,
+                        TYPE_D: 4
+                    },
+
+                    generateRing: (type, difficulty, distance) => {
+                        this.debugMessages.push(
+                            new PluginDebugAPICallMessage(this, "G4.levelGen.generateRing", arguments)
+                        )
+    
+                        let rings = []
+    
+                        switch (type) {
+                            case 1: // type A
+                                rings = LevelGenerator.generateInnerRing(difficulty, distance)
+                                break
+                            case 2: // type B
+                                rings = LevelGenerator.generateMiddleRing(difficulty, distance)
+                                break
+                            case 3: // type C
+                                rings = LevelGenerator.generateOuterRing(difficulty, distance)
+                                break
+                            case 4: // type D
+                                rings = LevelGenerator.generateDeniseRing(difficulty, distance)
+                                break
+                        }
+    
+                        return rings
+                    }
+                }
             }
         }
 
