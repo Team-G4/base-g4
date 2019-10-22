@@ -269,8 +269,10 @@ function updateModeButtons() {
         } else if (mode instanceof CustomMode) {
             let colors = mode.getThemeColors()
 
+            button.setAttribute("data-mode", "custom")
+
             for (let color in colors) {
-                button.style.setProperty("--g4-game-" + color, colors[color])
+                button.style.setProperty("--g4-game-custom-" + color, colors[color])
             }
         }
 

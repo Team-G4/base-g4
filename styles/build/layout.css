@@ -35,13 +35,13 @@
 }
 
 [data-mode=custom] {
-  --g4-game-background: #000;
-  --g4-game-damage: var(--g4-theme-game-easy-damage);
-  --g4-game-foreground: var(--g4-theme-game-easy-foreground);
-  --g4-game-obstacle1: var(--g4-theme-game-easy-obstacle1);
-  --g4-game-obstacle2: var(--g4-theme-game-easy-obstacle2);
-  --g4-game-cannon: var(--g4-theme-game-easy-cannon);
-  --g4-game-bullet: var(--g4-theme-game-easy-bullet);
+  --g4-game-background: var(--g4-game-custom-background);
+  --g4-game-damage: var(--g4-game-custom-damage);
+  --g4-game-foreground: var(--g4-game-custom-foreground);
+  --g4-game-obstacle1: var(--g4-game-custom-obstacle1);
+  --g4-game-obstacle2: var(--g4-game-custom-obstacle2);
+  --g4-game-cannon: var(--g4-game-custom-cannon);
+  --g4-game-bullet: var(--g4-game-custom-bullet);
 }
 
 [data-mode=easy] {

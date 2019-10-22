@@ -513,7 +513,7 @@ class Game {
             let colors = mode.getThemeColors()
 
             for (let color in colors) {
-                this.dom.style.setProperty("--g4-game-" + color, colors[color])
+                this.dom.style.setProperty("--g4-game-custom-" + color, colors[color])
             }
         }
 

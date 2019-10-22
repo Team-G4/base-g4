@@ -21,6 +21,20 @@ class JasonMode extends G4.Mode {
             )
         ]
     }
+
+    getThemeColors() {
+        return {
+            background: "#ff0",
+            damage: "#fee",
+
+            foreground: "#000",
+            obstacle1: "#000",
+            obstacle2: "#000",
+
+            cannon: "#f00",
+            bullet: "#00f"
+        }
+    }
 }
 
 // Register the new mode!
