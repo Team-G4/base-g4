@@ -429,7 +429,13 @@ class Game {
      * @param {Ring} ring
      */
     renderRing(ctx, ring) {
-        ring.items.forEach(item => {
+        ring.items.forEach(item => {            
+            if (this.currentMode instanceof CustomMode &&
+                "renderElement" in this.currentMode) {
+                let isFulfilled = this.currentMode.renderElement(item, ctx, this.gameTimes)
+                if (isFulfilled) return
+            }
+
             switch (item.type) {
                 case "ball":
                 case "pulsingBall":

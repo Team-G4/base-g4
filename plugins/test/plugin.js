@@ -53,6 +53,35 @@ class BubbleMode extends G4.Mode {
         return true
     }
 
+    renderElement(
+        element, ctx, absoluteTime
+    ) {
+        if (element instanceof G4.RingBall) {
+            let ballX = element.distance * Math.cos(2 * Math.PI * element.angle) + element.centerX
+            let ballY = element.distance * Math.sin(2 * Math.PI * element.angle) + element.centerY
+            let ballRadius = element.radius
+
+            // Store the color temporarily
+            let ballColor = ctx.fillStyle
+
+            // Shadow
+            ctx.beginPath()
+            ctx.arc(ballX + 8, ballY + 8, ballRadius, 0, 2 * Math.PI)
+            ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+            ctx.fill()
+
+            // Fill the ball
+            ctx.beginPath()
+            ctx.arc(ballX, ballY, ballRadius, 0, 2 * Math.PI)
+            ctx.fillStyle = ballColor
+            ctx.fill()
+
+            return true
+        }
+
+        return false
+    }
+
     getThemeColors() {
         return {
             background: "#372F33",
