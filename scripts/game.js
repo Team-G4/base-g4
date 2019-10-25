@@ -158,6 +158,12 @@ class Game {
         let centerY = Math.sin(ring.rotation * 2 * Math.PI * ring.revolveFreq + phase) * ring.distance
 
         ring.items.forEach(item => {
+            if (this.currentMode instanceof CustomMode &&
+                "moveElement" in this.currentMode) {
+                this.currentMode.moveElement(item, dTime, dRawTime, this.gameTime)
+                return
+            }
+
             item.centerX = centerX
             item.centerY = centerY
 

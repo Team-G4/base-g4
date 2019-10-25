@@ -80,6 +80,8 @@ class RingBall extends RingElement {
          * @type {Number}
          */
         this.radius = radius
+
+        this.defaults = {...this}
     }
 }
 
@@ -102,6 +104,8 @@ class RingPulsingBall extends RingBall {
          * @type {Number}
          */
         this.pulseTime = 0
+
+        this.defaults = {...this}
     }
 }
 
@@ -126,6 +130,8 @@ class RingBar extends RingElement {
          * @type {Number}
          */
         this.radius = radius
+
+        this.defaults = {...this}
     }
 }
 
@@ -150,6 +156,8 @@ class RingMarqueeBar extends RingBar {
          * @type {Number}
          */
         this.sweepFreq = sweepFreq
+
+        this.defaults = {...this}
     }
 }
 
@@ -170,6 +178,8 @@ class RingH extends RingElement {
         this.wingSpan = wingSpan
         this.hasBase = hasBase
         this.baseDistance = baseDistance
+
+        this.defaults = {...this}
     }
 }
 
