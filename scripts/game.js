@@ -160,8 +160,8 @@ class Game {
         ring.items.forEach(item => {
             if (this.currentMode instanceof CustomMode &&
                 "moveElement" in this.currentMode) {
-                this.currentMode.moveElement(item, dTime, dRawTime, this.gameTime)
-                return
+                let isFulfilled = this.currentMode.moveElement(item, dTime, dRawTime, this.gameTime)
+                if (isFulfilled) return
             }
 
             item.centerX = centerX

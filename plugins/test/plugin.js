@@ -49,6 +49,8 @@ class BubbleMode extends G4.Mode {
             element.distance = element.defaults.distance + Math.sin(absoluteTime * 3 + element.defaults.angle * 2 * Math.PI) * 50
             element.radius = (Math.sin(absoluteTime * 3 + element.defaults.angle * 2 * Math.PI) / 2 + 0.5) * 50 + 20
         }
+
+        return true
     }
 
     getThemeColors() {
