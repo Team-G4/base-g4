@@ -1,6 +1,6 @@
-class JasonMode extends G4.Mode {
+class BubbleMode extends G4.Mode {
     constructor() {
-        super("Jason") // name
+        super("Bubble") // name
     }
 
     getRings(
@@ -67,4 +67,4 @@ class JasonMode extends G4.Mode {
 }
 
 // Register the new modes!
-plugin.registerMode(new JasonMode())
+plugin.registerMode(new BubbleMode())
