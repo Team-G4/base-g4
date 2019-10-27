@@ -76,6 +76,11 @@ class BubbleMode extends G4.Mode {
             ctx.fillStyle = ballColor
             ctx.fill()
 
+            // Contour!
+            ctx.strokeStyle = "#000"
+            ctx.lineWidth = 2
+            ctx.stroke()
+
             return true
         }
 

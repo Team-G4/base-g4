@@ -142,7 +142,10 @@ function createThemeDOM(dom, obj, theme, id) {
 
                 preview.dom.game = preview
 
-                preview.generateLevel(key, 15)
+                preview.generateLevel(
+                    gameModes.find(m => m instanceof NativeMode && m.modeId == key),
+                    15
+                )
                 preview.updateDOM()
 
                 div.appendChild(

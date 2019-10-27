@@ -220,6 +220,53 @@
             }
         }
 
+        createVolatileObject(source, exclusions) {
+            let isExpired = false
+        
+            let volatileSpec = {
+                expire() {
+                    isExpired = true
+                },
+                isExpired() {
+                    return isExpired
+                },
+                object: new Proxy(
+                    source,
+                    {
+                        has(o, p) {
+                            if (isExpired) return false
+                            if (exclusions.includes(p)) return false
+                            return p in o
+                        },
+                        get(o, p) {
+                            if (isExpired) return undefined
+                            if (exclusions.includes(p)) return undefined
+        
+                            return o[p]
+                        },
+                        ownKeys(o) {
+                            if (isExpired) return []
+                            return Object.keys(o).filter(k => exclusions.includes(k))
+                        },
+                        isExtensible(o) {
+                            return false
+                        },
+                        set(o, p, v, r) {
+                            if (isExpired) return false
+                            if (exclusions.includes(p)) return false
+                            if (!Object.getOwnPropertyDescriptor(o, p).writable) return false
+        
+                            o[p] = v
+        
+                            return true
+                        }
+                    }
+                )
+            }
+            
+            return volatileSpec
+        }
+
         run() {
             let context = {
                 plugin: this.getPluginContext(),

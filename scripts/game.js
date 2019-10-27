@@ -430,9 +430,11 @@ class Game {
      */
     renderRing(ctx, ring) {
         ring.items.forEach(item => {            
-            if (this.currentMode instanceof CustomMode &&
-                "renderElement" in this.currentMode) {
+            if (this.currentMode instanceof CustomMode && "renderElement" in this.currentMode) {
+                let plugin = this.currentMode.ownerPlugin
+                
                 let isFulfilled = this.currentMode.renderElement(item, ctx, this.gameTimes)
+
                 if (isFulfilled) return
             }
 
@@ -610,8 +612,6 @@ class Game {
         this.currentMode = modeObj
 
         window.mode = this.currentMode
-
-        console.log(modeObj)
 
         if (!this.data) {
             this.data = LevelGenerator.generate(
