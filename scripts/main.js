@@ -20,12 +20,14 @@
 
     // Owo Chroma
     let chroma = new RazerChromaRGBHandler()
+    mainGame.rgbHandler = chroma
 
     chroma.init().then(() => {
         setInterval(async () => {
+            chroma.updateGameColors(mainGame.dom)
             await chroma.render()
             chroma.nextFrame(1 / 30)
-        }, 1000 / 10)
+        }, 1000 / 30)
     })
 
     // Music playback

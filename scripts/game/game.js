@@ -49,6 +49,11 @@ class Game {
          * @type {Leaderboard}
          */
         this.leaderboard = leaderboard
+
+        /**
+         * @type {RGBHandler}
+         */
+        this.rgbHandler = null
     }
 
     /**
@@ -376,6 +381,8 @@ class Game {
             velocityX: 750 * Math.cos(2 * Math.PI * cannon.angle),
             velocityY: 750 * Math.sin(2 * Math.PI * cannon.angle)
         }
+
+        if (this.rgbHandler) this.rgbHandler.handleEvent("shoot")
     }
 
     /**

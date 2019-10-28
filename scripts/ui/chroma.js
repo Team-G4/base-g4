@@ -77,16 +77,35 @@ class RGBColor {
      */
     blend(dest) {
         return new RGBColor(
-            this.r + dest.r * (1 - this.a),
-            this.g + dest.g * (1 - this.a),
-            this.b + dest.b * (1 - this.a),
+            this.r * this.a + dest.r * (1 - this.a),
+            this.g * this.a + dest.g * (1 - this.a),
+            this.b * this.a + dest.b * (1 - this.a),
             1
+        )
+    }
+
+    /**
+     * @param {Number} x 
+     * @param {RGBColor} c1 
+     * @param {RGBColor} c2 
+     */
+    static lerp(x, c1, c2) {
+        return new RGBColor(
+            c1.r + x * (c2.r - c1.r),
+            c1.g + x * (c2.g - c1.g),
+            c1.b + x * (c2.b - c1.b),
+            c1.a + x * (c2.a - c1.a)
         )
     }
 }
 
 class RGBEffect {
-    constructor() {
+    constructor(handler) {
+        /**
+         * @type {RGBHandler}
+         */
+        this.handler = handler
+
         this.time = 0
     }
 
@@ -107,9 +126,39 @@ class RGBEffect {
     }
 }
 
-class RGBTestFX extends RGBEffect {
+class RGBIdleEffect extends RGBEffect {
     getColorAt(x, y) {
-        return new RGBColor(0, 1, 0, 1)
+        let cursor = this.time % 1
+        let fade = Math.min(
+                            Math.abs(x - cursor),
+                            Math.abs(x + 1 - cursor),
+                            Math.abs(x - 1 - cursor)
+                    )
+        fade = fade**2
+
+        return RGBColor.lerp(
+            fade,
+            this.handler.gameColors.background,
+            this.handler.gameColors.obstacle1
+        )
+    }
+}
+
+class RGBShootEffect extends RGBEffect {
+    get done() {
+        return this.time > 0.3
+    }
+
+    getColorAt(x, y) {
+        let arrowPos = 1 - this.time * 10
+        let arrowY = y - Math.abs(x - 0.5) * 2
+
+        if (arrowY < arrowPos) return new RGBColor(0, 0, 0, 0)
+
+        let color = this.handler.gameColors.bullet
+        color.a = Math.max(0, 1 - Math.abs(arrowY - arrowPos))
+
+        return color
     }
 }
 
@@ -156,8 +205,10 @@ class RGBStack {
 
 class RGBHandler {
     constructor() {
+        this.gameColors = {}
+
         this.stack = new RGBStack()
-        this.stack.push(new RGBTestFX())
+        this.stack.push(new RGBIdleEffect(this))
     }
 
     async init() {}
@@ -168,6 +219,36 @@ class RGBHandler {
      * @param {String} event 
      */
     handleEvent(event) {}
+
+    cssHexToRGBColor(css) {
+        css = css.trim()
+
+        return new RGBColor(
+            parseInt(css.substring(1, 3), 16) / 255,
+            parseInt(css.substring(3, 5), 16) / 255,
+            parseInt(css.substring(5, 7), 16) / 255,
+            1
+        )
+    }
+
+    /**
+     * @param {HTMLDivElement} gameDOM 
+     */
+    updateGameColors(gameDOM) {
+        let computedStyles = getComputedStyle(gameDOM.querySelector("canvas"))
+
+        this.gameColors = {
+            background: this.cssHexToRGBColor(computedStyles.getPropertyValue("--g4-game-background")),
+            damage: this.cssHexToRGBColor(computedStyles.getPropertyValue("--g4-game-damage")),
+
+            foreground: this.cssHexToRGBColor(computedStyles.getPropertyValue("--g4-game-foreground")),
+            obstacle1: this.cssHexToRGBColor(computedStyles.getPropertyValue("--g4-game-obstacle1")),
+            obstacle2: this.cssHexToRGBColor(computedStyles.getPropertyValue("--g4-game-obstacle2")),
+
+            cannon: this.cssHexToRGBColor(computedStyles.getPropertyValue("--g4-game-cannon")),
+            bullet: this.cssHexToRGBColor(computedStyles.getPropertyValue("--g4-game-bullet"))
+        }
+    }
 
     async render() {}
 
@@ -210,7 +291,7 @@ class RazerChromaRGBHandler extends RGBHandler {
         let g = Math.floor(color.g * 255)
         let b = Math.floor(color.b * 255)
         
-        return r || (g << 8) || (b << 16)
+        return r | (g << 8) | (b << 16)
     }
 
     createKeyboardEffect() {
@@ -230,5 +311,13 @@ class RazerChromaRGBHandler extends RGBHandler {
         // Render the full keyboard thing!
         let keyboardFx = this.createKeyboardEffect()
         await this.chroma.putEffect("keyboard", "CHROMA_CUSTOM", keyboardFx)
+    }
+
+    handleEvent(event) {
+        switch (event) {
+            case "shoot":
+                this.stack.push(new RGBShootEffect(this))
+                break
+        }
     }
 }
