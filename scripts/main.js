@@ -18,6 +18,16 @@
 
     games.push(mainGame)
 
+    // Owo Chroma
+    let chroma = new RazerChromaRGBHandler()
+
+    chroma.init().then(() => {
+        setInterval(async () => {
+            await chroma.render()
+            chroma.nextFrame(1 / 30)
+        }, 1000 / 10)
+    })
+
     // Music playback
     document.querySelector("input#settingMusic").addEventListener("input", function() {
         isAudioPlaying = !isAudioPlaying
