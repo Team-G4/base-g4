@@ -1,6 +1,6 @@
 'use strict';
 
-const DEV_BUILD_VERSION = 23
+const DEV_BUILD_VERSION = 31
 
 const CACHE_NAME = `static-cache-g4.7-stable${DEV_BUILD_VERSION}`;
 const DATA_CACHE_NAME = `static-cache-g4.7-stable${DEV_BUILD_VERSION}`;
@@ -29,15 +29,19 @@ const FILES_TO_CACHE = [
     'res/themes/dark.json',
     'res/themes/light.json',
 
-    'scripts/assets.js',
-    'scripts/coverage.js',
-    'scripts/game.js',
+    'scripts/assets.js',    
     'scripts/input.js',
     'scripts/leaderboard.js',
-    'scripts/levelgen.js',
     'scripts/main.js',
-    'scripts/theme.js',
-    'scripts/ui.js',
+    
+    'scripts/game/coverage.js',
+    'scripts/game/game.js',
+    'scripts/game/levelgen.js',
+    
+    'scripts/ui/chroma.js',
+    'scripts/ui/theme.js',
+    'scripts/ui/ui.js',
+
     'scripts/install.js',
 
     'styles/build/layout.css',
