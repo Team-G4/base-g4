@@ -23,18 +23,18 @@
     let chromaInterval
     mainGame.rgbHandler = chroma
 
-    let initChroma = () => {
-        chroma.init().then(() => {
-            chromaInterval = setInterval(async () => {
-                chroma.updateGameColors(mainGame.dom)
-                await chroma.render()
-                chroma.nextFrame(1 / 30)
-            }, 1000 / 30)
-        })
+    let initChroma = async () => {
+        await chroma.init()
+            
+        chromaInterval = setInterval(async () => {
+            chroma.updateGameColors(mainGame.dom)
+            await chroma.render()
+            chroma.nextFrame(1 / 30)
+        }, 1000 / 30)
     }
-    let unInitChroma = () => {
+    let unInitChroma = async () => {
         clearInterval(chromaInterval)
-        chroma.unInit()
+        await chroma.unInit()
     }
 
     addEventListener("beforeunload", async () => {
@@ -45,17 +45,25 @@
     if (!localStorage.getItem("g4_chromaEnabled")) localStorage["g4_chromaEnabled"] = false
     if (localStorage["g4_chromaEnabled"] == "true") {
         document.querySelector("input#settingEnableChroma").checked = true
+        document.querySelector("input#settingEnableChroma").classList.add("loading")
 
-        initChroma()
+        initChroma().then(() => {
+            document.querySelector("input#settingEnableChroma").classList.remove("loading")
+        })
     }
 
     document.querySelector("input#settingEnableChroma").addEventListener("input", function() {
         localStorage["g4_chromaEnabled"] = this.checked
+        document.querySelector("input#settingEnableChroma").classList.add("loading")
 
         if (this.checked) {
-            initChroma()
+            initChroma().then(() => {
+                document.querySelector("input#settingEnableChroma").classList.remove("loading")
+            })
         } else {
-            unInitChroma()
+            unInitChroma().then(() => {
+                document.querySelector("input#settingEnableChroma").classList.remove("loading")
+            })
         }
     })
 
