@@ -124,6 +124,12 @@ div.setting {
             transition: background 0.2s, right 0.2s;
         }
 
+        &:checked + label {
+            background: linear-gradient(90deg, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
         &:checked + label:before {
             background: var(--g4-app-accent);
         }

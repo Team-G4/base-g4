@@ -90,6 +90,11 @@ div.setting input[type=checkbox] + label:after {
   transform: translateY(-50%);
   transition: background 0.2s, right 0.2s;
 }
+div.setting input[type=checkbox]:checked + label {
+  background: linear-gradient(90deg, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 div.setting input[type=checkbox]:checked + label:before {
   background: var(--g4-app-accent);
 }

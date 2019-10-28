@@ -269,7 +269,7 @@ class RazerChromaRGBHandler extends RGBHandler {
                 contact: "https://g4game.wtf"
             },
             device_supported: [
-                "keyboard"
+                "keyboard", "mouse", "headset", "mousepad", "keypad", "chromalink"
             ],
             category: "game"
         })
@@ -307,10 +307,84 @@ class RazerChromaRGBHandler extends RGBHandler {
         return array
     }
 
+    createKeypadEffect() {
+        let array = Array(4).fill(0).map(x => Array(5))
+
+        for (let y = 0; y < 4; y++) {
+            for (let x = 0; x < 5; x++) {
+                let xPos = x / 8 + 0.25, yPos = y / 3
+                array[y][x] = this.rgbColorToBGR(this.stack.getColorAt(xPos, yPos))
+            }
+        }
+
+        return array
+    }
+
+    createMouseEffect() {
+        let array = Array(9).fill(0).map(x => Array(7))
+
+        for (let y = 0; y < 9; y++) {
+            for (let x = 0; x < 7; x++) {
+                let xPos = x / 8, yPos = y / 6
+                array[y][x] = this.rgbColorToBGR(this.stack.getColorAt(xPos, yPos))
+            }
+        }
+
+        return array
+    }
+
+    createHeadsetEffect() {
+        let array = Array(5)
+
+        for (let x = 0; x < 5; x++) {
+            let xPos = x / 4
+            array[x] = this.rgbColorToBGR(this.stack.getColorAt(xPos, 1))
+        }
+
+        return array
+    }
+
+    createMousepadEffect() {
+        let array = Array(20)
+
+        for (let x = 0; x < 20; x++) {
+            let xPos = x / 19
+            array[x] = this.rgbColorToBGR(this.stack.getColorAt(xPos, xPos))
+        }
+
+        return array
+    }
+
     async render() {
-        // Render the full keyboard thing!
-        let keyboardFx = this.createKeyboardEffect()
-        await this.chroma.putEffect("keyboard", "CHROMA_CUSTOM", keyboardFx)
+        await this.chroma.putEffect(
+            "keyboard", "CHROMA_CUSTOM",
+            this.createKeyboardEffect()
+        )
+
+        await this.chroma.putEffect(
+            "keypad", "CHROMA_CUSTOM",
+            this.createKeypadEffect()
+        )
+
+        await this.chroma.putEffect(
+            "mouse", "CHROMA_CUSTOM",
+            this.createMouseEffect()
+        )
+
+        await this.chroma.putEffect(
+            "headset", "CHROMA_CUSTOM",
+            this.createHeadsetEffect()
+        )
+
+        await this.chroma.putEffect(
+            "mousepad", "CHROMA_CUSTOM",
+            this.createMousepadEffect()
+        )
+
+        await this.chroma.putEffect(
+            "chromalink", "CHROMA_CUSTOM",
+            this.createHeadsetEffect()
+        )
     }
 
     handleEvent(event) {

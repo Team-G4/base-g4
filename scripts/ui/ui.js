@@ -164,6 +164,9 @@ document.querySelector("#settingsPluginsBtn").addEventListener("click", function
 document.querySelector("#settingsAboutBtn").addEventListener("click", function() {
     openWindow("settingsAbout")
 })
+document.querySelector("#settingsChromaBtn").addEventListener("click", function() {
+    openWindow("settingsChroma")
+})
 
 // Notifications
 /**

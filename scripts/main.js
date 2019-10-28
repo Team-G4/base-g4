@@ -20,14 +20,43 @@
 
     // Owo Chroma
     let chroma = new RazerChromaRGBHandler()
+    let chromaInterval
     mainGame.rgbHandler = chroma
 
-    chroma.init().then(() => {
-        setInterval(async () => {
-            chroma.updateGameColors(mainGame.dom)
-            await chroma.render()
-            chroma.nextFrame(1 / 30)
-        }, 1000 / 30)
+    let initChroma = () => {
+        chroma.init().then(() => {
+            chromaInterval = setInterval(async () => {
+                chroma.updateGameColors(mainGame.dom)
+                await chroma.render()
+                chroma.nextFrame(1 / 30)
+            }, 1000 / 30)
+        })
+    }
+    let unInitChroma = () => {
+        clearInterval(chromaInterval)
+        chroma.unInit()
+    }
+
+    addEventListener("beforeunload", async () => {
+        unInitChroma()
+    })
+
+    // Chroma on/off
+    if (!localStorage.getItem("g4_chromaEnabled")) localStorage["g4_chromaEnabled"] = false
+    if (localStorage["g4_chromaEnabled"] == "true") {
+        document.querySelector("input#settingEnableChroma").checked = true
+
+        initChroma()
+    }
+
+    document.querySelector("input#settingEnableChroma").addEventListener("input", function() {
+        localStorage["g4_chromaEnabled"] = this.checked
+
+        if (this.checked) {
+            initChroma()
+        } else {
+            unInitChroma()
+        }
     })
 
     // Music playback
