@@ -98,9 +98,10 @@ div.setting input[type=checkbox] + label:after {
     background-position: 100% 50%;
   }
 }
-div.setting input[type=checkbox]:checked + label {
+div.setting input[type=checkbox].chroma:checked + label {
   background: linear-gradient(90deg, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00);
   background-size: 200% 100%;
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: ChromaText 1s infinite linear;

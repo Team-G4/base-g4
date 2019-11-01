@@ -310,11 +310,37 @@ aside {
     }
 
     footer {
-        height: 33px;
-        max-height: 33px;
-        min-height: 33px;
+        height: 24px;
+        min-height: 24px;
 
-        padding: 4px 16px;
+        display: flex;
+        justify-content: flex-end;
+
+        div.statusItem {
+            min-width: 50px;
+            padding: 0px 8px;
+
+            display: flex;
+            align-items: center;
+
+            svg {
+                width: 16px;
+                height: 16px;
+
+                margin-right: 8px;
+
+                fill: var(--g4-app-foreground);
+            }
+
+            &:hover {
+                background: var(--g4-app-accent);
+                color: var(--g4-app-background);
+
+                svg {
+                    fill: var(--g4-app-background);
+                }
+            }
+        }
     }
 }
 

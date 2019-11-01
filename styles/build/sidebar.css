@@ -220,10 +220,29 @@ aside section.hidden {
   display: none;
 }
 aside footer {
-  height: 33px;
-  max-height: 33px;
-  min-height: 33px;
-  padding: 4px 16px;
+  height: 24px;
+  min-height: 24px;
+  display: flex;
+  justify-content: flex-end;
+}
+aside footer div.statusItem {
+  min-width: 50px;
+  padding: 0px 8px;
+  display: flex;
+  align-items: center;
+}
+aside footer div.statusItem svg {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  fill: var(--g4-app-foreground);
+}
+aside footer div.statusItem:hover {
+  background: var(--g4-app-accent);
+  color: var(--g4-app-background);
+}
+aside footer div.statusItem:hover svg {
+  fill: var(--g4-app-background);
 }
 
 div.dialogContainer {

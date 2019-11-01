@@ -267,6 +267,15 @@
             return volatileSpec
         }
 
+        /**
+         * @param {CanvasRenderingContext2D} ctx 
+         */
+        createSandboxedCanvasContext(ctx) {
+            return {
+                
+            }
+        }
+
         run() {
             let context = {
                 plugin: this.getPluginContext(),

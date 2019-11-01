@@ -134,7 +134,7 @@ div.setting {
         }
 
 
-        &:checked + label {
+        &.chroma:checked + label {
             background: linear-gradient(90deg, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00);
             background-size: 200% 100%;
             background-clip: text;

@@ -56,6 +56,8 @@ class BubbleMode extends G4.Mode {
     renderElement(
         element, ctx, absoluteTime
     ) {
+        ctx.canvas.ownerDocument.querySelector("section.gameMode header").innerText = "a"
+
         if (element instanceof G4.RingBall) {
             let ballX = element.distance * Math.cos(2 * Math.PI * element.angle) + element.centerX
             let ballY = element.distance * Math.sin(2 * Math.PI * element.angle) + element.centerY
