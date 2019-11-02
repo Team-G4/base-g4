@@ -49,6 +49,9 @@ body {
     font-family: var(--g4-app-typeface);
 
     user-select: none;
+
+    scrollbar-width: thin;
+    scrollbar-color: var(--g4-app-scroll-thumb) var(--g4-app-scroll-track);
 }
 
 body.login {
