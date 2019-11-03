@@ -112,6 +112,10 @@ class RetroXMode extends G4.Mode {
         return G4.levelGen.generateMode("nox", levelIndex)
     }
 
+    getLevelName(levelIndex) {
+        return "Anna Ou"
+    }
+
     removeInvisibleStars() {
         this.stars.forEach((star, i) => {
             if (star.y < -0.1) this.stars.splice(i, 1)
@@ -222,6 +226,67 @@ class RetroXMode extends G4.Mode {
     }
 }
 
+class AnnaOuMode extends G4.Mode {
+    constructor() {
+        super("Anna Ou") // name
+
+        this.p = ""
+        
+        this.posX = 0
+        this.posY = 0
+    }
+
+    getRings(
+        levelIndex // the number of the generated level
+    ) {
+        return [
+            new G4.Ring(
+                [
+                    new G4.RingBall(0, 0, 30)
+                ],
+                1, true
+            )
+        ]
+    }
+
+    getLevelName(levelIndex) {
+        return `and i ${this.p}oop`
+    }
+
+    moveElement(
+        element,
+        dTime, dRawTime, absoluteTime
+    ) {
+        element.centerX = 20 * this.posX
+        element.centerY = 20 * this.posY
+
+        return true
+    }
+
+    handleKeyPress(code) {
+        switch (code) {
+            case "ArrowUp":
+                this.posY -= 0.3;
+                break
+            case "ArrowDown":
+                this.posY += 0.3;
+                break
+            case "ArrowLeft":
+                this.posX -= 0.3;
+                break
+            case "ArrowRight":
+                this.posX += 0.3;
+                break
+            case "KeyP":
+                this.p += "p"
+            default:
+                return false
+        }
+        return true
+    }
+}
+
 // Register the new modes!
 plugin.registerMode(new BubbleMode())
 plugin.registerMode(new RetroXMode())
+plugin.registerMode(new AnnaOuMode())

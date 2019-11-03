@@ -496,7 +496,14 @@ class Game {
             }
         }
 
-        this.dom.querySelector("div.stat.level p.value").textContent = this.data.levelIndex
+        var index = this.data.levelIndex
+        if (this.currentMode instanceof CustomMode && "getLevelName" in this.currentMode) {
+            index = this.currentMode.getLevelName(
+                index
+            )
+        }
+
+        this.dom.querySelector("div.stat.level p.value").textContent = index
         this.dom.querySelector("div.stat.record p.value").textContent = this.data.userRecord
         this.dom.querySelector("div.stat.deaths p.value").textContent = this.data.userDeaths
 
@@ -531,7 +538,6 @@ class Game {
         let wGLCanvas = this.dom.querySelector("canvas.webGLViewport")
 
         this.glslCanvas = new GlslCanvas(wGLCanvas)
-        console.log(this.glslCanvas)
 
         this.glslCanvas.loadTexture("u_game", canvas)
         this.glslCanvas.load(`
@@ -539,18 +545,31 @@ class Game {
         precision mediump float;
         #endif 
 
+        #define PI 3.1415926
+
         uniform vec2 u_resolution;
         uniform float u_time;
 
         uniform sampler2D u_game;
 
-        void main() {
+        vec3 getColor(vec2 dPos) {
             vec2 st = gl_FragCoord.xy / u_resolution.xy;
-            st.x += cos(u_time + st.x * 10.0) * 0.1;
-            st.y += sin(u_time + st.x * 20.0) * 0.1;
-            vec4 color = texture2D(u_game, st);
+            st += dPos;
 
-            gl_FragColor = color;
+            st.x += sin(u_time * 2.0 + st.y * 20.0) * 0.05;
+            st.y += cos(u_time * 2.0 + st.x * 20.0) * 0.05;
+
+            return texture2D(u_game, st).rgb;
+        }
+
+        void main() {
+            vec3 color = vec3(0.0);
+
+            color += getColor(vec2(-0.01, 0.0)) * 0.1;
+            color += getColor(vec2(0, 0.0)) * 0.9;
+            color += getColor(vec2(0.01, 0.0)) * 0.1;
+
+            gl_FragColor = vec4(color, 1.0);
         }
         `)
     }
@@ -779,6 +798,14 @@ class Game {
         if (this.isSpectated) return
         if (event.target instanceof HTMLInputElement ||
             event.target instanceof HTMLButtonElement) return
+            
+        if (this.currentMode instanceof CustomMode && "handleKeyPress" in this.currentMode) {
+            let isFulfilled = this.currentMode.handleKeyPress(
+                event.code
+            )
+
+            if (isFulfilled) return
+        }
 
         if (
             (event.code == localStorage["g4input_keyboardShoot"]) &&

@@ -18,7 +18,7 @@
 
     games.push(mainGame)
 
-    mainGame.initWebGL()
+    // mainGame.initWebGL()
 
     // Owo Chroma
     let chroma = new RazerChromaRGBHandler()
@@ -127,7 +127,7 @@
 
         games.forEach(game => {
             game.render()
-            game.renderWebGL()
+            // game.renderWebGL()
         })
 
         // Render static previews

@@ -83,7 +83,7 @@ self.addEventListener('activate', (evt) => {
 });
 
 self.addEventListener('fetch', (evt) => {
-  console.log('[ServiceWorker] Fetch', evt.request.url);
+  // console.log('[ServiceWorker] Fetch', evt.request.url);
   evt.respondWith(
       caches.open(CACHE_NAME).then((cache) => {
         return cache.match(evt.request)
