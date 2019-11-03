@@ -18,6 +18,8 @@
 
     games.push(mainGame)
 
+    mainGame.initWebGL()
+
     // Owo Chroma
     let chroma = new RazerChromaRGBHandler()
     let chromaInterval
@@ -123,7 +125,10 @@
 
         requestAnimationFrame(renderAllGames)
 
-        games.forEach(game => game.render())
+        games.forEach(game => {
+            game.render()
+            game.renderWebGL()
+        })
 
         // Render static previews
         document.querySelectorAll("dialog.open div.game.modePreview").forEach(gameDOM => {

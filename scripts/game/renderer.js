@@ -91,6 +91,10 @@ class LevelRenderer {
         return path
     }
 
+    static isPow2(x) {
+        return (x & (x - 1)) == 0
+    }
+
     /**
      * @param {HTMLCanvasElement} canvas 
      * @returns {Viewport}

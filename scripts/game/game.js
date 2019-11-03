@@ -54,6 +54,8 @@ class Game {
          * @type {RGBHandler}
          */
         this.rgbHandler = null
+
+        this.glslCanvas = null
     }
 
     /**
@@ -71,6 +73,7 @@ class Game {
 
         div.innerHTML = `
         <canvas class="viewport"></canvas>
+        <canvas class="webGLViewport"></canvas>
 
         <header>
             ${spectatingHeader}
@@ -504,11 +507,14 @@ class Game {
     resizeCanvas() {
         let boundingBox = this.dom.getBoundingClientRect()
 
-        let canvas = this.dom.querySelector("canvas")
+        let canvas = this.dom.querySelector("canvas.viewport")
+        let wGLCanvas = this.dom.querySelector("canvas.webGLViewport")
 
         if (canvas.width != boundingBox.width || canvas.height != boundingBox.height) {
             canvas.width = boundingBox.width
             canvas.height = boundingBox.height
+            wGLCanvas.width = boundingBox.width
+            wGLCanvas.height = boundingBox.height
         }
     }
 
@@ -520,8 +526,45 @@ class Game {
         ctx.globalCompositeOperation = "source-over"
     }
 
+    initWebGL() {
+        let canvas = this.dom.querySelector("canvas.viewport")
+        let wGLCanvas = this.dom.querySelector("canvas.webGLViewport")
+
+        this.glslCanvas = new GlslCanvas(wGLCanvas)
+        console.log(this.glslCanvas)
+
+        this.glslCanvas.loadTexture("u_game", canvas)
+        this.glslCanvas.load(`
+        #ifdef GL_ES
+        precision mediump float;
+        #endif 
+
+        uniform vec2 u_resolution;
+        uniform float u_time;
+
+        uniform sampler2D u_game;
+
+        void main() {
+            vec2 st = gl_FragCoord.xy / u_resolution.xy;
+            st.x += cos(u_time + st.x * 10.0) * 0.1;
+            st.y += sin(u_time + st.x * 20.0) * 0.1;
+            vec4 color = texture2D(u_game, st);
+
+            gl_FragColor = color;
+        }
+        `)
+    }
+
+    renderWebGL() {
+        if (!this.glslCanvas) return
+
+        let canvas = this.dom.querySelector("canvas.viewport")
+
+        this.glslCanvas.textures.u_game.update()
+    }
+
     render() {
-        let canvas = this.dom.querySelector("canvas")
+        let canvas = this.dom.querySelector("canvas.viewport")
         let minWidth = Math.min(
             canvas.width,
             canvas.height - 160

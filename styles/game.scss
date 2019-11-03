@@ -125,6 +125,10 @@ main {
             top: 50%;
 
             transform: translate(-50%, -50%);
+
+            &.webGLViewport {
+                pointer-events: none;
+            }
         }
 
         footer {

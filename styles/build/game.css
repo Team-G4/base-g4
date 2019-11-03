@@ -92,6 +92,9 @@ main div.game canvas {
   top: 50%;
   transform: translate(-50%, -50%);
 }
+main div.game canvas.webGLViewport {
+  pointer-events: none;
+}
 main div.game footer {
   position: absolute;
   bottom: 0;

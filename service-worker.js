@@ -41,6 +41,7 @@ const FILES_TO_CACHE = [
     
     'scripts/game/coverage.js',
     'scripts/game/game.js',
+    'scripts/game/GlslCanvas.js',
     'scripts/game/renderer.js',
     'scripts/game/levelgen.js',
     
