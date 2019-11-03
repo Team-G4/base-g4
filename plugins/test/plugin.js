@@ -109,7 +109,7 @@ class RetroXMode extends G4.Mode {
     getRings(
         levelIndex // the number of the generated level
     ) {
-        return G4.levelGen.generateMode("easy", levelIndex)
+        return G4.levelGen.generateMode("nox", levelIndex)
     }
 
     removeInvisibleStars() {
@@ -212,7 +212,7 @@ class RetroXMode extends G4.Mode {
             background: "#000000",
             damage: "#100000",
 
-            foreground: "#FFFFFF",
+            foreground: "#AAAAAA",
             obstacle1: "#FFFFFF",
             obstacle2: "#FFFFFF",
 
