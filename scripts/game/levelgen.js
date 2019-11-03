@@ -565,7 +565,9 @@ class LevelGenerator {
         if (!revolveFreq) revolveFreq = 0
         if (!revolvePhase) revolvePhase = 0
 
-        return {items, speedMult, isDistraction, distance, revolveFreq, revolvePhase, rotation: 0}
+        return new Ring(
+            items, speedMult, isDistraction, distance, revolveFreq, revolvePhase
+        )
     }
 
     /**

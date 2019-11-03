@@ -1,6 +1,6 @@
 'use strict';
 
-const DEV_BUILD_VERSION = 31
+const DEV_BUILD_VERSION = 32
 
 const CACHE_NAME = `static-cache-g4.7-stable${DEV_BUILD_VERSION}`;
 const DATA_CACHE_NAME = `static-cache-g4.7-stable${DEV_BUILD_VERSION}`;
@@ -36,6 +36,7 @@ const FILES_TO_CACHE = [
     
     'scripts/game/coverage.js',
     'scripts/game/game.js',
+    'scripts/game/renderer.js',
     'scripts/game/levelgen.js',
     
     'scripts/ui/chroma.js',

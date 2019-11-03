@@ -197,24 +197,62 @@
                             new PluginDebugAPICallMessage(this, "G4.levelGen.generateRing", arguments)
                         )
     
-                        let rings = []
+                        let items = []
     
                         switch (type) {
                             case 1: // type A
-                                rings = LevelGenerator.generateInnerRing(difficulty, distance)
+                                items = LevelGenerator.generateInnerRing(difficulty, distance)
                                 break
                             case 2: // type B
-                                rings = LevelGenerator.generateMiddleRing(difficulty, distance)
+                                items = LevelGenerator.generateMiddleRing(difficulty, distance)
                                 break
                             case 3: // type C
-                                rings = LevelGenerator.generateOuterRing(difficulty, distance)
+                                items = LevelGenerator.generateOuterRing(difficulty, distance)
                                 break
                             case 4: // type D
-                                rings = LevelGenerator.generateDeniseRing(difficulty, distance)
+                                items = LevelGenerator.generateDeniseRing(difficulty, distance)
                                 break
                         }
     
+                        return items
+                    },
+                    generateMode: (modeId, levelIndex) => {
+                        this.debugMessages.push(
+                            new PluginDebugAPICallMessage(this, "G4.levelGen.generateMode", arguments)
+                        )
+
+                        let rings = []
+                        let mode = gameModes.find(m => (m instanceof NativeMode) && m.modeId == modeId)
+
+                        if (mode) rings = mode.getRings(levelIndex)
+
                         return rings
+                    }
+                },
+                render: {
+                    getElementPath: (element) => {
+                        this.debugMessages.push(
+                            new PluginDebugAPICallMessage(this, "G4.render.getElementPath", arguments)
+                        )
+
+                        if (!(element instanceof RingElement)) return null
+                        return LevelRenderer.getElementPath(element)
+                    },
+                    getRingPath: (ring) => {
+                        this.debugMessages.push(
+                            new PluginDebugAPICallMessage(this, "G4.render.getRingPath", arguments)
+                        )
+
+                        if (!(ring instanceof Ring)) return null
+                        return LevelRenderer.getRingPath(ring)
+                    },
+                    getCannonPath: (cannon) => {
+                        this.debugMessages.push(
+                            new PluginDebugAPICallMessage(this, "G4.render.getCannonPath", arguments)
+                        )
+
+                        // if (!(ring instanceof Ring)) return null
+                        return LevelRenderer.getCannonPath(cannon)
                     }
                 }
             }
@@ -295,7 +333,7 @@
             }
         }
     }
-
+    
     function updatePluginList() {
         let list = document.querySelector("div.pluginList")
         list.innerHTML = ""

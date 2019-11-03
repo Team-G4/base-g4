@@ -70,6 +70,8 @@ class Game {
             spectatingHeader = `<div class="spectating">Spectating <span class="name">${this.spectatedUser}</div>`
 
         div.innerHTML = `
+        <canvas class="viewport"></canvas>
+
         <header>
             ${spectatingHeader}
             <div class="stat deaths">
@@ -85,8 +87,6 @@ class Game {
                 <p class="value">16</p>
             </div>
         </header>
-
-        <canvas class="viewport"></canvas>
 
         <footer>
             <div class="progress">
@@ -389,34 +389,33 @@ class Game {
      * @param {CanvasRe} ctx 
      */
     renderCannon(ctx) {
-        let cannon = this.data.cannon
-
-        ctx.beginPath()
-        ctx.moveTo(
-            20 * Math.cos(2 * Math.PI * cannon.angle) + cannon.x,
-            20 * Math.sin(2 * Math.PI * cannon.angle) + cannon.y
+        if (this.currentMode instanceof CustomMode && "renderCannon" in this.currentMode) {
+            this.currentMode.renderCannon(
+                this.data.cannon,
+                LevelRenderer.createViewportFromCanvas(ctx.canvas),
+                this.gameTime
+            )
+            return
+        }
+        
+        ctx.fill(
+            LevelRenderer.getCannonPath(this.data.cannon)
         )
-        ctx.lineTo(
-            20 * Math.cos(2 * Math.PI * cannon.angle + Math.PI - 0.8) + cannon.x,
-            20 * Math.sin(2 * Math.PI * cannon.angle + Math.PI - 0.8) + cannon.y
-        )
-        ctx.lineTo(
-            8 * Math.cos(2 * Math.PI * cannon.angle + Math.PI) + cannon.x,
-            8 * Math.sin(2 * Math.PI * cannon.angle + Math.PI) + cannon.y
-        )
-        ctx.lineTo(
-            20 * Math.cos(2 * Math.PI * cannon.angle + Math.PI + 0.8) + cannon.x,
-            20 * Math.sin(2 * Math.PI * cannon.angle + Math.PI + 0.8) + cannon.y
-        )
-        ctx.closePath()
-
-        ctx.fill()
     }
 
     /**
      * @param {CanvasRe} ctx 
      */
     renderProjectile(ctx) {
+        if (this.currentMode instanceof CustomMode && "renderProjectile" in this.currentMode) {
+            this.currentMode.renderProjectile(
+                this.data.projectile,
+                LevelRenderer.createViewportFromCanvas(ctx.canvas),
+                this.gameTime
+            )
+            return
+        }
+
         let bullet = this.data.projectile
 
         ctx.beginPath()
@@ -435,77 +434,33 @@ class Game {
      * @param {CanvasRenderingContext2D} ctx 
      * @param {Ring} ring
      */
-    renderRing(ctx, ring) {
-        ring.items.forEach(item => {            
-            if (this.currentMode instanceof CustomMode && "renderElement" in this.currentMode) {
-                let plugin = this.currentMode.ownerPlugin
+    renderRing(ctx, ring, levelScale) {
+        if (this.currentMode instanceof CustomMode && "renderRing" in this.currentMode) {
+            let isFulfilled = this.currentMode.renderRing(
+                ring,
+                LevelRenderer.createViewportFromCanvas(ctx.canvas),
+                this.gameTime
+            )
 
-                let isFulfilled = this.currentMode.renderElement(item, ctx, this.gameTimes)
+            if (isFulfilled) return
+        }
+
+        ring.items.forEach(item => {                
+            this.resetTransform(ctx, levelScale)
+
+            if (this.currentMode instanceof CustomMode && "renderElement" in this.currentMode) {
+                let isFulfilled = this.currentMode.renderElement(
+                    item,
+                    LevelRenderer.createViewportFromCanvas(ctx.canvas),
+                    this.gameTime
+                )
 
                 if (isFulfilled) return
             }
 
-            switch (item.type) {
-                case "ball":
-                case "pulsingBall":
-                    ctx.beginPath()
-
-                    ctx.arc(
-                        item.distance * Math.cos(2 * Math.PI * item.angle) + item.centerX,
-                        item.distance * Math.sin(2 * Math.PI * item.angle) + item.centerY,
-                        item.radius,
-                        0, 2 * Math.PI
-                    )
-
-                    ctx.fill()
-                    break
-                case "bar":
-                case "marqueeBar":
-                    ctx.beginPath()
-
-                    ctx.lineWidth = item.radius * 2
-
-                    ctx.arc(
-                        item.centerX, item.centerY, item.distance,
-                        2 * Math.PI * item.angleStart - 0.01,
-                        2 * Math.PI * (item.angleStart + item.angleLength) + 0.01
-                    )
-
-                    ctx.stroke()
-                    break
-                case "h":
-                    let angle = 2 * Math.PI * item.angle
-                    let wingSpan = 2 * Math.PI * item.wingSpan
-
-                    ctx.beginPath()
-
-                    ctx.lineWidth = item.radius * 2
-
-                    let middleDistance = item.distance * Math.cos(wingSpan)
-
-                    ctx.moveTo(
-                        Math.sin(angle - wingSpan) * item.distance + item.centerX,
-                        Math.cos(angle - wingSpan) * item.distance + item.centerY
-                    )
-                    ctx.lineTo(
-                        Math.sin(angle + wingSpan) * item.distance + item.centerX,
-                        Math.cos(angle + wingSpan) * item.distance + item.centerY
-                    )
-
-                    if (item.hasBase) {
-                        ctx.moveTo(
-                            Math.sin(angle) * middleDistance + item.centerX,
-                            Math.cos(angle) * middleDistance + item.centerY
-                        )
-                        ctx.lineTo(
-                            Math.sin(angle) * item.baseDistance + item.centerX,
-                            Math.cos(angle) * item.baseDistance + item.centerY
-                        )
-                    }
-
-                    ctx.stroke()
-                    break
-            }
+            ctx.fill(
+                LevelRenderer.getElementPath(item)
+            )
         })
     }
 
@@ -548,22 +503,29 @@ class Game {
 
     resizeCanvas() {
         let boundingBox = this.dom.getBoundingClientRect()
-        let minWidth = Math.min(
-            boundingBox.width,
-            boundingBox.height - 160
-        )
 
         let canvas = this.dom.querySelector("canvas")
 
-        if (canvas.width != minWidth || canvas.height != minWidth) {
-            canvas.width = minWidth
-            canvas.height = minWidth
+        if (canvas.width != boundingBox.width || canvas.height != boundingBox.height) {
+            canvas.width = boundingBox.width
+            canvas.height = boundingBox.height
         }
+    }
+
+    resetTransform(ctx, levelScale) {
+        ctx.setTransform(1, 0, 0, 1, 0, 0)
+        ctx.translate(ctx.canvas.width / 2, ctx.canvas.height / 2)
+        ctx.scale(levelScale, levelScale)
+
+        ctx.globalCompositeOperation = "source-over"
     }
 
     render() {
         let canvas = this.dom.querySelector("canvas")
-        let minWidth = canvas.width
+        let minWidth = Math.min(
+            canvas.width,
+            canvas.height - 160
+        )
 
         let computedStyles = getComputedStyle(canvas)
 
@@ -574,7 +536,7 @@ class Game {
         ctx.fillStyle = computedStyles.getPropertyValue("--g4-game-background")
 
         if (this.data.slow.isSlow) ctx.globalAlpha = 0.2
-        ctx.fillRect(0, 0, minWidth, minWidth)
+        ctx.fillRect(0, 0, canvas.width, canvas.height)
         ctx.globalAlpha = 1
 
         let levelRadius = this.getLevelRadius()
@@ -584,27 +546,54 @@ class Game {
         ctx.fillStyle = "#fff"
         ctx.strokeStyle = "#fff"
 
-        ctx.translate(minWidth / 2, minWidth / 2)
-        ctx.scale(levelScale, levelScale)
+        this.resetTransform(ctx, levelScale)
 
-        this.data.rings.forEach((ring, i) => {
-            let property = "--g4-game-obstacle" + ((i % 2) + 1)
-            ctx.fillStyle = computedStyles.getPropertyValue(property)
-            ctx.strokeStyle = computedStyles.getPropertyValue(property)
+        if (this.currentMode instanceof CustomMode && "renderBackground" in this.currentMode) {
+            this.currentMode.renderBackground(
+                LevelRenderer.createViewportFromCanvas(ctx.canvas),
+                this.gameTime
+            )
+        }
 
-            ctx.globalAlpha = ring.isDistraction ? 0.4 : 1
-
-            this.renderRing(ctx, ring)
-        })
+        if (this.currentMode instanceof CustomMode && "renderRings" in this.currentMode) {
+            this.resetTransform(ctx, levelScale)
+            this.currentMode.renderRings(
+                this.data.rings,
+                LevelRenderer.createViewportFromCanvas(ctx.canvas),
+                this.gameTime
+            )
+        } else {
+            this.data.rings.forEach((ring, i) => {
+                let property = "--g4-game-obstacle" + ((i % 2) + 1)
+                ctx.fillStyle = computedStyles.getPropertyValue(property)
+                ctx.strokeStyle = computedStyles.getPropertyValue(property)
+    
+                ctx.globalAlpha = ring.isDistraction ? 0.4 : 1
+    
+                this.renderRing(ctx, ring, levelScale)
+            })
+        }
 
         ctx.globalAlpha = 1
 
         ctx.fillStyle = computedStyles.getPropertyValue("--g4-game-cannon")
+        
+        this.resetTransform(ctx, levelScale)
         this.renderCannon(ctx)
 
         if (this.data.projectile) {
             ctx.fillStyle = computedStyles.getPropertyValue("--g4-game-bullet")
+            
+            this.resetTransform(ctx, levelScale)
             this.renderProjectile(ctx)
+        }
+
+        if (this.currentMode instanceof CustomMode && "renderForeground" in this.currentMode) {
+            this.resetTransform(ctx, levelScale)
+            this.currentMode.renderForeground(
+                LevelRenderer.createViewportFromCanvas(ctx.canvas),
+                this.gameTime
+            )
         }
     }
 

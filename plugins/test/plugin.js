@@ -54,34 +54,20 @@ class BubbleMode extends G4.Mode {
     }
 
     renderElement(
-        element, ctx, absoluteTime
+        element, viewport, absoluteTime
     ) {
-        ctx.canvas.ownerDocument.querySelector("section.gameMode header").innerText = "a"
-
         if (element instanceof G4.RingBall) {
-            let ballX = element.distance * Math.cos(2 * Math.PI * element.angle) + element.centerX
-            let ballY = element.distance * Math.sin(2 * Math.PI * element.angle) + element.centerY
-            let ballRadius = element.radius
+            let path = G4.render.getElementPath(element)
 
-            // Store the color temporarily
-            let ballColor = ctx.fillStyle
+            viewport.saveState()
 
-            // Shadow
-            ctx.beginPath()
-            ctx.arc(ballX + 8, ballY + 8, ballRadius, 0, 2 * Math.PI)
-            ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
-            ctx.fill()
+            viewport.translate(10, 10)
+            viewport.fillPath(path, "#00000050")
 
-            // Fill the ball
-            ctx.beginPath()
-            ctx.arc(ballX, ballY, ballRadius, 0, 2 * Math.PI)
-            ctx.fillStyle = ballColor
-            ctx.fill()
+            viewport.restoreState()
 
-            // Contour!
-            ctx.strokeStyle = "#000"
-            ctx.lineWidth = 2
-            ctx.stroke()
+            viewport.fillPath(path)
+            viewport.strokePath(path, "#000", 2)
 
             return true
         }
@@ -104,5 +90,138 @@ class BubbleMode extends G4.Mode {
     }
 }
 
+class Star {
+    constructor() {
+        this.x = Math.random()
+        this.y = 1
+        this.yVelo = Math.random() * 0.5 + 0.5
+    }
+}
+
+class RetroXMode extends G4.Mode {
+    constructor() {
+        super("RetroX") // name
+
+        this.stars = []
+        this.lastTime = 0
+    }
+
+    getRings(
+        levelIndex // the number of the generated level
+    ) {
+        return G4.levelGen.generateMode("easy", levelIndex)
+    }
+
+    removeInvisibleStars() {
+        this.stars.forEach((star, i) => {
+            if (star.y < -0.1) this.stars.splice(i, 1)
+        })
+    }
+
+    renderBackground(viewport, gameTime) {
+        this.removeInvisibleStars()
+        this.stars.push(new Star())
+
+        this.stars.forEach(star => {
+            let starPath = viewport.createPath()
+
+            let x = star.x * viewport.width - viewport.width / 2
+            let y = star.y * viewport.height - viewport.height / 2
+
+            starPath.rect(
+                1.5 * x - 5, 1.5 * y - 10, 10, 20
+            )
+            viewport.fillPath(starPath, "#333")
+
+            star.y -= star.yVelo * 0.03
+        })
+    }
+
+    renderRings(rings, viewport, gameTime) {
+        let ringsPath = viewport.createPath()
+
+        rings.forEach(ring => {
+            ringsPath.addPath(
+                G4.render.getRingPath(ring)
+            )
+        })
+
+        let colors = [
+            ["red", 10 * Math.sin(gameTime) + 20],
+            ["green", 10 * Math.sin(gameTime) + 20],
+            ["blue", 10 * Math.sin(gameTime) + 20]
+        ]
+
+        let acc = 0
+        colors.forEach(v => acc += v[1])
+
+        viewport.scale(1, 0.8)
+    
+        viewport.translate(
+            0,
+            acc
+        )
+
+
+        for (let i = colors.length - 1; i >= 0; i--) {
+            viewport.fillPath(ringsPath, colors[i][0])
+            viewport.translate(
+                0,
+                -colors[i][1]
+            )
+        }
+
+        viewport.fillPath(ringsPath, "yellow")
+    }
+
+    renderCannon(cannon, viewport, gameTime) {
+        let path = G4.render.getCannonPath(cannon)
+
+        viewport.scale(1, 0.8)
+
+        viewport.translate(0, 100)
+        viewport.fillPath(path, "#222")
+
+        viewport.translate(0, -25)
+        viewport.fillPath(path, "#555")
+
+        viewport.translate(0, -25)
+        viewport.fillPath(path, "#999")
+
+        viewport.translate(0, -25)
+        viewport.fillPath(path, "#ccc")
+
+        viewport.translate(0, -25)
+        viewport.fillPath(path, "#fff")
+    }
+
+    renderProjectile(bullet, viewport, gameTime) {
+        let path = viewport.createPath()
+
+        path.arc(
+            bullet.x, bullet.y,
+            10, 0, Math.PI * 2
+        )
+
+        viewport.scale(1, 0.8)
+        viewport.fillPath(path, "white")
+    }
+
+    getThemeColors() {
+        return {
+            background: "#000000",
+            damage: "#100000",
+
+            foreground: "#FFFFFF",
+            obstacle1: "#FFFFFF",
+            obstacle2: "#FFFFFF",
+
+            cannon: "#FFFFFF",
+            bullet: "#FFFFFF"
+        }
+    }
+}
+
 // Register the new modes!
 plugin.registerMode(new BubbleMode())
+plugin.registerMode(new RetroXMode())
