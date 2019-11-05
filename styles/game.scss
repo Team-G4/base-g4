@@ -128,6 +128,11 @@ main {
             &.webGLViewport {
                 pointer-events: none;
             }
+
+            &.hidden {
+                visibility: hidden;
+                pointer-events: none;
+            }
         }
 
         footer {

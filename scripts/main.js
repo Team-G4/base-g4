@@ -127,6 +127,7 @@
 
         games.forEach(game => {
             game.render()
+            // game.renderPasses()
             // game.renderWebGL()
         })
 

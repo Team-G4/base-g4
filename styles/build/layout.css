@@ -250,6 +250,10 @@ main div.game canvas {
 main div.game canvas.webGLViewport {
   pointer-events: none;
 }
+main div.game canvas.hidden {
+  visibility: hidden;
+  pointer-events: none;
+}
 main div.game footer {
   position: absolute;
   bottom: 0;

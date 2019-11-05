@@ -73,6 +73,8 @@ class Game {
 
         div.innerHTML = `
         <canvas class="viewport"></canvas>
+        <canvas class="normalPass hidden"></canvas>
+        <canvas class="objectPass hidden"></canvas>
         <canvas class="webGLViewport"></canvas>
 
         <header>
@@ -158,7 +160,7 @@ class Game {
      * @param {Number} dTime 
      * @param {Ring} ring
      */
-    advanceRing(dTime, dRawTime, ring) {
+    advanceRing(dTime, dRawTime, ring, ringIndex) {
         ring.rotation += dTime
 
         let phase = 2 * Math.PI * ring.revolvePhase
@@ -168,7 +170,10 @@ class Game {
         ring.items.forEach(item => {
             if (this.currentMode instanceof CustomMode &&
                 "moveElement" in this.currentMode) {
-                let isFulfilled = this.currentMode.moveElement(item, dTime, dRawTime, this.gameTime)
+                let isFulfilled = this.currentMode.moveElement(
+                    item, ring, ringIndex,
+                    dTime, dRawTime, this.gameTime
+                )
                 if (isFulfilled) return
             }
 
@@ -265,6 +270,8 @@ class Game {
      * @param {Projectile} bullet 
      */
     hitTestLevel(bullet) {
+        if (!bullet) return false
+        
         for (let ring of this.data.rings) {
             if (ring.isDistraction) continue
             for (let item of ring.items) {
@@ -291,9 +298,9 @@ class Game {
         let beatTime = this.calculateBeatTime(dTime)
 
         this.data.rotation += beatTime
-        this.data.rings.forEach(ring => this.advanceRing(
+        this.data.rings.forEach((ring, i) => this.advanceRing(
             beatTime * ring.speedMult, beatTime,
-            ring
+            ring, i
         ))
     }
 
@@ -515,13 +522,19 @@ class Game {
         let boundingBox = this.dom.getBoundingClientRect()
 
         let canvas = this.dom.querySelector("canvas.viewport")
-        let wGLCanvas = this.dom.querySelector("canvas.webGLViewport")
+        let auxCanvases = [
+            this.dom.querySelector("canvas.webGLViewport"),
+            this.dom.querySelector("canvas.objectPass"),
+            this.dom.querySelector("canvas.normalPass")
+        ]
 
         if (canvas.width != boundingBox.width || canvas.height != boundingBox.height) {
             canvas.width = boundingBox.width
             canvas.height = boundingBox.height
-            wGLCanvas.width = boundingBox.width
-            wGLCanvas.height = boundingBox.height
+            auxCanvases.forEach(c => {
+                c.width = boundingBox.width
+                c.height = boundingBox.height
+            })
         }
     }
 
@@ -535,11 +548,18 @@ class Game {
 
     initWebGL() {
         let canvas = this.dom.querySelector("canvas.viewport")
+
+        let nrmCanvas = this.dom.querySelector("canvas.normalPass")
+        let objCanvas = this.dom.querySelector("canvas.objectPass")
+
         let wGLCanvas = this.dom.querySelector("canvas.webGLViewport")
 
         this.glslCanvas = new GlslCanvas(wGLCanvas)
 
         this.glslCanvas.loadTexture("u_game", canvas)
+        this.glslCanvas.loadTexture("u_normal", nrmCanvas)
+        this.glslCanvas.loadTexture("u_object", objCanvas)
+
         this.glslCanvas.load(`
         #ifdef GL_ES
         precision mediump float;
@@ -551,23 +571,33 @@ class Game {
         uniform float u_time;
 
         uniform sampler2D u_game;
+        uniform sampler2D u_normal;
+        uniform sampler2D u_object;
 
-        vec3 getColor(vec2 dPos) {
-            vec2 st = gl_FragCoord.xy / u_resolution.xy;
-            st += dPos;
+        vec3 getNormal(vec2 coords) {
+            vec3 nrmColor = texture2D(u_normal, coords).rgb;
 
-            st.x += sin(u_time * 2.0 + st.y * 20.0) * 0.05;
-            st.y += cos(u_time * 2.0 + st.x * 20.0) * 0.05;
+            return nrmColor * 2.0 - 1.0;
+        }
 
-            return texture2D(u_game, st).rgb;
+        int isObject(vec2 coords) {
+            vec3 objColor = texture2D(u_object, coords).rgb;
+
+            if (objColor.r == 0.0) return 0;
+            return 1;
         }
 
         void main() {
-            vec3 color = vec3(0.0);
+            vec2 st = gl_FragCoord.xy / u_resolution.xy;
+            vec3 color = texture2D(u_game, st).rgb;
+            vec3 n = getNormal(st);
+            vec3 ambient = texture2D(u_game, vec2(0.0, 0.0)).rgb;
 
-            color += getColor(vec2(-0.01, 0.0)) * 0.1;
-            color += getColor(vec2(0, 0.0)) * 0.9;
-            color += getColor(vec2(0.01, 0.0)) * 0.1;
+            vec3 light = normalize(vec3(1.0, 1.0, 1.0));
+            if (isObject(st) == 1) {
+                color *= dot(n, light);
+                color += ambient;
+            }
 
             gl_FragColor = vec4(color, 1.0);
         }
@@ -580,6 +610,58 @@ class Game {
         let canvas = this.dom.querySelector("canvas.viewport")
 
         this.glslCanvas.textures.u_game.update()
+        this.glslCanvas.textures.u_normal.update()
+        this.glslCanvas.textures.u_object.update()
+    }
+
+    renderPasses() {
+        let normalCanvas = this.dom.querySelector("canvas.normalPass")
+        let objectCanvas = this.dom.querySelector("canvas.objectPass")
+
+        let nrmCtx = normalCanvas.getContext("2d")
+        let objCtx = objectCanvas.getContext("2d")
+
+        let minWidth = Math.min(
+            normalCanvas.width,
+            normalCanvas.height - 160
+        )
+
+        let levelRadius = this.getLevelRadius()
+        let levelScale = (minWidth / 2) / levelRadius
+        levelScale = Math.min(levelScale, 1.2)
+        
+        nrmCtx.setTransform(1, 0, 0, 1, 0, 0)
+        objCtx.setTransform(1, 0, 0, 1, 0, 0)
+
+        objCtx.fillStyle = "#000000"
+        objCtx.fillRect(0, 0, objectCanvas.width, objectCanvas.height)
+
+        nrmCtx.fillStyle = "#8080FF"
+        nrmCtx.fillRect(0, 0, normalCanvas.width, normalCanvas.height)
+
+        this.resetTransform(nrmCtx, levelScale)
+        this.resetTransform(objCtx, levelScale)
+
+        this.data.rings.forEach(ring => {
+            ring.items.forEach(item => {
+                let path = LevelRenderer.getElementPath(item)
+
+                if (item instanceof RingBall) {
+                    nrmCtx.drawImage(
+                        document.querySelector(".normalBall"),
+                        item.distance * Math.cos(2 * Math.PI * item.angle) + item.centerX - item.radius,
+                        item.distance * Math.sin(2 * Math.PI * item.angle) + item.centerY - item.radius,
+                        item.radius * 2,
+                        item.radius * 2
+                    )
+
+                    objCtx.fillStyle = "#FFFF00"
+                } else if (item instanceof RingBar) {
+                    objCtx.fillStyle = "#FFFFFF"
+                }
+                objCtx.fill(path)
+            })
+        })
     }
 
     render() {
@@ -657,6 +739,8 @@ class Game {
                 this.gameTime
             )
         }
+
+        this.renderPasses()
     }
 
     /**

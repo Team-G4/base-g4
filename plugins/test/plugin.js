@@ -41,7 +41,7 @@ class BubbleMode extends G4.Mode {
     }
 
     moveElement(
-        element,
+        element, ring, ringIndex,
         dTime, dRawTime, absoluteTime
     ) {
         if (element instanceof G4.RingBall) {
