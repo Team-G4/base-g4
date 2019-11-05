@@ -799,6 +799,8 @@ class Game {
         
         this.sendStateChange()
 
+        document.querySelector("section.leaderboard").style.display = (this.currentMode instanceof CustomMode) ? "none" : "flex"
+
         this.updateLeaderboard()
     }
 
