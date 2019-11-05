@@ -444,10 +444,10 @@ class Game {
      * @param {CanvasRenderingContext2D} ctx 
      * @param {Ring} ring
      */
-    renderRing(ctx, ring, levelScale) {
+    renderRing(ctx, ring, ringIndex, levelScale) {
         if (this.currentMode instanceof CustomMode && "renderRing" in this.currentMode) {
             let isFulfilled = this.currentMode.renderRing(
-                ring,
+                ring, ringIndex,
                 LevelRenderer.createViewportFromCanvas(ctx.canvas),
                 this.gameTime
             )
@@ -460,7 +460,7 @@ class Game {
 
             if (this.currentMode instanceof CustomMode && "renderElement" in this.currentMode) {
                 let isFulfilled = this.currentMode.renderElement(
-                    item,
+                    item, ring, ringIndex,
                     LevelRenderer.createViewportFromCanvas(ctx.canvas),
                     this.gameTime
                 )
@@ -714,7 +714,7 @@ class Game {
     
                 ctx.globalAlpha = ring.isDistraction ? 0.4 : 1
     
-                this.renderRing(ctx, ring, levelScale)
+                this.renderRing(ctx, ring, i, levelScale)
             })
         }
 
