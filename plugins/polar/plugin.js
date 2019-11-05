@@ -42,7 +42,7 @@ class PolarMode extends G4.Mode {
         ]
     }
 
-    getThemeColors() {
+    getColors() {
         return {
             background: "#272032",
             damage: "#2D2639",

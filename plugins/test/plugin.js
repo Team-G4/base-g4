@@ -54,7 +54,8 @@ class BubbleMode extends G4.Mode {
     }
 
     renderElement(
-        element, viewport, absoluteTime
+        element, ring, ringIndex,
+        viewport, absoluteTime
     ) {
         if (element instanceof G4.RingBall) {
             let path = G4.render.getElementPath(element)
@@ -75,7 +76,7 @@ class BubbleMode extends G4.Mode {
         return false
     }
 
-    getThemeColors() {
+    getColors() {
         return {
             background: "#372F33",
             damage: "#382C2D",
@@ -112,10 +113,6 @@ class RetroXMode extends G4.Mode {
         return G4.levelGen.generateMode("nox", levelIndex)
     }
 
-    getLevelName(levelIndex) {
-        return "Anna Ou"
-    }
-
     removeInvisibleStars() {
         this.stars.forEach((star, i) => {
             if (star.y < -0.1) this.stars.splice(i, 1)
@@ -129,8 +126,8 @@ class RetroXMode extends G4.Mode {
         this.stars.forEach(star => {
             let starPath = viewport.createPath()
 
-            let x = star.x * viewport.width - viewport.width / 2
-            let y = star.y * viewport.height - viewport.height / 2
+            let x = star.x * viewport.width
+            let y = star.y * viewport.height
 
             starPath.rect(
                 1.5 * x - 5, 1.5 * y - 10, 10, 20
@@ -211,7 +208,7 @@ class RetroXMode extends G4.Mode {
         viewport.fillPath(path, "white")
     }
 
-    getThemeColors() {
+    getColors() {
         return {
             background: "#000000",
             damage: "#100000",
@@ -283,6 +280,20 @@ class AnnaOuMode extends G4.Mode {
                 return false
         }
         return true
+    }
+
+    getColors() {
+        return {
+            background: "#000000",
+            damage: "#100000",
+
+            foreground: "#AAAAAA",
+            obstacle1: "#FFFFFF",
+            obstacle2: "#FFFFFF",
+
+            cannon: "#FFFFFF",
+            bullet: "#FFFFFF"
+        }
     }
 }
 

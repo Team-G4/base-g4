@@ -310,6 +310,15 @@ class Game {
     advanceCannon(dTime) {
         let beatTime = this.calculateBeatTime(dTime)
 
+        if (this.currentMode instanceof CustomMode &&
+            "moveCannon" in this.currentMode) {
+            let isFulfilled = this.currentMode.moveCannon(
+                this.data.cannon,
+                beatTime, dTime, this.gameTime
+            )
+            if (isFulfilled) return
+        }
+
         this.data.cannon.angle -= beatTime * 1.5
 
         switch (this.data.mode) {
@@ -332,6 +341,22 @@ class Game {
                 this.data.cannon.x = 0
                 this.data.cannon.y = 0
         }
+    }
+
+    advanceBullet(bullet, dTime) {
+        let beatTime = this.calculateBeatTime(dTime)
+
+        if (this.currentMode instanceof CustomMode &&
+            "moveBullet" in this.currentMode) {
+            let isFulfilled = this.currentMode.moveBullet(
+                bullet,
+                beatTime, dTime, this.gameTime
+            )
+            if (isFulfilled) return
+        }
+
+        bullet.x += bullet.velocityX * dTime
+        bullet.y += bullet.velocityY * dTime
     }
 
     /**
@@ -364,8 +389,7 @@ class Game {
 
         if (this.data.projectile) {
             // move the bullet
-            this.data.projectile.x += this.data.projectile.velocityX * dTime
-            this.data.projectile.y += this.data.projectile.velocityY * dTime
+            this.advanceBullet(this.data.projectile, dTime)
         }
 
         // move the cannon
@@ -496,7 +520,7 @@ class Game {
             this.dom.setAttribute("data-mode", this.data.mode)
 
         if (this.currentMode instanceof CustomMode) {
-            let colors = mode.getThemeColors()
+            let colors = mode.getColors()
 
             for (let color in colors) {
                 this.dom.style.setProperty("--g4-game-custom-" + color, colors[color])
@@ -690,8 +714,6 @@ class Game {
         ctx.fillStyle = "#fff"
         ctx.strokeStyle = "#fff"
 
-        this.resetTransform(ctx, levelScale)
-
         if (this.currentMode instanceof CustomMode && "renderBackground" in this.currentMode) {
             this.currentMode.renderBackground(
                 LevelRenderer.createViewportFromCanvas(ctx.canvas),
@@ -699,6 +721,8 @@ class Game {
             )
         }
 
+
+        this.resetTransform(ctx, levelScale)
         if (this.currentMode instanceof CustomMode && "renderRings" in this.currentMode) {
             this.resetTransform(ctx, levelScale)
             this.currentMode.renderRings(
@@ -732,6 +756,7 @@ class Game {
             this.renderProjectile(ctx)
         }
 
+        ctx.setTransform(1, 0, 0, 1, 0, 0)
         if (this.currentMode instanceof CustomMode && "renderForeground" in this.currentMode) {
             this.resetTransform(ctx, levelScale)
             this.currentMode.renderForeground(
