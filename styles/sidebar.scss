@@ -309,6 +309,37 @@ aside {
         display: none;
     }
 
+    div.assetProgress {
+        position: relative;
+        height: 32px;
+        min-height: 32px;
+
+        padding: 0px 8px;
+
+        display: flex;
+        align-items: center;
+
+        img {
+            width: 16px;
+            height: 16px;
+
+            margin-right: 8px;
+        }
+
+        b {
+            font-weight: 600;
+        }
+
+        div.bar {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 1px;
+
+            background: var(--g4-app-accent);
+        }
+    }
+
     footer {
         height: 24px;
         min-height: 24px;

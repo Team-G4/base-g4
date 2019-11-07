@@ -671,13 +671,13 @@ class Game {
                 let path = LevelRenderer.getElementPath(item)
 
                 if (item instanceof RingBall) {
-                    nrmCtx.drawImage(
-                        document.querySelector(".normalBall"),
-                        item.distance * Math.cos(2 * Math.PI * item.angle) + item.centerX - item.radius,
-                        item.distance * Math.sin(2 * Math.PI * item.angle) + item.centerY - item.radius,
-                        item.radius * 2,
-                        item.radius * 2
-                    )
+                    // nrmCtx.drawImage(
+                    //     document.querySelector(".normalBall"),
+                    //     item.distance * Math.cos(2 * Math.PI * item.angle) + item.centerX - item.radius,
+                    //     item.distance * Math.sin(2 * Math.PI * item.angle) + item.centerY - item.radius,
+                    //     item.radius * 2,
+                    //     item.radius * 2
+                    // )
 
                     objCtx.fillStyle = "#FFFF00"
                 } else if (item instanceof RingBar) {

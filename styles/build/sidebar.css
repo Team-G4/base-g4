@@ -219,6 +219,29 @@ aside section.pwaInstall div.content {
 aside section.hidden {
   display: none;
 }
+aside div.assetProgress {
+  position: relative;
+  height: 32px;
+  min-height: 32px;
+  padding: 0px 8px;
+  display: flex;
+  align-items: center;
+}
+aside div.assetProgress img {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+}
+aside div.assetProgress b {
+  font-weight: 600;
+}
+aside div.assetProgress div.bar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--g4-app-accent);
+}
 aside footer {
   height: 24px;
   min-height: 24px;
