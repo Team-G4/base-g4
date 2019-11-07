@@ -97,9 +97,9 @@
     })
 
     // Load audio & stuff
-    loadAssets().then(() => {
-        document.querySelector("label[for=settingMusic]").classList.remove("loading")
-    })
+    // loadAssets().then(() => {
+    //     document.querySelector("label[for=settingMusic]").classList.remove("loading")
+    // })
 
     // On window resize, resize the canvases
     window.addEventListener("resize", () => {
