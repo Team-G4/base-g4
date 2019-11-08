@@ -1,6 +1,6 @@
 'use strict';
 
-const DEV_BUILD_VERSION = 34
+const DEV_BUILD_VERSION = 35
 
 const CACHE_NAME = `static-cache-g4.7-stable${DEV_BUILD_VERSION}`;
 const DATA_CACHE_NAME = `static-cache-g4.7-stable${DEV_BUILD_VERSION}`;
@@ -36,6 +36,7 @@ const FILES_TO_CACHE = [
     'res/themes/light.json',
 
     'scripts/assets.js',    
+    'scripts/audio.js',    
     'scripts/input.js',
     'scripts/leaderboard.js',
     'scripts/main.js',

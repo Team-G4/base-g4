@@ -69,17 +69,6 @@
         }
     })
 
-    // Music playback
-    document.querySelector("input#settingMusic").addEventListener("input", function() {
-        isAudioPlaying = !isAudioPlaying
-    
-        if (isAudioPlaying) {
-            playAudio(mainGame.data.mode, true)
-        } else {
-            stopAudio()
-        }
-    })
-
     // Legit Verified Amirite
     document.querySelector("input#settingVerifiedLegit").addEventListener("input", function() {
         localStorage["g4_showLegitTM"] = this.checked ? "1": "0"
@@ -97,9 +86,27 @@
     })
 
     // Load audio & stuff
-    // loadAssets().then(() => {
-    //     document.querySelector("label[for=settingMusic]").classList.remove("loading")
-    // })
+    waitForAssetLoad(getNativeModeMusicAssets()).then(() => {
+        document.querySelector("label[for=settingMusic]").classList.remove("loading")
+    })
+
+    // Music playback
+    document.querySelector("input#settingMusic").addEventListener("input", function() {
+        isAudioPlaying = document.querySelector("input#settingMusic").checked
+    
+        if (isAudioPlaying) {
+            // getAudioCategory("bgm").gain = 1
+            if (mainGame.currentMode instanceof NativeMode) {
+                let bgmAsset = getAsset(null, `g4mode_${mainGame.currentMode.modeId}_bgm`)
+                getAudioCategory("bgm").replace(
+                    0,
+                    new AudioItem(bgmAsset, "looped")
+                )
+            }
+        } else {
+            // getAudioCategory("bgm").gain = 0
+        }
+    })
 
     // On window resize, resize the canvases
     window.addEventListener("resize", () => {
@@ -172,7 +179,11 @@
         }
         
         if (mode instanceof NativeMode) {
-            playAudio(mainGame.data.mode)
+            let bgmAsset = getAsset(null, `g4mode_${mainGame.currentMode.modeId}_bgm`)
+            getAudioCategory("bgm").replace(
+                0,
+                new AudioItem(bgmAsset, "looped")
+            )
         }
     })
 
