@@ -81,6 +81,8 @@ let gameAssets = []
 function updateAssetProgress() {
     let loaded = gameAssets.filter(a => a.isLoaded).length
 
+    document.querySelector("div.assetProgress").classList.toggle("hidden", loaded == gameAssets.length)
+
     document.querySelector("div.assetProgress div.bar").style.width = `${100 * loaded / gameAssets.length}%`
 }
 

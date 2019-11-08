@@ -319,6 +319,10 @@ aside {
         display: flex;
         align-items: center;
 
+        &.hidden {
+            display: none;
+        }
+
         img {
             width: 16px;
             height: 16px;
