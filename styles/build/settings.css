@@ -332,6 +332,10 @@ div.volume {
   margin-bottom: 8px;
   border-radius: 24px;
 }
+div.volume[data-category=master] {
+  background: var(--g4-app-foreground);
+  color: var(--g4-app-header-background);
+}
 div.volume div.info p {
   font-size: 14pt;
   margin: 0;
