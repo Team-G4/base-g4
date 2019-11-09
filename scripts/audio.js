@@ -133,3 +133,28 @@ function getNativeModeMusicAssets() {
 }
 
 registerNativeModeMusicAssets()
+
+// Volume controls
+document.querySelectorAll("div.volume").forEach(vol => {
+    let categoryName = vol.getAttribute("data-category")
+    let gainNode = categoryName == "master" ? masterGainNode : getAudioCategory(categoryName).gainNode
+
+    if (!localStorage.getItem(`g4_gain_${categoryName}`)) {
+        localStorage[`g4_gain_${categoryName}`] = categoryName == "master" ? 0 : 100
+    }
+
+    let input = vol.querySelector("input")
+    input.value = +localStorage[`g4_gain_${categoryName}`]
+
+    let label = vol.querySelector("div.slider p")
+    label.textContent = `${localStorage[`g4_gain_${categoryName}`]}%`
+
+    gainNode.gain.value = +localStorage[`g4_gain_${categoryName}`]/100
+
+    input.addEventListener("input", () => {
+        label.textContent = `${input.value}%`
+        localStorage[`g4_gain_${categoryName}`] = input.value
+
+        gainNode.gain.value = +localStorage[`g4_gain_${categoryName}`]/100
+    })
+})

@@ -466,9 +466,23 @@
                 </header>
 
                 <div class="content">
-                    <div class="setting">
-                        <input type="checkbox" id="settingMusic">
-                        <label for="settingMusic" class="loading">In-game music</label>
+                    <div class="volume" data-category="master">
+                        <div class="info">
+                            <p>Master volume</p>
+                        </div>
+                        <div class="slider">
+                            <input type="range" min="0" max="100" value="100">
+                            <p class="value">100%</p>
+                        </div>
+                    </div>
+                    <div class="volume" data-category="bgm">
+                        <div class="info">
+                            <p>Background music</p>
+                        </div>
+                        <div class="slider">
+                            <input type="range" min="0" max="100" value="100">
+                            <p class="value">100%</p>
+                        </div>
                     </div>
                 </div>
             </dialog>

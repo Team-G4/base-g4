@@ -1207,6 +1207,32 @@ div.pluginList div.plugin div.buttons button:active {
   color: var(--g4-app-background);
 }
 
+div.volume {
+  background: var(--g4-app-header-background);
+  color: var(--g4-app-foreground);
+  padding: 8px 16px;
+  margin-bottom: 8px;
+  border-radius: 24px;
+}
+div.volume div.info p {
+  font-size: 14pt;
+  margin: 0;
+}
+div.volume div.slider {
+  display: flex;
+  align-items: center;
+}
+div.volume div.slider input[type=range] {
+  flex-grow: 1;
+}
+div.volume div.slider p {
+  width: 40px;
+  font-size: 12pt;
+  font-weight: 600;
+  text-align: right;
+  margin: 0px 0px 0px 16px;
+}
+
 div.titleBar {
   display: none;
 }

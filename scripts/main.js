@@ -90,24 +90,6 @@
         document.querySelector("label[for=settingMusic]").classList.remove("loading")
     })
 
-    // Music playback
-    document.querySelector("input#settingMusic").addEventListener("input", function() {
-        isAudioPlaying = document.querySelector("input#settingMusic").checked
-    
-        if (isAudioPlaying) {
-            // getAudioCategory("bgm").gain = 1
-            if (mainGame.currentMode instanceof NativeMode) {
-                let bgmAsset = getAsset(null, `g4mode_${mainGame.currentMode.modeId}_bgm`)
-                getAudioCategory("bgm").replace(
-                    0,
-                    new AudioItem(bgmAsset, "looped")
-                )
-            }
-        } else {
-            // getAudioCategory("bgm").gain = 0
-        }
-    })
-
     // On window resize, resize the canvases
     window.addEventListener("resize", () => {
         games.forEach(game => game.resizeCanvas())
