@@ -1031,7 +1031,7 @@ div.themeList div.theme {
   color: var(--g4-app-foreground);
   padding: 0px;
   margin-top: 8px;
-  border-radius: 24px;
+  border-radius: 8px;
   display: flex;
 }
 div.themeList div.theme > div {
@@ -1128,7 +1128,7 @@ dialog#themeEditor div.colors div.color label {
 div.pluginList div.plugin {
   background: var(--g4-app-header-background);
   margin-top: 8px;
-  border-radius: 16px;
+  border-radius: 8px;
 }
 div.pluginList div.plugin p.description {
   font-size: 11pt;
@@ -1212,7 +1212,7 @@ div.volume {
   color: var(--g4-app-foreground);
   padding: 8px 16px;
   margin-bottom: 8px;
-  border-radius: 24px;
+  border-radius: 8px;
 }
 div.volume[data-category=master] {
   background: var(--g4-app-foreground);
