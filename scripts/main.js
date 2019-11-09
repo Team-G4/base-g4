@@ -1,4 +1,4 @@
-(() => {
+waitForAssetLoad(loadDefaultAssets()).then(() => {
     /**
      * @type {Game[]}
      */
@@ -18,7 +18,7 @@
 
     games.push(mainGame)
 
-    // mainGame.initWebGL()
+    mainGame.initWebGL()
 
     // Owo Chroma
     let chroma = new RazerChromaRGBHandler()
@@ -116,8 +116,8 @@
 
         games.forEach(game => {
             game.render()
-            // game.renderPasses()
-            // game.renderWebGL()
+            game.renderPasses()
+            game.renderWebGL()
         })
 
         // Render static previews
@@ -172,4 +172,4 @@
     window.getActiveMode = () => mainGame.currentMode
 
     updateModeButtons()
-})()
+})

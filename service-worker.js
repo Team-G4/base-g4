@@ -1,6 +1,6 @@
 'use strict';
 
-const DEV_BUILD_VERSION = 35
+const DEV_BUILD_VERSION = 36
 
 const CACHE_NAME = `static-cache-g4.7-stable${DEV_BUILD_VERSION}`;
 const DATA_CACHE_NAME = `static-cache-g4.7-stable${DEV_BUILD_VERSION}`;
@@ -30,6 +30,8 @@ const FILES_TO_CACHE = [
     'res/images/achievements/nine.svg',
     'res/images/achievements/zeroFail.svg',
     'res/images/normal/ball.png',
+    'res/images/normal/slope1.png',
+    'res/images/normal/slope2.png',
     'res/images/gameHint.svg',
 
     'res/themes/dark.json',

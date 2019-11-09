@@ -590,6 +590,7 @@ class Game {
         #endif 
 
         #define PI 3.1415926
+        #define MAX_DEPTH 3
 
         uniform vec2 u_resolution;
         uniform float u_time;
@@ -604,24 +605,41 @@ class Game {
             return nrmColor * 2.0 - 1.0;
         }
 
-        int isObject(vec2 coords) {
-            vec3 objColor = texture2D(u_object, coords).rgb;
+        vec3 getDiffuseColor(vec2 coords) {
+            vec3 color = texture2D(u_game, coords).rgb;
+            vec3 n = getNormal(coords);
+            vec3 diffuseColor = vec3(0.0, 0.0, 0.0);
 
-            if (objColor.r == 0.0) return 0;
-            return 1;
+            diffuseColor += dot(
+                n,
+                normalize(vec3(0.0, 0.3, 1.0))
+            ) * vec3(1.0, 1.0, 1.0) * color;
+
+            return diffuseColor;
         }
 
         void main() {
             vec2 st = gl_FragCoord.xy / u_resolution.xy;
             vec3 color = texture2D(u_game, st).rgb;
+            vec3 color2;
             vec3 n = getNormal(st);
-            vec3 ambient = texture2D(u_game, vec2(0.0, 0.0)).rgb;
+            vec2 reflectedSt = st;
 
-            vec3 light = normalize(vec3(1.0, 1.0, 1.0));
-            if (isObject(st) == 1) {
-                color *= dot(n, light);
-                color += ambient;
+            vec3 diffuseColor = getDiffuseColor(st);
+
+            float angle = dot(n, vec3(0.0, 0.0, 1.0));
+
+            reflectedSt += vec2(0.1 * n.x, 0.1 * n.y);
+            color2 = getDiffuseColor(reflectedSt);
+
+            if (dot(
+                n,
+                normalize(vec3(0.0, 0.3, 1.0))
+            ) > 0.98) {
+                color2 += 0.6 * vec3(1.0, 1.0, 1.0);
             }
+
+            color = diffuseColor * angle + color2 * (1.0 - angle);
 
             gl_FragColor = vec4(color, 1.0);
         }
@@ -642,7 +660,13 @@ class Game {
         let normalCanvas = this.dom.querySelector("canvas.normalPass")
         let objectCanvas = this.dom.querySelector("canvas.objectPass")
 
+        /**
+         * @type {CanvasRenderingContext2D}
+         */
         let nrmCtx = normalCanvas.getContext("2d")
+        /**
+         * @type {CanvasRenderingContext2D}
+         */
         let objCtx = objectCanvas.getContext("2d")
 
         let minWidth = Math.min(
@@ -671,16 +695,50 @@ class Game {
                 let path = LevelRenderer.getElementPath(item)
 
                 if (item instanceof RingBall) {
-                    // nrmCtx.drawImage(
-                    //     document.querySelector(".normalBall"),
-                    //     item.distance * Math.cos(2 * Math.PI * item.angle) + item.centerX - item.radius,
-                    //     item.distance * Math.sin(2 * Math.PI * item.angle) + item.centerY - item.radius,
-                    //     item.radius * 2,
-                    //     item.radius * 2
-                    // )
+                    nrmCtx.drawImage(
+                        getAsset(null, "g4img_ballNormalMap").image,
+                        item.distance * Math.cos(2 * Math.PI * item.angle) + item.centerX - item.radius,
+                        item.distance * Math.sin(2 * Math.PI * item.angle) + item.centerY - item.radius,
+                        item.radius * 2,
+                        item.radius * 2
+                    )
 
                     objCtx.fillStyle = "#FFFF00"
                 } else if (item instanceof RingBar) {
+                    var bar1 = {
+                        ...item,
+                        distance: item.distance + item.radius / 2,
+                        radius: item.radius / 2
+                    }
+                    var bar2 = {
+                        ...item,
+                        distance: item.distance - item.radius / 2,
+                        radius: item.radius / 2
+                    }
+
+                    nrmCtx.save()
+                    nrmCtx.clip(
+                        LevelRenderer.getElementPath(bar1)
+                    )
+                    nrmCtx.drawImage(
+                        getAsset(null, "g4img_slope1NormalMap").image,
+                        item.centerX - item.radius - item.distance,
+                        item.centerY - item.radius - item.distance,
+                        (item.distance + item.radius) * 2,
+                        (item.distance + item.radius) * 2
+                    )
+                    nrmCtx.clip(
+                        LevelRenderer.getElementPath(bar2)
+                    )
+                    nrmCtx.drawImage(
+                        getAsset(null, "g4img_slope2NormalMap").image,
+                        item.centerX - item.radius - item.distance,
+                        item.centerY - item.radius - item.distance,
+                        (item.distance + item.radius) * 2,
+                        (item.distance + item.radius) * 2
+                    )
+                    nrmCtx.restore()
+
                     objCtx.fillStyle = "#FFFFFF"
                 }
                 objCtx.fill(path)

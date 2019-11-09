@@ -118,4 +118,14 @@ function getAsset(source, name) {
     return gameAssets.find(a => a.source == source && a.name == name)
 }
 
+function loadDefaultAssets() {
+    let assets = [
+        new ImageAsset(null, "g4img_ballNormalMap", "res/images/normals/ball.png"),
+        new ImageAsset(null, "g4img_slope1NormalMap", "res/images/normals/slope1.png"),
+        new ImageAsset(null, "g4img_slope2NormalMap", "res/images/normals/slope2.png"),
+    ]
+    assets.forEach(a => registerAsset(a))
+    return assets
+}
+
 updateAssetProgress()
