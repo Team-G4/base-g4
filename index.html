@@ -128,7 +128,7 @@
             </div>
 
             <footer>
-                <div class="statusItem">
+                <div class="statusItem fpsCounter" style="display: none">
                     <svg width="100%" height="100%" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
                         <g transform="matrix(1,0,0,1,-2,2)">
                             <path d="M7,2L7,3L4,3L4,6L7,6L7,7L4,7L4,10L3,10L3,2L7,2Z"/>
@@ -455,6 +455,42 @@
                             <p class="name">About G4</p>
                             <p class="description">Updates, credits and change log</p>
                         </div>
+                    </div>
+                </div>
+            </dialog>
+
+            <dialog id="settingsGfx" class="settings">
+                <header>
+                    <button class="close">Back</button>
+                    Graphics
+                </header>
+
+                <div class="content">
+                    <div class="setting">
+                        <input type="checkbox" id="settingShowFPS">
+                        <label for="settingShowFPS">Show the FPS counter</label>
+                    </div>
+
+                    <h2>GLSL (beta)</h2>
+                    Enabling GLSL allows custom shaders to change the look of the game.<br>
+                    Please note that GLSL will <b>slow the game down significantly</b>, especially on high resolution displays.
+
+                    <div class="setting">
+                        <input type="checkbox" id="settingEnableGLSL">
+                        <label for="settingEnableGLSL">Enable GLSL (restart required)</label>
+                    </div>
+                    
+                    <h2>Render passes</h2>
+                    Render passes contain additional information about the game's geometry that can be provided to the shader.<br>
+                    Please note that each enabled render pass will <b>slow the game down</b>.
+
+                    <div class="setting">
+                        <input type="checkbox" id="settingGLSLNormal">
+                        <label for="settingGLSLNormal">Normal pass (restart required)</label>
+                    </div>
+                    <div class="setting">
+                        <input type="checkbox" id="settingGLSLObject">
+                        <label for="settingGLSLObject">Object pass (restart required)</label>
                     </div>
                 </div>
             </dialog>

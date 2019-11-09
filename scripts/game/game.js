@@ -581,65 +581,25 @@ class Game {
         this.glslCanvas = new GlslCanvas(wGLCanvas)
 
         this.glslCanvas.loadTexture("u_game", canvas)
-        this.glslCanvas.loadTexture("u_normal", nrmCanvas)
-        this.glslCanvas.loadTexture("u_object", objCanvas)
+
+        if (localStorage["g4_glsl_pass_normal"] == "true") this.glslCanvas.loadTexture("u_normal", nrmCanvas)
+        if (localStorage["g4_glsl_pass_object"] == "true") this.glslCanvas.loadTexture("u_object", objCanvas)
 
         this.glslCanvas.load(`
         #ifdef GL_ES
         precision mediump float;
         #endif 
 
-        #define PI 3.1415926
-        #define MAX_DEPTH 3
-
         uniform vec2 u_resolution;
         uniform float u_time;
 
         uniform sampler2D u_game;
-        uniform sampler2D u_normal;
-        uniform sampler2D u_object;
-
-        vec3 getNormal(vec2 coords) {
-            vec3 nrmColor = texture2D(u_normal, coords).rgb;
-
-            return nrmColor * 2.0 - 1.0;
-        }
-
-        vec3 getDiffuseColor(vec2 coords) {
-            vec3 color = texture2D(u_game, coords).rgb;
-            vec3 n = getNormal(coords);
-            vec3 diffuseColor = vec3(0.0, 0.0, 0.0);
-
-            diffuseColor += dot(
-                n,
-                normalize(vec3(0.0, 0.3, 1.0))
-            ) * vec3(1.0, 1.0, 1.0) * color;
-
-            return diffuseColor;
-        }
 
         void main() {
             vec2 st = gl_FragCoord.xy / u_resolution.xy;
             vec3 color = texture2D(u_game, st).rgb;
-            vec3 color2;
-            vec3 n = getNormal(st);
-            vec2 reflectedSt = st;
 
-            vec3 diffuseColor = getDiffuseColor(st);
-
-            float angle = dot(n, vec3(0.0, 0.0, 1.0));
-
-            reflectedSt += vec2(0.1 * n.x, 0.1 * n.y);
-            color2 = getDiffuseColor(reflectedSt);
-
-            if (dot(
-                n,
-                normalize(vec3(0.0, 0.3, 1.0))
-            ) > 0.98) {
-                color2 += 0.6 * vec3(1.0, 1.0, 1.0);
-            }
-
-            color = diffuseColor * angle + color2 * (1.0 - angle);
+            color.r = 1.0;
 
             gl_FragColor = vec4(color, 1.0);
         }
@@ -652,8 +612,9 @@ class Game {
         let canvas = this.dom.querySelector("canvas.viewport")
 
         this.glslCanvas.textures.u_game.update()
-        this.glslCanvas.textures.u_normal.update()
-        this.glslCanvas.textures.u_object.update()
+
+        if (this.glslCanvas.textures.u_normal) this.glslCanvas.textures.u_normal.update()
+        if (this.glslCanvas.textures.u_object) this.glslCanvas.textures.u_object.update()
     }
 
     renderPasses() {
@@ -678,14 +639,13 @@ class Game {
         let levelScale = (minWidth / 2) / levelRadius
         levelScale = Math.min(levelScale, 1.2)
         
-        nrmCtx.setTransform(1, 0, 0, 1, 0, 0)
         objCtx.setTransform(1, 0, 0, 1, 0, 0)
 
         objCtx.fillStyle = "#000000"
         objCtx.fillRect(0, 0, objectCanvas.width, objectCanvas.height)
 
-        nrmCtx.fillStyle = "#8080FF"
-        nrmCtx.fillRect(0, 0, normalCanvas.width, normalCanvas.height)
+        nrmCtx.clearRect(0, 0, normalCanvas.width, normalCanvas.height)
+        nrmCtx.globalCompositeOperation = "source-over"
 
         this.resetTransform(nrmCtx, levelScale)
         this.resetTransform(objCtx, levelScale)
@@ -727,6 +687,8 @@ class Game {
                         (item.distance + item.radius) * 2,
                         (item.distance + item.radius) * 2
                     )
+                    nrmCtx.restore()
+                    nrmCtx.save()
                     nrmCtx.clip(
                         LevelRenderer.getElementPath(bar2)
                     )
@@ -744,6 +706,22 @@ class Game {
                 objCtx.fill(path)
             })
         })
+
+        objCtx.fillStyle = "#FF00FF"
+        this.resetTransform(objCtx, levelScale)
+        this.renderCannon(objCtx)
+
+        if (this.data.projectile) {
+            objCtx.fillStyle = "#FF0000"
+            this.resetTransform(objCtx, levelScale)
+            this.renderProjectile(objCtx)
+        }
+
+        nrmCtx.globalCompositeOperation = "destination-over"
+
+        nrmCtx.setTransform(1, 0, 0, 1, 0, 0)
+        nrmCtx.fillStyle = "#8080FF"
+        nrmCtx.fillRect(0, 0, normalCanvas.width, normalCanvas.height)
     }
 
     render() {

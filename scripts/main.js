@@ -18,7 +18,7 @@ waitForAssetLoad(loadDefaultAssets()).then(() => {
 
     games.push(mainGame)
 
-    mainGame.initWebGL()
+    if (localStorage["g4_glsl_enable"] == "true") mainGame.initWebGL()
 
     // Owo Chroma
     let chroma = new RazerChromaRGBHandler()
@@ -116,8 +116,11 @@ waitForAssetLoad(loadDefaultAssets()).then(() => {
 
         games.forEach(game => {
             game.render()
-            game.renderPasses()
-            game.renderWebGL()
+
+            if (game.glslCanvas) {
+                game.renderPasses()
+                game.renderWebGL()
+            }
         })
 
         // Render static previews

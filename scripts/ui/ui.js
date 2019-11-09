@@ -146,6 +146,9 @@ document.querySelector("input#settingLeftBar").addEventListener("input", functio
 })
 
 // Settings section
+document.querySelector("#settingsGfxBtn").addEventListener("click", function() {
+    openWindow("settingsGfx")
+})
 document.querySelector("#settingsMusicBtn").addEventListener("click", function() {
     openWindow("settingsMusic")
 })
@@ -308,3 +311,43 @@ function updateModeButtons() {
         modeButtons.appendChild(button)
     })
 }
+
+// FPS counter on/off
+if (!localStorage.getItem("g4_showFps")) localStorage["g4_showFps"] = true
+if (localStorage["g4_showFps"] == "true") {
+    document.querySelector("input#settingShowFPS").checked = true
+    document.querySelector("div.fpsCounter").style.display = "flex"
+}
+
+document.querySelector("input#settingShowFPS").addEventListener("input", function() {
+    localStorage["g4_showFps"] = this.checked
+    document.querySelector("div.fpsCounter").style.display = this.checked ? "flex" : "none"
+})
+
+// GLSL switches
+if (!localStorage.getItem("g4_glsl_enable")) localStorage["g4_glsl_enable"] = false
+if (localStorage["g4_glsl_enable"] == "true") {
+    document.querySelector("input#settingEnableGLSL").checked = true
+}
+
+document.querySelector("input#settingEnableGLSL").addEventListener("input", function() {
+    localStorage["g4_glsl_enable"] = this.checked
+})
+
+if (!localStorage.getItem("g4_glsl_pass_normal")) localStorage["g4_glsl_pass_normal"] = false
+if (localStorage["g4_glsl_pass_normal"] == "true") {
+    document.querySelector("input#settingGLSLNormal").checked = true
+}
+
+document.querySelector("input#settingGLSLNormal").addEventListener("input", function() {
+    localStorage["g4_glsl_pass_normal"] = this.checked
+})
+
+if (!localStorage.getItem("g4_glsl_pass_object")) localStorage["g4_glsl_pass_object"] = false
+if (localStorage["g4_glsl_pass_object"] == "true") {
+    document.querySelector("input#settingGLSLObject").checked = true
+}
+
+document.querySelector("input#settingGLSLObject").addEventListener("input", function() {
+    localStorage["g4_glsl_pass_object"] = this.checked
+})
