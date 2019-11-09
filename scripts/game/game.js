@@ -800,8 +800,6 @@ class Game {
                 this.gameTime
             )
         }
-
-        this.renderPasses()
     }
 
     /**
