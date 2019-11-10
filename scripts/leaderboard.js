@@ -196,11 +196,18 @@ class Leaderboard {
             if (score.playerinfo) {
                 let teamBits = score.playerinfo.teammember
                 let isG4Dev = !!(teamBits & 1)
+                let isTheorist = !!(teamBits & 2)
 
                 if (isG4Dev) {
                     let badge = document.createElement("span")
                     badge.classList.add("teamg4")
                     badge.textContent = "G4"
+                    player.appendChild(badge)
+                }
+                if (isTheorist) {
+                    let badge = document.createElement("span")
+                    badge.classList.add("teamgt")
+                    badge.textContent = "GT"
                     player.appendChild(badge)
                 }
             }
