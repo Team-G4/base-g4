@@ -162,14 +162,20 @@ class Leaderboard {
         let table = document.querySelector("section.leaderboard tbody")
         table.innerHTML = ""
 
+        let counter = 0
+
         scores.scores.forEach((score, i) => {
             let tr = document.createElement("tr")
 
             if (score.username === this.userName) tr.classList.add("me")
-            if (score.verified) tr.classList.add("verified")
+            if (score.verified) {
+                tr.classList.add("verified")
+            } else {
+                counter++
+            }
 
             let rank = document.createElement("td")
-            rank.textContent = i + 1
+            rank.textContent = score.verified ? "-" : counter
             tr.appendChild(rank)
 
             let player = document.createElement("td")
