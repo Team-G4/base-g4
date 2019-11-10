@@ -717,34 +717,54 @@ dialog.open {
 dialog#playerStats div.content {
   padding: 8px;
 }
+dialog#playerStats div.content h1 {
+  font-size: 18pt;
+  font-weight: 600;
+  text-align: center;
+  margin: 8px;
+}
 dialog#playerStats div.content h2 {
   font-size: 16pt;
   font-weight: 400;
-  margin: 8px 8px 40px 8px;
+  margin: 16px 8px 8px 8px;
 }
 dialog#playerStats div.content div.highScore {
   background: var(--g4-game-background);
-  color: var(--g4-game-cannon);
+  color: var(--g4-game-foreground);
   padding: 8px 16px;
-  margin-bottom: 8px;
-  border-radius: 24px;
+  margin: 0px 8px 8px 8px;
+  border-radius: 8px;
   box-shadow: inset 0px 0px 0px 1px var(--g4-game-foreground);
+  display: flex;
+  align-items: center;
 }
 dialog#playerStats div.content div.highScore p {
-  font-size: 14pt;
+  font-size: 12pt;
+  font-weight: 600;
+  text-transform: uppercase;
   margin: 0px;
+  flex-grow: 1;
+}
+dialog#playerStats div.content div.highScore p span {
+  background: var(--g4-game-bullet);
+  color: var(--g4-game-background);
+  padding: 2px 8px;
+  border-radius: 16px;
+  display: inline-block;
 }
 dialog#playerStats div.content div.highScore table {
-  width: 100%;
+  width: 200px;
   border-spacing: 0px;
 }
 dialog#playerStats div.content div.highScore table th {
   font-weight: 400;
+  text-transform: uppercase;
   text-align: left;
 }
 dialog#playerStats div.content div.highScore table td {
   font-weight: 500;
   font-size: 13pt;
+  line-height: 1;
 }
 
 body.left aside {

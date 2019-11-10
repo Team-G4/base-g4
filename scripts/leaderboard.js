@@ -236,7 +236,7 @@ class Leaderboard {
         let scores = data.scores
         if (!scores) scores = []
 
-        document.querySelector("dialog#playerStats h2").textContent = username
+        document.querySelector("dialog#playerStats h1").textContent = username
 
         let container = document.querySelector("dialog#playerStats div.scores")
         container.innerHTML = ""
@@ -251,7 +251,7 @@ class Leaderboard {
 
             let modeName = Game.modeIDToDisplayName(score.gamemode)
 
-            scoreDiv.innerHTML = `<p class="mode">${modeName} mode</p>
+            scoreDiv.innerHTML = `<p class="mode"><span>${modeName}</span></p>
             <table>
                 <tr>
                     <th>Score</th>
