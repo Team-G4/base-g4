@@ -243,7 +243,13 @@ class Leaderboard {
 
         openWindow("playerStats")
 
+        let playerBits = 0, isVerified = false
+
         for (let score of scores) {
+            if (score.playerinfo)
+                playerBits = score.playerinfo.teammember
+            if (score.verified) isVerified = true
+
             let scoreDiv = document.createElement("div")
 
             scoreDiv.className = "highScore"
@@ -265,6 +271,14 @@ class Leaderboard {
 
             container.appendChild(scoreDiv)
         }
+
+        let badges = ""
+
+        if (playerBits & 1) badges += `<div class="badge teamg4">G4 Dev</div>`
+        if (playerBits & 2) badges += `<div class="badge teamgt">Team Theorist</div>`
+        if (isVerified) badges += `<div class="badge">Verified Legit™</div>`
+
+        document.querySelector("dialog#playerStats div.badges").innerHTML = badges
     }
 
     async postScore(mode, score, deathCount) {

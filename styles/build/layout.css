@@ -728,6 +728,28 @@ dialog#playerStats div.content h2 {
   font-weight: 400;
   margin: 16px 8px 8px 8px;
 }
+dialog#playerStats div.content div.badges {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+dialog#playerStats div.content div.badges div.badge {
+  background: var(--g4-app-foreground);
+  color: var(--g4-app-background);
+  font-size: 11pt;
+  font-weight: 500;
+  padding: 1px 8px;
+  margin: 0px 4px;
+  border-radius: 2px;
+}
+dialog#playerStats div.content div.badges div.badge.teamg4 {
+  background: var(--g4-app-accent);
+  color: var(--g4-app-background);
+}
+dialog#playerStats div.content div.badges div.badge.teamgt {
+  background: #0f0;
+  color: #000;
+}
 dialog#playerStats div.content div.highScore {
   background: var(--g4-game-background);
   color: var(--g4-game-foreground);
