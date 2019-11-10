@@ -187,6 +187,18 @@ class Leaderboard {
                 player.appendChild(verified)
             }
 
+            if (score.playerinfo) {
+                let teamBits = score.playerinfo.teammember
+                let isG4Dev = !!(teamBits & 1)
+
+                if (isG4Dev) {
+                    let badge = document.createElement("span")
+                    badge.classList.add("teamg4")
+                    badge.textContent = "G4"
+                    player.appendChild(badge)
+                }
+            }
+
             tr.appendChild(player)
 
             let scoreText = document.createElement("td")
