@@ -590,16 +590,63 @@ class Game {
         precision mediump float;
         #endif 
 
+        #define PI 3.1415926
+        #define MAX_DEPTH 3
+
         uniform vec2 u_resolution;
         uniform float u_time;
 
         uniform sampler2D u_game;
+        uniform sampler2D u_normal;
+        uniform sampler2D u_object;
+
+        vec3 getNormal(vec2 coords) {
+            vec3 nrmColor = texture2D(u_normal, coords).rgb;
+
+            return nrmColor * 2.0 - 1.0;
+        }
+
+        vec3 getDiffuseColor(vec2 coords) {
+            vec3 color = texture2D(u_game, coords).rgb;
+            vec3 n = getNormal(coords);
+            vec3 diffuseColor = vec3(0.0, 0.0, 0.0);
+
+            diffuseColor += dot(
+                n,
+                normalize(vec3(0.0, 0.3, 1.0))
+            ) * vec3(1.0, 1.0, 1.0) * color;
+
+            return diffuseColor;
+        }
 
         void main() {
             vec2 st = gl_FragCoord.xy / u_resolution.xy;
             vec3 color = texture2D(u_game, st).rgb;
+            vec3 object = texture2D(u_object, st).rgb;
+            vec3 color2;
+            vec3 n = getNormal(st);
+            vec2 reflectedSt = st;
+            vec3 ambient = texture2D(u_game, vec2(0.0, 0.0)).rgb;
 
-            color.r = 1.0;
+            vec3 diffuseColor = getDiffuseColor(st) + ambient * color;
+
+            float angle = dot(n, vec3(0.0, 0.0, 1.0));
+
+            if (object.g < 1.0) {
+                color = texture2D(u_game, st).rgb;
+            } else {
+                reflectedSt += vec2(0.1 * n.x, 0.1 * n.y);
+                color2 = getDiffuseColor(reflectedSt);
+
+                if (dot(
+                    n,
+                    normalize(vec3(0.0, 0.3, 1.0))
+                ) > 0.98) {
+                    color2 += 0.6 * vec3(1.0, 1.0, 1.0);
+                }
+
+                color = diffuseColor * angle + color2 * (1.0 - angle);
+            }
 
             gl_FragColor = vec4(color, 1.0);
         }

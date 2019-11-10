@@ -328,10 +328,12 @@ document.querySelector("input#settingShowFPS").addEventListener("input", functio
 if (!localStorage.getItem("g4_glsl_enable")) localStorage["g4_glsl_enable"] = false
 if (localStorage["g4_glsl_enable"] == "true") {
     document.querySelector("input#settingEnableGLSL").checked = true
+    document.querySelectorAll("div.setting.glsl").forEach(s => s.classList.remove("disabled"))
 }
 
 document.querySelector("input#settingEnableGLSL").addEventListener("input", function() {
     localStorage["g4_glsl_enable"] = this.checked
+    document.querySelectorAll("div.setting.glsl").forEach(s => s.classList.toggle("disabled", !this.checked))
 })
 
 if (!localStorage.getItem("g4_glsl_pass_normal")) localStorage["g4_glsl_pass_normal"] = false
