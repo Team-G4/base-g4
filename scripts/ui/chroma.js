@@ -356,35 +356,41 @@ class RazerChromaRGBHandler extends RGBHandler {
     }
 
     async render() {
-        await this.chroma.putEffect(
-            "keyboard", "CHROMA_CUSTOM",
-            this.createKeyboardEffect()
-        )
+        if (localStorage["g4_chroma_keyboard"] == "true")
+            await this.chroma.putEffect(
+                "keyboard", "CHROMA_CUSTOM",
+                this.createKeyboardEffect()
+            )
 
-        await this.chroma.putEffect(
-            "keypad", "CHROMA_CUSTOM",
-            this.createKeypadEffect()
-        )
+        if (localStorage["g4_chroma_keypad"] == "true")
+            await this.chroma.putEffect(
+                "keypad", "CHROMA_CUSTOM",
+                this.createKeypadEffect()
+            )
 
-        await this.chroma.putEffect(
-            "mouse", "CHROMA_CUSTOM",
-            this.createMouseEffect()
-        )
+        if (localStorage["g4_chroma_mouse"] == "true")
+            await this.chroma.putEffect(
+                "mouse", "CHROMA_CUSTOM",
+                this.createMouseEffect()
+            )
 
-        await this.chroma.putEffect(
-            "headset", "CHROMA_CUSTOM",
-            this.createHeadsetEffect()
-        )
+        if (localStorage["g4_chroma_headset"] == "true")
+            await this.chroma.putEffect(
+                "headset", "CHROMA_CUSTOM",
+                this.createHeadsetEffect()
+            )
 
-        await this.chroma.putEffect(
-            "mousepad", "CHROMA_CUSTOM",
-            this.createMousepadEffect()
-        )
+        if (localStorage["g4_chroma_mousepad"] == "true")
+            await this.chroma.putEffect(
+                "mousepad", "CHROMA_CUSTOM",
+                this.createMousepadEffect()
+            )
 
-        await this.chroma.putEffect(
-            "chromalink", "CHROMA_CUSTOM",
-            this.createHeadsetEffect()
-        )
+        if (localStorage["g4_chroma_link"] == "true")
+            await this.chroma.putEffect(
+                "chromalink", "CHROMA_CUSTOM",
+                this.createHeadsetEffect()
+            )
     }
 
     handleEvent(event) {

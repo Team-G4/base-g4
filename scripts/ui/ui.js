@@ -355,3 +355,52 @@ if (localStorage["g4_glsl_pass_object"] == "true") {
 document.querySelector("input#settingGLSLObject").addEventListener("input", function() {
     localStorage["g4_glsl_pass_object"] = this.checked
 })
+
+// Razer Chroma
+if (!localStorage.getItem("g4_chroma_keyboard")) localStorage["g4_chroma_keyboard"] = false
+if (localStorage["g4_chroma_keyboard"] == "true") {
+    document.querySelector("input#settingChromaKeyboard").checked = true
+}
+document.querySelector("input#settingChromaKeyboard").addEventListener("input", function() {
+    localStorage["g4_chroma_keyboard"] = this.checked
+})
+
+if (!localStorage.getItem("g4_chroma_mouse")) localStorage["g4_chroma_mouse"] = false
+if (localStorage["g4_chroma_mouse"] == "true") {
+    document.querySelector("input#settingChromaMouse").checked = true
+}
+document.querySelector("input#settingChromaMouse").addEventListener("input", function() {
+    localStorage["g4_chroma_mouse"] = this.checked
+})
+
+if (!localStorage.getItem("g4_chroma_mousepad")) localStorage["g4_chroma_mousepad"] = false
+if (localStorage["g4_chroma_mousepad"] == "true") {
+    document.querySelector("input#settingChromaMousepad").checked = true
+}
+document.querySelector("input#settingChromaMousepad").addEventListener("input", function() {
+    localStorage["g4_chroma_mousepad"] = this.checked
+})
+
+if (!localStorage.getItem("g4_chroma_headset")) localStorage["g4_chroma_headset"] = false
+if (localStorage["g4_chroma_headset"] == "true") {
+    document.querySelector("input#settingChromaHeadset").checked = true
+}
+document.querySelector("input#settingChromaHeadset").addEventListener("input", function() {
+    localStorage["g4_chroma_headset"] = this.checked
+})
+
+if (!localStorage.getItem("g4_chroma_keypad")) localStorage["g4_chroma_keypad"] = false
+if (localStorage["g4_chroma_keypad"] == "true") {
+    document.querySelector("input#settingChromaKeypad").checked = true
+}
+document.querySelector("input#settingChromaKeypad").addEventListener("input", function() {
+    localStorage["g4_chroma_keypad"] = this.checked
+})
+
+if (!localStorage.getItem("g4_chroma_link")) localStorage["g4_chroma_link"] = false
+if (localStorage["g4_chroma_link"] == "true") {
+    document.querySelector("input#settingChromaLink").checked = true
+}
+document.querySelector("input#settingChromaLink").addEventListener("input", function() {
+    localStorage["g4_chroma_link"] = this.checked
+})

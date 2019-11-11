@@ -48,6 +48,7 @@ waitForAssetLoad(loadDefaultAssets()).then(() => {
     if (localStorage["g4_chromaEnabled"] == "true") {
         document.querySelector("input#settingEnableChroma").checked = true
         document.querySelector("input#settingEnableChroma").classList.add("loading")
+        document.querySelectorAll("div.setting.chroma").forEach(s => s.classList.remove("disabled"))
 
         initChroma().then(() => {
             document.querySelector("input#settingEnableChroma").classList.remove("loading")
@@ -57,6 +58,7 @@ waitForAssetLoad(loadDefaultAssets()).then(() => {
     document.querySelector("input#settingEnableChroma").addEventListener("input", function() {
         localStorage["g4_chromaEnabled"] = this.checked
         document.querySelector("input#settingEnableChroma").classList.add("loading")
+        document.querySelectorAll("div.setting.chroma").forEach(s => s.classList.toggle("disabled", !this.checked))
 
         if (this.checked) {
             initChroma().then(() => {
