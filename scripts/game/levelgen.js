@@ -915,10 +915,6 @@ class HellNativeMode extends NativeMode {
             ),
             new Ring(
                 LevelGenerator.generateMiddleRing(3, 300),
-                0.5, false
-            ),
-            new Ring(
-                LevelGenerator.generateOuterRing(3, 400),
                 0.25, false
             ),
             new Ring(
