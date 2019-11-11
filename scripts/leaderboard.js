@@ -28,7 +28,6 @@ let gameAchievements = {
     }
 }
 
-
 class Leaderboard {
     constructor() {
         this.userID = null
