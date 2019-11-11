@@ -55,11 +55,13 @@ body {
 }
 
 body.login {
-    div.accountInfo {
-        display: flex;
-    }
-
     button#openLoginBtn {
+        display: none;
+    }
+}
+
+body:not(.login) {
+    div.accountInfo * {
         display: none;
     }
 }

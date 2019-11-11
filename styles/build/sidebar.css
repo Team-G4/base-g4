@@ -13,11 +13,10 @@ aside {
   transition: right 0.2s;
 }
 aside > header {
-  min-height: 48px;
+  min-height: 33px;
 }
 aside header {
   display: flex;
-  flex-wrap: wrap;
 }
 aside header div.content {
   display: flex;
@@ -64,12 +63,13 @@ aside header button:active div {
   --g4-app-foreground: var(--g4-app-background);
 }
 aside header div.accountInfo {
-  width: 100%;
-  display: none;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
 }
 aside header div.accountInfo p {
-  font-weight: 400;
-  font-size: 15pt;
+  font-weight: 500;
+  font-size: 12pt;
   padding: 8px 16px;
   margin: 0px;
   flex-grow: 1;
@@ -101,6 +101,9 @@ aside section header {
 }
 aside section div.content {
   flex-grow: 1;
+}
+aside section.gameMode {
+  padding-top: 16px;
 }
 aside section.gameMode div.content {
   display: grid;
@@ -453,6 +456,7 @@ dialog#playerStats div.content div.highScore table th {
   text-align: left;
 }
 dialog#playerStats div.content div.highScore table td {
+  width: 50%;
   font-weight: 500;
   font-size: 13pt;
   line-height: 1;
