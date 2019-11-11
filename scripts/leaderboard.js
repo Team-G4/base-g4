@@ -6,25 +6,25 @@ if (localStorage["g4_showLegitTM"] == "1") document.querySelector("input#setting
 let gameAchievements = {
     "firstClear": {
         name: "First steps",
-        description: "You got the first place on the leaderboard."
+        description: "You reached level 1 in $$ mode."
     },
     "10thClear": {
-        name: "Follow the Leader",
-        description: "You got the first place on the leaderboard."
+        name: "Almost 11",
+        description: "You reached level 10 in $$ mode."
     },
     "ninenine": {
-        name: "Follow the Leader",
-        description: "You got the first place on the leaderboard."
+        name: "Infinity",
+        description: "You reached level 999,999 in $$ mode."
     },
 
     "zeroFail": {
-        name: "Follow the Leader",
-        description: "You got the first place on the leaderboard."
+        name: "Oh.",
+        description: "Oh well. You failed on level 0 in $$ mode."
     },
 
     "leader": {
         name: "Follow the Leader",
-        description: "You got the first place on the leaderboard."
+        description: "You got the first place on the $$ mode leaderboard."
     }
 }
 
@@ -294,6 +294,7 @@ class Leaderboard {
             achDiv.classList.add(achType)
             
             if (achType == "game") achDiv.setAttribute("data-mode", achMode)
+            let modeName = Game.modeIDToDisplayName(achMode)
 
             let svgData = await fetch(`res/images/achievements/${achName}.svg`)
             svgData = await svgData.text()
@@ -302,7 +303,7 @@ class Leaderboard {
             ${svgData}
             <div class="info">
                 <p class="name">${gameAchievements[achName].name}</p>
-                <p class="description">${gameAchievements[achName].description}</p>
+                <p class="description">${gameAchievements[achName].description.replace("$$", modeName)}</p>
             </div>
             `
 
