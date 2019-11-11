@@ -251,6 +251,24 @@ class Leaderboard {
         })
     }
 
+    getAchievementInfo(achID) {
+        let achType = "", achMode = "", achName = ""
+        let achSpec = achID.split("_")
+
+        achType = achSpec[0]
+        if (achType == "gen") {
+            achName = achSpec[1]
+        } else {
+            achMode = achSpec[1]
+            achName = achSpec[2]
+        }
+
+        return {
+            name: gameAchievements[achName].name,
+            description: gameAchievements[achName].description.replace("$$", Game.modeIDToDisplayName(achMode))
+        }
+    }
+
     async showDetailedScores(username) {
         let name = encodeURIComponent(username)
 
@@ -377,5 +395,34 @@ class Leaderboard {
         if (!data.authError) {
             this.accessToken = data.accesstoken
         }
+    }
+
+    async addAchievement(achID) {
+        if (!this.userID) return false
+
+        let data = await fetch(
+            leaderboardEndpoint + "/addAchievement",
+            {
+                method: "POST",
+                mode: "cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    uuid: this.userID,
+                    accesstoken: this.accessToken,
+                    data: {
+                        achievement: achID
+                    }
+                })
+            }
+        )
+
+        data = await data.json()
+
+        if (!data.authError) {
+            this.accessToken = data.accesstoken
+        }
+        return data.successful && data.data
     }
 }

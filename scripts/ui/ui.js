@@ -208,9 +208,11 @@ function showNotification(notif) {
         name = notif.source.name
     }
 
-    let iconImg = document.createElement("img")
-    iconImg.src = icon
-    header.appendChild(iconImg)
+    if (icon) {
+        let iconImg = document.createElement("img")
+        iconImg.src = icon
+        header.appendChild(iconImg)
+    }
 
     let nameP = document.createElement("p")
     nameP.classList.add("name")

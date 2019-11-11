@@ -853,7 +853,7 @@ class Game {
      * @param {Mode} modeObj 
      * @param {Number} levelIndex 
      */
-    generateLevel(modeObj, levelIndex) {
+    async generateLevel(modeObj, levelIndex) {
         let mode = "custom"
         if (modeObj instanceof NativeMode) mode = modeObj.modeId
 
@@ -882,7 +882,7 @@ class Game {
 
         document.querySelector("section.leaderboard").style.display = (this.currentMode instanceof CustomMode) ? "none" : "flex"
 
-        this.updateLeaderboard()
+        await this.updateLeaderboard()
     }
 
     async updateLeaderboard() {
@@ -915,11 +915,33 @@ class Game {
         this.data.slow.time = Math.min(this.data.slow.time + 0.2, 10)
         this.generateLevel(
             this.currentMode, this.data.levelIndex + 1
-        )
+        ).then(() => {
+            if (this.currentMode instanceof NativeMode) {
+                if (this.data.levelIndex == 1) {
+                    this.addAchievement(
+                        `game_${this.currentMode.modeId}_firstClear`
+                    )
+                } else if (this.data.levelIndex == 10) {
+                    this.addAchievement(
+                        `game_${this.currentMode.modeId}_10thClear`
+                    )
+                } else if (this.data.levelIndex == 999999) {
+                    this.addAchievement(
+                        `game_${this.currentMode.modeId}_ninenine`
+                    )
+                }
+            }
+        })
     }
 
     resetProgress() {
         this.data.slow.time = Math.min(this.data.slow.time, 0.6)
+
+        if (this.data.levelIndex == 0 && this.currentMode instanceof NativeMode) {
+            this.addAchievement(
+                `game_${this.currentMode.modeId}_zeroFail`
+            )
+        }
 
         this.generateLevel(
             this.currentMode, 0
@@ -947,6 +969,23 @@ class Game {
         localStorage[storageKey] = deaths
 
         this.data.userDeaths = deaths
+    }
+
+    async addAchievement(id) {
+        if (this.isSpectated) return
+        if (!this.leaderboard) return
+        if (this.currentMode instanceof CustomMode) return
+
+        let added = await this.leaderboard.addAchievement(id)
+
+        if (added) {
+            let info = this.leaderboard.getAchievementInfo(id)
+
+            showNotification({
+                source: null,
+                text: `You got the ${info.name} achievement!`
+            })
+        }
     }
 
     addDeath() {

@@ -440,8 +440,8 @@ dialog#playerStats div.content div.achievement svg {
   --svg-color-2: var(--g4-app-foreground);
 }
 dialog#playerStats div.content div.achievement.game svg {
-  --svg-color-1: var(--g4-game-foreground);
-  --svg-color-2: var(--g4-game-bullet);
+  --svg-color-1: var(--g4-game-bullet);
+  --svg-color-2: var(--g4-game-foreground);
 }
 dialog#playerStats div.content div.achievement div.info {
   display: flex;

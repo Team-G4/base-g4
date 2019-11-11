@@ -601,8 +601,8 @@ dialog#playerStats {
             }
 
             &.game svg {
-                --svg-color-1: var(--g4-game-foreground);
-                --svg-color-2: var(--g4-game-bullet);
+                --svg-color-1: var(--g4-game-bullet);
+                --svg-color-2: var(--g4-game-foreground);
             }
 
             div.info {
