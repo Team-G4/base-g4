@@ -135,7 +135,11 @@ aside {
     }
 
     section.gameMode {
-        padding-top: 16px;
+        background: transparent;
+
+        padding: 0px;
+        border-radius: 0px;
+
         div.content {
             display: grid;
             grid-template-columns: repeat(4, 1fr);

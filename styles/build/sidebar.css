@@ -103,7 +103,9 @@ aside section div.content {
   flex-grow: 1;
 }
 aside section.gameMode {
-  padding-top: 16px;
+  background: transparent;
+  padding: 0px;
+  border-radius: 0px;
 }
 aside section.gameMode div.content {
   display: grid;
