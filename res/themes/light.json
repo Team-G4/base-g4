@@ -102,15 +102,15 @@
                 "bullet": "#ff0055"
             },
             "polar": {
-                "background": "#272032",
-                "damage": "#2D2639",
+                "background": "#FFEAF9",
+                "damage": "#FFE2F1",
     
-                "foreground": "#50B9C9",
-                "obstacle1": "#D73E71",
-                "obstacle2": "#66BAA7",
+                "foreground": "#57423F",
+                "obstacle1": "#324A72",
+                "obstacle2": "#7D3225",
     
-                "cannon": "#FFF4F8",
-                "bullet": "#FFFF00"
+                "cannon": "#000000",
+                "bullet": "#009EFF"
             }
         }
     }
