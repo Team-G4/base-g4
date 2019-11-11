@@ -3,6 +3,31 @@ let leaderboardEndpoint = "https://g4-leaderboard.herokuapp.com"
 if (!localStorage.getItem("g4_showLegitTM")) localStorage["g4_showLegitTM"] = "0"
 if (localStorage["g4_showLegitTM"] == "1") document.querySelector("input#settingVerifiedLegit").checked = true
 
+let gameAchievements = {
+    "firstClear": {
+        name: "First steps",
+        description: "You got the first place on the leaderboard."
+    },
+    "10thClear": {
+        name: "Follow the Leader",
+        description: "You got the first place on the leaderboard."
+    },
+    "ninenine": {
+        name: "Follow the Leader",
+        description: "You got the first place on the leaderboard."
+    },
+
+    "zeroFail": {
+        name: "Follow the Leader",
+        description: "You got the first place on the leaderboard."
+    },
+
+    "leader": {
+        name: "Follow the Leader",
+        description: "You got the first place on the leaderboard."
+    }
+}
+
 class Leaderboard {
     constructor() {
         this.userID = null
@@ -228,20 +253,61 @@ class Leaderboard {
 
     async showDetailedScores(username) {
         let name = encodeURIComponent(username)
-        let url = `${leaderboardEndpoint}/playerScores?username=${name}`
 
-        let data = await fetch(url)
+        let data = await fetch(`${leaderboardEndpoint}/playerScores?username=${name}`)
         data = await data.json()
 
         let scores = data.scores
         if (!scores) scores = []
 
+        data = await fetch(`${leaderboardEndpoint}/playerAchievements?username=${name}`)
+        data = await data.json()
+
+        let achievements = data.achievements
+        if (!achievements) achievements = []
+
         document.querySelector("dialog#playerStats h1").textContent = username
 
         let container = document.querySelector("dialog#playerStats div.scores")
-        container.innerHTML = ""
+        container.innerHTML = ""        
+
+        let achContainer = document.querySelector("dialog#playerStats div.achievements")
+        achContainer.innerHTML = ""
 
         openWindow("playerStats")
+
+        for (let achievement of achievements) {
+            let achType = "", achMode = "", achName = ""
+            let achSpec = achievement.split("_")
+
+            achType = achSpec[0]
+            if (achType == "gen") {
+                achName = achSpec[1]
+            } else {
+                achMode = achSpec[1]
+                achName = achSpec[2]
+            }
+
+            let achDiv = document.createElement("div")
+
+            achDiv.classList.add("achievement")
+            achDiv.classList.add(achType)
+            
+            if (achType == "game") achDiv.setAttribute("data-mode", achMode)
+
+            let svgData = await fetch(`res/images/achievements/${achName}.svg`)
+            svgData = await svgData.text()
+
+            achDiv.innerHTML = `
+            ${svgData}
+            <div class="info">
+                <p class="name">${gameAchievements[achName].name}</p>
+                <p class="description">${gameAchievements[achName].description}</p>
+            </div>
+            `
+
+            achContainer.appendChild(achDiv)
+        }
 
         let playerBits = 0, isVerified = false
 

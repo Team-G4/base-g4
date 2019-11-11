@@ -580,6 +580,51 @@ dialog#playerStats {
             }
         }
 
+        div.achievement {
+            background: var(--g4-app-header-background);
+            color: var(--g4-app-foreground);
+            
+            padding: 8px 16px;
+            margin: 0px 8px 8px 8px;
+            border-radius: 8px;
+
+            display: flex;
+
+            svg {
+                width: 48px;
+                height: 48px;
+
+                margin-right: 16px;
+
+                --svg-color-1: var(--g4-app-accent);
+                --svg-color-2: var(--g4-app-foreground);
+            }
+
+            &.game svg {
+                --svg-color-1: var(--g4-game-foreground);
+                --svg-color-2: var(--g4-game-bullet);
+            }
+
+            div.info {
+                display: flex;
+                flex-grow: 1;
+                flex-direction: column;
+                justify-content: center;
+
+                p.name {
+                    font-weight: 600;
+
+                    margin: 0px;
+                }
+
+                p.description {
+                    font-size: 11pt;
+
+                    margin: 0px;
+                }
+            }
+        }
+
         div.highScore {
             background: var(--g4-game-background);
             color: var(--g4-game-foreground);

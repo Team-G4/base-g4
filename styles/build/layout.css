@@ -755,6 +755,39 @@ dialog#playerStats div.content div.badges div.badge.teamgt {
   background: #0f0;
   color: #000;
 }
+dialog#playerStats div.content div.achievement {
+  background: var(--g4-app-header-background);
+  color: var(--g4-app-foreground);
+  padding: 8px 16px;
+  margin: 0px 8px 8px 8px;
+  border-radius: 8px;
+  display: flex;
+}
+dialog#playerStats div.content div.achievement svg {
+  width: 48px;
+  height: 48px;
+  margin-right: 16px;
+  --svg-color-1: var(--g4-app-accent);
+  --svg-color-2: var(--g4-app-foreground);
+}
+dialog#playerStats div.content div.achievement.game svg {
+  --svg-color-1: var(--g4-game-foreground);
+  --svg-color-2: var(--g4-game-bullet);
+}
+dialog#playerStats div.content div.achievement div.info {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: center;
+}
+dialog#playerStats div.content div.achievement div.info p.name {
+  font-weight: 600;
+  margin: 0px;
+}
+dialog#playerStats div.content div.achievement div.info p.description {
+  font-size: 11pt;
+  margin: 0px;
+}
 dialog#playerStats div.content div.highScore {
   background: var(--g4-game-background);
   color: var(--g4-game-foreground);
