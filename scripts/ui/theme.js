@@ -24,6 +24,7 @@ let themeKeyNames = {
     "denise": "Chaos mode",
     "reverse": "Reverse mode",
     "nox": "Nox mode",
+    "polar": "Polar mode",
 }
 
 async function loadTheme(name) {
@@ -333,4 +334,29 @@ function duplicateTheme(themeId) {
     applyTheme()
 }
 
-loadDefaultThemes(!!localStorage.getItem("g4_themes")).then(() => applyTheme())
+function fillGaps(source, target) {
+    for (let key in source) {
+        if (!(key in target)) {
+            target[key] = JSON.parse(JSON.stringify(source[key]))
+        } else if (target[key] instanceof Object) {
+            fillGaps(source[key], target[key])
+        }
+    }
+}
+
+function updateThemes() {
+    let themes = JSON.parse(localStorage["g4_themes"])
+
+    if (themes.length < 3) return
+
+    for (let i = 2; i < themes.length; i++) {
+        fillGaps(themes[0], themes[i])
+    }
+
+    localStorage["g4_themes"] = JSON.stringify(themes)
+}
+
+loadDefaultThemes(!!localStorage.getItem("g4_themes")).then(() => {
+    updateThemes()
+    applyTheme()
+})

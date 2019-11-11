@@ -1025,6 +1025,54 @@ class NoxNativeMode extends NativeMode {
     }
 }
 
+class PolarNativeMode extends NativeMode {
+    constructor() {
+        super("polar", "Polar")
+    }
+
+    getRings(levelIndex) {
+        if (Math.random() < 0.5) {
+            return [
+                new Ring(
+                    LevelGenerator.generateInnerRing(2, 250),
+                    1, false,
+                    100, 0.5, 0
+                ),
+                new Ring(
+                    LevelGenerator.generateInnerRing(2, 250),
+                    1, false,
+                    100, 0.5, 0.5
+                )
+            ]
+        } else {
+            let n = Math.round(Math.random()) + 2
+            return Array(n).fill(0).map((x, i) => new Ring(
+                LevelGenerator.generateDeniseRing(3, 250),
+                1, false,
+                100, 0.5, i/n
+            ))
+        }
+    }
+}
+/**
+ * new G4.Ring(
+                G4.levelGen.generateRing(
+                    G4.levelGen.ringTypes.TYPE_A,
+                    2, 250
+                ),
+                1, false,
+                100, 0.5, 0
+            ),
+            new G4.Ring(
+                G4.levelGen.generateRing(
+                    G4.levelGen.ringTypes.TYPE_A,
+                    2, 250
+                ),
+                1, false,
+                100, 0.5, 0.5
+            )
+ */
+
 /**
  * @type {Mode[]}
  */
@@ -1036,6 +1084,7 @@ let gameModes = [
     new HadesNativeMode(),
     new ChaosNativeMode(),
     new ReverseNativeMode(),
-    new NoxNativeMode()
+    new NoxNativeMode(),
+    new PolarNativeMode()
 ]
 window.getActiveMode = () => null

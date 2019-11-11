@@ -1073,7 +1073,8 @@ class Game {
             hades: "Hades",
             denise: "Chaos",
             reverse: "Reverse",
-            nox: "Nox"
+            nox: "Nox",
+            polar: "Polar"
         }
 
         return modeAlias[mode]
