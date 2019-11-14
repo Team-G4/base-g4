@@ -183,9 +183,11 @@ class Game {
             switch (item.type) {
                 case "ball":
                     item.angle += dTime
+                    if (item.angle < 0) item.angle += 1
                     break
                 case "pulsingBall":
                     item.angle += dTime
+                    if (item.angle < 0) item.angle += 1
                     item.pulseTime += dRawTime
                     item.radius = item.baseRadius + Math.sin(
                         item.pulseTime * 2 * Math.PI * item.pulseFreq
@@ -193,10 +195,13 @@ class Game {
                     break
                 case "bar":
                     item.angleStart += dTime
+                    if (item.angleStart < 0) item.angleStart += 1
                     break
                 case "marqueeBar":
                     item.baseStart += dTime
+                    if (item.baseStart < 0) item.baseStart += 1
                     item.baseEnd += dTime
+                    if (item.baseEnd < 0) item.baseEnd += 1
 
                     item.sweepTime += dRawTime
 

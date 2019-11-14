@@ -120,6 +120,7 @@ aside {
         flex-direction: column;
 
         &.collapsed {
+            background: linear-gradient(var(--g4-app-header-background), transparent);
             div.content {
                 display: none;
             }
