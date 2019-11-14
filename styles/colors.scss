@@ -138,3 +138,13 @@
     --g4-game-cannon: var(--g4-theme-game-polar-cannon);
     --g4-game-bullet: var(--g4-theme-game-polar-bullet);
 }
+
+[data-mode=shook] {
+    --g4-game-background: var(--g4-theme-game-shook-background);
+    --g4-game-damage: var(--g4-theme-game-shook-damage);
+    --g4-game-foreground: var(--g4-theme-game-shook-foreground);
+    --g4-game-obstacle1: var(--g4-theme-game-shook-obstacle1);
+    --g4-game-obstacle2: var(--g4-theme-game-shook-obstacle2);
+    --g4-game-cannon: var(--g4-theme-game-shook-cannon);
+    --g4-game-bullet: var(--g4-theme-game-shook-bullet);
+}

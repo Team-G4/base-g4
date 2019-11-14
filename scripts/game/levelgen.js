@@ -1054,24 +1054,16 @@ class PolarNativeMode extends NativeMode {
         }
     }
 }
-/**
- * new G4.Ring(
-                G4.levelGen.generateRing(
-                    G4.levelGen.ringTypes.TYPE_A,
-                    2, 250
-                ),
-                1, false,
-                100, 0.5, 0
-            ),
-            new G4.Ring(
-                G4.levelGen.generateRing(
-                    G4.levelGen.ringTypes.TYPE_A,
-                    2, 250
-                ),
-                1, false,
-                100, 0.5, 0.5
-            )
- */
+
+class ShookNativeMode extends NativeMode {
+    constructor() {
+        super("shook", "Shook")
+    }
+
+    getRings(levelIndex) {
+        return []
+    }
+}
 
 /**
  * @type {Mode[]}
@@ -1085,6 +1077,7 @@ let gameModes = [
     new ChaosNativeMode(),
     new ReverseNativeMode(),
     new NoxNativeMode(),
-    new PolarNativeMode()
+    new PolarNativeMode(),
+    new ShookNativeMode()
 ]
 window.getActiveMode = () => null
