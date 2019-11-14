@@ -113,15 +113,15 @@
                 "bullet": "#FFFF00"
             },
             "shook": {
-                "background": "#272032",
-                "damage": "#2D2639",
+                "background": "#1a1c21",
+                "damage": "#11141d",
     
-                "foreground": "#50B9C9",
-                "obstacle1": "#D73E71",
-                "obstacle2": "#66BAA7",
+                "foreground": "#6f759c",
+                "obstacle1": "#bf580e",
+                "obstacle2": "#5c1ef1",
     
-                "cannon": "#FFF4F8",
-                "bullet": "#FFFF00"
+                "cannon": "#79a7a7",
+                "bullet": "#ff02d4"
             }
         }
     }

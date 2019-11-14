@@ -9,6 +9,7 @@
      * @type {Plugin[]}
      */
     let loadedPlugins = []
+    window.loadedPlugins = loadedPlugins
 
     class PluginDebugMessage {
         constructor(plugin) {
@@ -84,6 +85,8 @@
              */
             this.eventHandlers = []
 
+            this.objects = []
+
             this.isRunning = isRunning
             if (isRunning) this.run()
         }
@@ -140,10 +143,9 @@
                     
                     if (!(mode instanceof CustomMode)) return false
 
-                    mode.ownerPlugin = this
+                    this.objects.push(mode)
 
                     gameModes.push(mode)
-                    updateModeButtons()
 
                     return true
                 },
@@ -447,6 +449,7 @@
     })
 
     updatePluginList()
+    updateModeButtons()
 
     document.querySelector("button#reloadG4Btn").addEventListener("click", () => {
         location.reload()

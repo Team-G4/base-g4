@@ -267,14 +267,20 @@ function updateModeButtons() {
     let modeButtons = document.querySelector("section.gameMode div.content")
     
     modeButtons.innerHTML = ""
+
+    let lastSource = null
     
     gameModes.forEach(mode => {
         let button = document.createElement("button")
         button.classList.add("mode")
 
+        let source = lastSource
+
         if (mode instanceof NativeMode) {
             button.setAttribute("data-mode", mode.modeId)
         } else if (mode instanceof CustomMode) {
+            source = window.loadedPlugins.find(plugin => plugin.objects.includes(mode))
+
             let colors = mode.getThemeColors()
 
             button.setAttribute("data-mode", "custom")
@@ -283,16 +289,21 @@ function updateModeButtons() {
                 button.style.setProperty("--g4-game-custom-" + color, colors[color])
             }
         }
+        
+        if (source != lastSource) {
+            let sourceHeader = document.createElement("header")
+
+            sourceHeader.innerHTML = `
+                ${source.name}
+            `
+
+            modeButtons.appendChild(sourceHeader)
+            console.log(source)
+        }
 
         if (mode == getActiveMode()) button.classList.add("active")
 
         button.textContent = mode.name
-
-        if (mode instanceof CustomMode) {
-            let icon = document.createElement("img")
-            icon.src = mode.ownerPlugin.getFilePath(mode.ownerPlugin.icon)
-            button.appendChild(icon)
-        }
 
         button.addEventListener("click", () => {
             if (button.classList.contains("active")) return
@@ -311,6 +322,8 @@ function updateModeButtons() {
         })
 
         modeButtons.appendChild(button)
+
+        lastSource = source
     })
 }
 

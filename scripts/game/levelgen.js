@@ -1061,7 +1061,16 @@ class ShookNativeMode extends NativeMode {
     }
 
     getRings(levelIndex) {
-        return []
+        return [
+            new Ring(
+                LevelGenerator.generateInnerRing(2, 300),
+                1, false
+            ),
+            new Ring(
+                LevelGenerator.generateInnerRing(2, 300),
+                1, false
+            )
+        ]
     }
 }
 

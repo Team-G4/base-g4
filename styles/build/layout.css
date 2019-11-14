@@ -462,6 +462,15 @@ aside section.gameMode div.content {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
 }
+aside section.gameMode div.content header {
+  font-size: 11pt;
+  font-weight: 400;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  grid-column: 1/5;
+  opacity: 0.8;
+}
 aside section.gameMode div.content button.mode {
   background: transparent;
   color: var(--g4-app-foreground);
