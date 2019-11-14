@@ -92,12 +92,18 @@ aside section {
   display: flex;
   flex-direction: column;
 }
+aside section.collapsed div.content {
+  display: none;
+}
 aside section header {
   font-weight: 500;
   font-size: 15pt;
   padding: 8px 16px;
   display: flex;
   justify-content: space-between;
+}
+aside section header:hover {
+  background: linear-gradient(90deg, red, green);
 }
 aside section div.content {
   flex-grow: 1;

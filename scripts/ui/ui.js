@@ -417,3 +417,9 @@ if (localStorage["g4_chroma_link"] == "true") {
 document.querySelector("input#settingChromaLink").addEventListener("input", function() {
     localStorage["g4_chroma_link"] = this.checked
 })
+
+document.querySelectorAll("div.scroller section > header").forEach(header => {
+    header.addEventListener("click", () => {
+        header.parentElement.classList.toggle("collapsed")
+    })
+})
