@@ -355,4 +355,22 @@ div.volume div.slider p {
   margin: 0px 0px 0px 16px;
 }
 
+div.credit {
+  background: var(--g4-app-header-background);
+  padding: 8px 16px;
+  margin-top: 8px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+div.credit span.name {
+  background: linear-gradient(90deg, #FF3663, #5AC9FB);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 24pt;
+  text-transform: uppercase;
+}
+
 /*# sourceMappingURL=settings.css.map */

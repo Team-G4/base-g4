@@ -34,6 +34,7 @@ const FILES_TO_CACHE = [
     'res/images/normal/slope1.png',
     'res/images/normal/slope2.png',
     'res/images/gameHint.svg',
+    'res/images/updateLogo.svg',
 
     'res/themes/dark.json',
     'res/themes/light.json',
