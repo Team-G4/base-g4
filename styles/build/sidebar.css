@@ -432,7 +432,7 @@ dialog#playerStats div.content div.badges div.badge {
   border-radius: 2px;
 }
 dialog#playerStats div.content div.badges div.badge.teamg4 {
-  background: var(--g4-app-accent);
+  background: linear-gradient(90deg, #FF3663, #5AC9FB);
   color: var(--g4-app-background);
 }
 dialog#playerStats div.content div.badges div.badge.teamgt {

@@ -26,6 +26,43 @@
                 }
             ))
         }
+
+        get messageHTML() {
+            return ""
+        }
+
+        get messageType() {
+            return ""
+        }
+
+        htmlFromObject(obj) {
+            console.log(obj)
+            if (typeof obj == "number") {
+                return `<span class="number">${obj}</span>`
+            } else if (obj instanceof Array) {
+                return `<span class="array">${obj.map(this.htmlFromObject).join("")}</span>`
+            }
+            return `<span class="string">${obj.toString().replace(/</g, "&lt;")}</span>`
+        }
+
+        addToConsole() {
+            let console = document.querySelector("div.pluginConsole div.messages")
+
+            let tr = document.createElement("tr")
+            tr.classList.add(this.messageType)
+
+            let time = this.timestamp.getHours() + ":" + this.timestamp.getMinutes() + ":" + this.timestamp.getSeconds()
+
+            tr.innerHTML = `
+                <td class="time">${time}</td>
+                <td class="plugin">${this.plugin.name}</td>
+                <td class="message"><div>${this.messageHTML}</div></td>
+            `
+
+            console.querySelector("tbody").appendChild(tr)
+
+            console.scrollTop = console.scrollHeight
+        }
     }
 
     class PluginDebugAPICallMessage extends PluginDebugMessage {
@@ -34,6 +71,17 @@
 
             this.apiFunc = apiFunc
             this.args = args
+
+            this.addToConsole()
+        }
+
+        get messageHTML() {
+            let funcName = this.apiFunc
+            return `Call to function <span class="funcName">${funcName}</span> with arguments ${this.htmlFromObject(this.args)}`
+        }
+
+        get messageType() {
+            return "call"
         }
     }
 
@@ -42,6 +90,8 @@
             super(plugin)
 
             this.error = err
+
+            this.addToConsole()
         }
     }
 
@@ -51,6 +101,16 @@
 
             this.message = message
             this.type = type
+
+            this.addToConsole()
+        }
+
+        get messageHTML() {
+            return this.htmlFromObject(this.message)
+        }
+
+        get messageType() {
+            return "info"
         }
     }
 
@@ -100,7 +160,7 @@
                 // Event handler creation/removal
                 addEventListener: (eventType, listener) => {
                     this.debugMessages.push(
-                        new PluginDebugAPICallMessage(this, "[PluginContext].addEventListener", arguments)
+                        new PluginDebugAPICallMessage(this, "[PluginContext].addEventListener", [eventType, listener])
                     )
 
                     let handler = new PluginEventHandler(eventType, listener)
@@ -109,7 +169,7 @@
                 },
                 removeEventListener: (eventType, listener) => {
                     this.debugMessages.push(
-                        new PluginDebugAPICallMessage(this, "[PluginContext].removeEventListener", arguments)
+                        new PluginDebugAPICallMessage(this, "[PluginContext].removeEventListener", [eventType, listener])
                     )
 
                     let index = this.eventHandlers.findIndex(h => h.eventType == eventType && h.listener == listener)
@@ -120,7 +180,7 @@
                 // Notifications
                 popNotification: (notif) => {
                     this.debugMessages.push(
-                        new PluginDebugAPICallMessage(this, "[PluginContext].popNotification", arguments)
+                        new PluginDebugAPICallMessage(this, "[PluginContext].popNotification", [notif])
                     )
 
                     let source = {
@@ -138,7 +198,7 @@
                 // Object registration
                 registerMode: (mode) => {
                     this.debugMessages.push(
-                        new PluginDebugAPICallMessage(this, "[PluginContext].registerMode", arguments)
+                        new PluginDebugAPICallMessage(this, "[PluginContext].registerMode", [mode])
                     )
                     
                     if (!(mode instanceof CustomMode)) return false
@@ -196,7 +256,7 @@
 
                     generateRing: (type, difficulty, distance) => {
                         this.debugMessages.push(
-                            new PluginDebugAPICallMessage(this, "G4.levelGen.generateRing", arguments)
+                            new PluginDebugAPICallMessage(this, "G4.levelGen.generateRing", [type, difficulty, distance])
                         )
     
                         let items = []
@@ -220,7 +280,7 @@
                     },
                     generateMode: (modeId, levelIndex) => {
                         this.debugMessages.push(
-                            new PluginDebugAPICallMessage(this, "G4.levelGen.generateMode", arguments)
+                            new PluginDebugAPICallMessage(this, "G4.levelGen.generateMode", [modeId, levelIndex])
                         )
 
                         let rings = []
@@ -233,26 +293,14 @@
                 },
                 render: {
                     getElementPath: (element) => {
-                        this.debugMessages.push(
-                            new PluginDebugAPICallMessage(this, "G4.render.getElementPath", arguments)
-                        )
-
                         if (!(element instanceof RingElement)) return null
                         return LevelRenderer.getElementPath(element)
                     },
                     getRingPath: (ring) => {
-                        this.debugMessages.push(
-                            new PluginDebugAPICallMessage(this, "G4.render.getRingPath", arguments)
-                        )
-
                         if (!(ring instanceof Ring)) return null
                         return LevelRenderer.getRingPath(ring)
                     },
                     getCannonPath: (cannon) => {
-                        this.debugMessages.push(
-                            new PluginDebugAPICallMessage(this, "G4.render.getCannonPath", arguments)
-                        )
-
                         // if (!(ring instanceof Ring)) return null
                         return LevelRenderer.getCannonPath(cannon)
                     }

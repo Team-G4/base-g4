@@ -588,7 +588,7 @@ dialog#playerStats {
                 border-radius: 2px;
 
                 &.teamg4 {
-                    background: var(--g4-app-accent);
+                    background: linear-gradient(90deg, #FF3663, #5AC9FB);
                     color: var(--g4-app-background);
                 }
 
