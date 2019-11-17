@@ -507,4 +507,8 @@
     document.querySelector("button#reloadG4Btn").addEventListener("click", () => {
         location.reload()
     })
+
+    document.querySelector("div.pluginConsole > header span").addEventListener("click", () => {
+        document.querySelector("div.pluginConsole").classList.toggle("collapsed")
+    })
 })()

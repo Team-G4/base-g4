@@ -29,6 +29,24 @@ div.pluginConsole {
         --plugin-msg-accent: rgb(253, 211, 21);
     }
 
+    &.collapsed {
+        height: 37px;
+
+        header {
+            & > button, div.filters {
+                display: none;
+            }
+
+            span:after {
+                content: "...";
+            }
+        }
+
+        div.messages {
+            display: none;
+        }
+    }
+
     header {
         position: sticky;
         top: 0;

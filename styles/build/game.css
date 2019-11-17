@@ -5,6 +5,9 @@ main {
   left: 0;
   right: 400px;
 }
+main.visibleConsole div.game {
+  margin-bottom: 37px;
+}
 main div.firstTimeHint {
   position: absolute;
   left: 50%;

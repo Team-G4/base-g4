@@ -181,6 +181,9 @@ main {
   left: 0;
   right: 400px;
 }
+main.visibleConsole div.game {
+  margin-bottom: 37px;
+}
 main div.firstTimeHint {
   position: absolute;
   left: 50%;
@@ -372,6 +375,18 @@ div.pluginConsole .error {
 }
 div.pluginConsole .warning {
   --plugin-msg-accent: rgb(253, 211, 21);
+}
+div.pluginConsole.collapsed {
+  height: 37px;
+}
+div.pluginConsole.collapsed header > button, div.pluginConsole.collapsed header div.filters {
+  display: none;
+}
+div.pluginConsole.collapsed header span:after {
+  content: "...";
+}
+div.pluginConsole.collapsed div.messages {
+  display: none;
 }
 div.pluginConsole header {
   position: sticky;
