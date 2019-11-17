@@ -46,7 +46,14 @@
             let tr = document.createElement("tr")
             tr.classList.add(this.messageType)
 
-            let time = this.timestamp.getHours() + ":" + this.timestamp.getMinutes() + ":" + this.timestamp.getSeconds()
+            let hr = this.timestamp.getHours()
+            let min = "0" + this.timestamp.getMinutes()
+            let sec = "0" + this.timestamp.getSeconds()
+
+            min = min.substring(min.length - 2)
+            sec = sec.substring(sec.length - 2)
+
+            let time = `${hr}:${min}:${sec}`
 
             tr.innerHTML = `
                 <td class="time">${time}</td>
