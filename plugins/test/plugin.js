@@ -303,4 +303,3 @@ plugin.registerMode(new RetroXMode())
 plugin.registerMode(new AnnaOuMode())
 
 plugin.info("hello world!!")
-owo moment

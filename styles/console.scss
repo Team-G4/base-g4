@@ -15,6 +15,8 @@ div.pluginConsole {
 
     z-index: 1;
 
+    transition: height 0.2s;
+
     --plugin-msg-accent: rgb(137, 150, 165);
 
     .info {
@@ -34,7 +36,7 @@ div.pluginConsole {
 
         header {
             & > button, div.filters {
-                display: none;
+                visibility: hidden;
             }
 
             span:after {

@@ -10,6 +10,7 @@ div.pluginConsole {
   display: flex;
   flex-direction: column;
   z-index: 1;
+  transition: height 0.2s;
   --plugin-msg-accent: rgb(137, 150, 165);
 }
 div.pluginConsole .info {
@@ -25,7 +26,7 @@ div.pluginConsole.collapsed {
   height: 37px;
 }
 div.pluginConsole.collapsed header > button, div.pluginConsole.collapsed header div.filters {
-  display: none;
+  visibility: hidden;
 }
 div.pluginConsole.collapsed header span:after {
   content: "...";
