@@ -19,7 +19,7 @@ div.pluginConsole .error {
   --plugin-msg-accent: rgb(219, 38, 38);
 }
 div.pluginConsole .warning {
-  --plugin-msg-accent: rgb(253, 211, 21);
+  --plugin-msg-accent: rgb(214, 158, 5);
 }
 div.pluginConsole.collapsed {
   height: 37px;
