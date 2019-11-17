@@ -15,9 +15,48 @@ div.pluginConsole {
 
     z-index: 1;
 
+    --plugin-msg-accent: rgb(137, 150, 165);
+
+    .info {
+        --plugin-msg-accent: rgb(44, 115, 207);
+    }
+
+    .error {
+        --plugin-msg-accent: rgb(219, 38, 38);
+    }
+
+    .warning {
+        --plugin-msg-accent: rgb(253, 211, 21);
+    }
+
     header {
         position: sticky;
         top: 0;
+
+        padding: 2px 8px;
+
+        display: flex;
+
+        span {
+            padding: 0px 8px;
+
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+
+            cursor: pointer;
+        }
+
+        div.filters {
+            button {
+                --g4-app-foreground: var(--plugin-msg-accent);
+
+                &.active {
+                    background: var(--plugin-msg-accent);
+                    color: var(--g4-app-background);
+                }
+            }
+        }
     }
 
     div.messages {    
@@ -56,7 +95,7 @@ div.pluginConsole {
                             min-width: 8px;
                             width: 8px;
 
-                            background: rgb(137, 150, 165);
+                            background: var(--plugin-msg-accent);
                             content: "";
 
                             margin-right: 4px;
@@ -98,24 +137,6 @@ div.pluginConsole {
                             padding: 2px 16px;
                             margin: 0px;
                         }
-                    }
-                }
-
-                tr.info {
-                    td.message:before {
-                        background: rgb(44, 115, 207);
-                    }
-                }
-
-                tr.error {
-                    td.message:before {
-                        background: rgb(219, 38, 38);
-                    }
-                }
-
-                tr.warning {
-                    td.message:before {
-                        background: rgb(253, 211, 21);
                     }
                 }
             }

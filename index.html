@@ -52,9 +52,17 @@
             <div class="pluginConsole">
                 <header>
                     <span>Plugin console</span>
+
+                    <div class="filters">
+                        Show:
+                        <button class="active call">API calls</button>
+                        <button class="active info">Info</button>
+                        <button class="warning">Warnings</button>
+                        <button class="error">Errors</button>
+                    </div>
                     <button id="clearPluginConsole">Clear console</button>
                 </header>
-                <div class="messages info error warning call">
+                <div class="messages showInfo showError showWarning showCall">
                     <table>
                         <thead>
                             <tr>

@@ -362,16 +362,43 @@ div.pluginConsole {
   display: flex;
   flex-direction: column;
   z-index: 1;
+  --plugin-msg-accent: rgb(137, 150, 165);
+}
+div.pluginConsole .info {
+  --plugin-msg-accent: rgb(44, 115, 207);
+}
+div.pluginConsole .error {
+  --plugin-msg-accent: rgb(219, 38, 38);
+}
+div.pluginConsole .warning {
+  --plugin-msg-accent: rgb(253, 211, 21);
 }
 div.pluginConsole header {
   position: sticky;
   top: 0;
+  padding: 2px 8px;
+  display: flex;
+}
+div.pluginConsole header span {
+  padding: 0px 8px;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  cursor: pointer;
+}
+div.pluginConsole header div.filters button {
+  --g4-app-foreground: var(--plugin-msg-accent);
+}
+div.pluginConsole header div.filters button.active {
+  background: var(--plugin-msg-accent);
+  color: var(--g4-app-background);
 }
 div.pluginConsole div.messages {
   overflow-y: auto;
   flex-grow: 1;
 }
 div.pluginConsole div.messages table {
+  max-width: 100%;
   width: 100%;
   font-size: 11pt;
 }
@@ -395,7 +422,7 @@ div.pluginConsole div.messages table tbody td.message {
 div.pluginConsole div.messages table tbody td.message:before {
   min-width: 8px;
   width: 8px;
-  background: #8996a5;
+  background: var(--plugin-msg-accent);
   content: "";
   margin-right: 4px;
   border-radius: 6px;
@@ -424,15 +451,6 @@ div.pluginConsole div.messages table tbody td.message pre {
   font-size: 11pt;
   padding: 2px 16px;
   margin: 0px;
-}
-div.pluginConsole div.messages table tbody tr.info td.message:before {
-  background: #2c73cf;
-}
-div.pluginConsole div.messages table tbody tr.error td.message:before {
-  background: #db2626;
-}
-div.pluginConsole div.messages table tbody tr.warning td.message:before {
-  background: #fdd315;
 }
 
 aside {
