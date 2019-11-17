@@ -379,22 +379,25 @@ div.pluginConsole div.messages table thead th {
   font-weight: 600;
   text-align: center;
 }
+div.pluginConsole div.messages table tbody {
+  vertical-align: top;
+}
 div.pluginConsole div.messages table tbody td {
   padding: 2px 8px;
+  overflow-x: auto;
 }
 div.pluginConsole div.messages table tbody td.time, div.pluginConsole div.messages table tbody td.plugin {
   width: 120px;
 }
 div.pluginConsole div.messages table tbody td.message {
   display: flex;
-  align-items: center;
 }
 div.pluginConsole div.messages table tbody td.message:before {
-  width: 12px;
-  height: 12px;
+  min-width: 8px;
+  width: 8px;
   background: #8996a5;
   content: "";
-  margin-right: 12px;
+  margin-right: 4px;
   border-radius: 6px;
 }
 div.pluginConsole div.messages table tbody td.message span.funcName {
@@ -415,6 +418,12 @@ div.pluginConsole div.messages table tbody td.message span.array:after {
 }
 div.pluginConsole div.messages table tbody td.message span.array > *:not(:last-child):after {
   content: ",";
+}
+div.pluginConsole div.messages table tbody td.message pre {
+  font-family: "IBM Plex Mono";
+  font-size: 11pt;
+  padding: 2px 16px;
+  margin: 0px;
 }
 div.pluginConsole div.messages table tbody tr.info td.message:before {
   background: #2c73cf;

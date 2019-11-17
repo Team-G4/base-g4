@@ -302,4 +302,4 @@ plugin.registerMode(new BubbleMode())
 plugin.registerMode(new RetroXMode())
 plugin.registerMode(new AnnaOuMode())
 
-plugin.info("hello world!!")
+plugin.info("hello world!!")a

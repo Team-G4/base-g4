@@ -2,6 +2,7 @@
     let fs = require("fs")
     let path = require("path")
     let vm = require("vm")
+    let util = require("util")
 
     const pluginPath = path.join(__dirname, "plugins")
 
@@ -36,13 +37,7 @@
         }
 
         htmlFromObject(obj) {
-            console.log(obj)
-            if (typeof obj == "number") {
-                return `<span class="number">${obj}</span>`
-            } else if (obj instanceof Array) {
-                return `<span class="array">${obj.map(this.htmlFromObject).join("")}</span>`
-            }
-            return `<span class="string">${obj.toString().replace(/</g, "&lt;")}</span>`
+            return util.inspect(obj).replace(/</g, "&lt;")
         }
 
         addToConsole() {
@@ -92,6 +87,16 @@
             this.error = err
 
             this.addToConsole()
+        }
+
+        get messageHTML() {
+            let stack = this.error.stack.toString().replace(/</g, "&lt;").replace(/\n/g, "<br>")
+
+            return `Execution error: <b>${this.error.message}</b><br><pre>${stack}</pre>`
+        }
+
+        get messageType() {
+            return "error"
         }
     }
 
@@ -355,15 +360,6 @@
             return volatileSpec
         }
 
-        /**
-         * @param {CanvasRenderingContext2D} ctx 
-         */
-        createSandboxedCanvasContext(ctx) {
-            return {
-                
-            }
-        }
-
         run() {
             let context = {
                 plugin: this.getPluginContext(),
@@ -375,7 +371,9 @@
             )
 
             try {
-                vm.runInNewContext(scriptData, context)
+                vm.runInNewContext(scriptData, context, {
+                    displayErrors: true
+                })
             } catch(e) {
                 this.debugMessages.push(
                     new PluginExecutionErrorMessage(this, e)

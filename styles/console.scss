@@ -25,6 +25,7 @@ div.pluginConsole {
         flex-grow: 1;
 
         table {
+            max-width: 100%;
             width: 100%;
 
             font-size: 11pt;
@@ -37,8 +38,12 @@ div.pluginConsole {
             }
 
             tbody {
+                vertical-align: top;
+
                 td {
                     padding: 2px 8px;
+
+                    overflow-x: auto;
 
                     &.time, &.plugin {
                         width: 120px;
@@ -46,16 +51,15 @@ div.pluginConsole {
 
                     &.message {
                         display: flex;
-                        align-items: center;
 
                         &:before {
-                            width: 12px;
-                            height: 12px;
+                            min-width: 8px;
+                            width: 8px;
 
                             background: rgb(137, 150, 165);
                             content: "";
 
-                            margin-right: 12px;
+                            margin-right: 4px;
                             border-radius: 6px;
                         }
 
@@ -85,6 +89,14 @@ div.pluginConsole {
                             & > *:not(:last-child):after {
                                 content: ",";
                             }
+                        }
+
+                        pre {
+                            font-family: "IBM Plex Mono";
+                            font-size: 11pt;
+
+                            padding: 2px 16px;
+                            margin: 0px;
                         }
                     }
                 }
