@@ -73,10 +73,24 @@ class ImageAsset extends Asset {
     }
 }
 
+class AssetLink {
+    constructor(id) {
+        this.id = id
+    }
+}
+
 /**
  * @type {Asset[]}
  */
 let gameAssets = []
+
+function getAssetLink(asset) {
+    return new AssetLink(gameAssets.indexOf(asset))
+}
+
+function getAssetFromLink(link) {
+    return gameAssets[link.id]
+}
 
 function updateAssetProgress() {
     let loaded = gameAssets.filter(a => a.isLoaded).length

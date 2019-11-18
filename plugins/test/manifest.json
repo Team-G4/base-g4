@@ -6,5 +6,12 @@
 
     "version": 1,
 
-    "script": "plugin.js"
+    "script": "plugin.js",
+
+    "assets": {
+        "test_bgm": {
+            "type": "audio",
+            "file": "test_bgm.mp3"
+        }
+    }
 }

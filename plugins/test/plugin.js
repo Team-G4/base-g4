@@ -89,6 +89,10 @@ class BubbleMode extends G4.Mode {
             bullet: "#FFFFFF"
         }
     }
+
+    getMusic() {
+        return plugin.getAsset("test_bgm")
+    }
 }
 
 class Star {

@@ -171,6 +171,25 @@ waitForAssetLoad(loadDefaultAssets()).then(() => {
                 0,
                 new AudioItem(bgmAsset, "looped")
             )
+        } else if (mode instanceof CustomMode) {
+            let bgmAsset = getAsset(null, `g4mode_easy_bgm`)
+
+            if ("getMusic" in mode) {
+                let link = mode.getMusic()
+
+                if (link) {
+                    let asset = getAssetFromLink(link)
+
+                    if (asset && asset instanceof AudioAsset) {
+                        bgmAsset = asset
+                    }
+                }
+            }
+            
+            getAudioCategory("bgm").replace(
+                0,
+                new AudioItem(bgmAsset, "looped")
+            )
         }
     })
 
@@ -187,5 +206,7 @@ waitForAssetLoad(loadDefaultAssets()).then(() => {
                 "looped"
             )
         )
+
+        dispatchEvent(new CustomEvent("g4runall"))
     })
 })

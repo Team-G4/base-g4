@@ -110,6 +110,25 @@
         }
     }
 
+    class PluginAssetErrorMessage extends PluginDebugMessage {
+        constructor(plugin, assetName, msg) {
+            super(plugin)
+
+            this.assetName = assetName
+            this.msg = msg
+
+            this.addToConsole()
+        }
+
+        get messageHTML() {
+            return `Error while loading asset ${this.assetName}: ${this.msg}`
+        }
+
+        get messageType() {
+            return "error"
+        }
+    }
+
     class PluginDebugTextMessage extends PluginDebugMessage {
         constructor(plugin, message, type) {
             super(plugin)
@@ -140,6 +159,8 @@
         constructor(dir, manifestData, isRunning) {
             this.directory = dir
 
+            this.manifest = manifestData
+
             this.name = manifestData.name
             this.author = manifestData.author
             this.description = manifestData.description
@@ -163,11 +184,56 @@
             this.objects = []
 
             this.isRunning = isRunning
-            if (isRunning) this.run()
+
+            this.registerAssets()
+            // if (isRunning) this.run()
         }
 
         getFilePath(relPath) {
             return path.join(pluginPath, this.directory, relPath)
+        }
+
+        registerAssets() {
+            if (!("assets" in this.manifest)) return
+
+            for (let assetName in this.manifest.assets) {
+                let assetSpec = this.manifest.assets[assetName]
+
+                let assetType = assetSpec.type
+                if (!["audio", "image"].includes(assetType)) {
+                    this.debugMessages.push(
+                        new PluginAssetErrorMessage(this, assetName, `Unknown asset type ${assetType}.`)
+                    )
+                    continue
+                }
+
+                let assetFile = this.getFilePath(assetSpec.file)
+                if (!fs.existsSync(assetFile)) {
+                    this.debugMessages.push(
+                        new PluginAssetErrorMessage(this, assetName, `Couldn't find ${assetSpec.file}.`)
+                    )
+                    continue
+                }
+
+                let asset
+
+                switch (assetType) {
+                    case "audio":
+                        asset = new AudioAsset(this, assetName, assetFile)
+                        break
+                    case "image":
+                        asset = new ImageAsset(this, assetName, assetFile)
+                        break
+                }
+
+                if (asset) {
+                    registerAsset(asset)
+                } else {
+                    this.debugMessages.push(
+                        new PluginAssetErrorMessage(this, assetName, `Couldn't create asset.`)
+                    )
+                }
+            }
         }
 
         getPluginContext() {
@@ -223,6 +289,19 @@
                     gameModes.push(mode)
 
                     return true
+                },
+
+                // Asset stuff
+                getAsset: (assetName) => {
+                    this.debugMessages.push(
+                        new PluginDebugAPICallMessage(this, "[PluginContext].getAsset", [assetName])
+                    )
+
+                    let asset = getAsset(this, assetName)
+
+                    if (!asset) return null
+
+                    return getAssetLink(asset)
                 },
 
                 // Debug messages
@@ -504,8 +583,14 @@
         )
     })
 
-    updatePluginList()
-    updateModeButtons()
+    addEventListener("g4runall", () => {
+        loadedPlugins.forEach(plugin => {
+            if (plugin.isRunning) plugin.run()
+        })
+
+        updatePluginList()
+        updateModeButtons()
+    })
 
     document.querySelector("button#reloadG4Btn").addEventListener("click", () => {
         location.reload()
