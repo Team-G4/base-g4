@@ -122,7 +122,7 @@
         }
 
         get messageType() {
-            return "info"
+            return this.type
         }
     }
 
@@ -235,7 +235,7 @@
                 },
                 warn: (message) => {
                     this.debugMessages.push(
-                        new PluginDebugTextMessage(this, message, "warn")
+                        new PluginDebugTextMessage(this, message, "warning")
                     )
                 },
                 error: (message) => {
@@ -510,5 +510,57 @@
 
     document.querySelector("div.pluginConsole > header span").addEventListener("click", () => {
         document.querySelector("div.pluginConsole").classList.toggle("collapsed")
+    })
+
+    // Plugin console filters
+    if (!localStorage.getItem("g4_console_filter_apiCalls")) localStorage["g4_console_filter_apiCalls"] = false
+    if (localStorage["g4_console_filter_apiCalls"] == "true") {
+        document.querySelector("div.pluginConsole div.filters button.call").classList.add("active")
+        document.querySelector("div.pluginConsole div.messages").classList.add("showCall")
+    }
+    document.querySelector("div.pluginConsole div.filters button.call").addEventListener("click", function() {
+        this.classList.toggle("active")
+        document.querySelector("div.pluginConsole div.messages").classList.toggle("showCall", this.classList.contains("active"))
+        localStorage["g4_console_filter_apiCalls"] = this.classList.contains("active")
+    })
+
+    if (!localStorage.getItem("g4_console_filter_info")) localStorage["g4_console_filter_info"] = true
+    if (localStorage["g4_console_filter_info"] == "true") {
+        document.querySelector("div.pluginConsole div.filters button.info").classList.add("active")
+        document.querySelector("div.pluginConsole div.messages").classList.add("showInfo")
+    }
+    document.querySelector("div.pluginConsole div.filters button.info").addEventListener("click", function() {
+        this.classList.toggle("active")
+        document.querySelector("div.pluginConsole div.messages").classList.toggle("showInfo", this.classList.contains("active"))
+        localStorage["g4_console_filter_info"] = this.classList.contains("active")
+    })
+
+    if (!localStorage.getItem("g4_console_filter_warnings")) localStorage["g4_console_filter_warnings"] = true
+    if (localStorage["g4_console_filter_warnings"] == "true") {
+        document.querySelector("div.pluginConsole div.filters button.warning").classList.add("active")
+        document.querySelector("div.pluginConsole div.messages").classList.add("showWarning")
+    }
+    document.querySelector("div.pluginConsole div.filters button.warning").addEventListener("click", function() {
+        this.classList.toggle("active")
+        document.querySelector("div.pluginConsole div.messages").classList.toggle("showWarning", this.classList.contains("active"))
+        localStorage["g4_console_filter_warnings"] = this.classList.contains("active")
+    })
+
+    if (!localStorage.getItem("g4_console_filter_errors")) localStorage["g4_console_filter_errors"] = true
+    if (localStorage["g4_console_filter_errors"] == "true") {
+        document.querySelector("div.pluginConsole div.filters button.error").classList.add("active")
+        document.querySelector("div.pluginConsole div.messages").classList.add("showError")
+    }
+    document.querySelector("div.pluginConsole div.filters button.error").addEventListener("click", function() {
+        this.classList.toggle("active")
+        document.querySelector("div.pluginConsole div.messages").classList.toggle("showError", this.classList.contains("active"))
+        localStorage["g4_console_filter_errors"] = this.classList.contains("active")
+    })
+
+    // Clear console
+    document.querySelector("button#clearPluginConsole").addEventListener("click", () => {
+        document.querySelectorAll("div.pluginConsole div.messages tbody tr").forEach(row => {
+            row.parentNode.removeChild(row)
+        })
     })
 })()

@@ -34,11 +34,16 @@ div.pluginConsole.collapsed header span:after {
 div.pluginConsole.collapsed div.messages {
   display: none;
 }
+div.pluginConsole.collapsed header {
+  background: var(--g4-app-background);
+}
 div.pluginConsole header {
   position: sticky;
   top: 0;
+  background: var(--g4-app-header-background);
   padding: 2px 8px;
   display: flex;
+  transition: background 0.2s;
 }
 div.pluginConsole header span {
   padding: 0px 8px;
@@ -47,8 +52,17 @@ div.pluginConsole header span {
   flex-grow: 1;
   cursor: pointer;
 }
+div.pluginConsole header div.filters {
+  margin-right: 16px;
+  display: flex;
+  align-items: center;
+}
 div.pluginConsole header div.filters button {
+  --g4-app-background: var(--g4-app-header-background);
   --g4-app-foreground: var(--plugin-msg-accent);
+}
+div.pluginConsole header div.filters button:first-child {
+  margin-left: 8px;
 }
 div.pluginConsole header div.filters button.active {
   background: var(--plugin-msg-accent);
@@ -57,6 +71,9 @@ div.pluginConsole header div.filters button.active {
 div.pluginConsole div.messages {
   overflow-y: auto;
   flex-grow: 1;
+}
+div.pluginConsole div.messages:not(.showCall) tr.call, div.pluginConsole div.messages:not(.showInfo) tr.info, div.pluginConsole div.messages:not(.showWarning) tr.warning, div.pluginConsole div.messages:not(.showError) tr.error {
+  display: none;
 }
 div.pluginConsole div.messages table {
   max-width: 100%;
@@ -67,15 +84,18 @@ div.pluginConsole div.messages table thead th {
   font-weight: 600;
   text-align: center;
 }
+div.pluginConsole div.messages table thead th.time {
+  width: 70px;
+}
+div.pluginConsole div.messages table thead th.plugin {
+  width: 120px;
+}
 div.pluginConsole div.messages table tbody {
   vertical-align: top;
 }
 div.pluginConsole div.messages table tbody td {
   padding: 2px 8px;
   overflow-x: auto;
-}
-div.pluginConsole div.messages table tbody td.time, div.pluginConsole div.messages table tbody td.plugin {
-  width: 120px;
 }
 div.pluginConsole div.messages table tbody td.message {
   display: flex;

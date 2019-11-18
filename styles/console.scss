@@ -49,13 +49,21 @@ div.pluginConsole {
         }
     }
 
+    &.collapsed header {
+        background: var(--g4-app-background);
+    }
+
     header {
         position: sticky;
         top: 0;
 
+        background: var(--g4-app-header-background);
+
         padding: 2px 8px;
 
         display: flex;
+
+        transition: background 0.2s;
 
         span {
             padding: 0px 8px;
@@ -68,8 +76,18 @@ div.pluginConsole {
         }
 
         div.filters {
+            margin-right: 16px;
+            
+            display: flex;
+            align-items: center;
+
             button {
+                --g4-app-background: var(--g4-app-header-background);
                 --g4-app-foreground: var(--plugin-msg-accent);
+
+                &:first-child {
+                    margin-left: 8px;
+                }
 
                 &.active {
                     background: var(--plugin-msg-accent);
@@ -83,6 +101,13 @@ div.pluginConsole {
         overflow-y: auto;
         flex-grow: 1;
 
+        &:not(.showCall) tr.call,
+        &:not(.showInfo) tr.info,
+        &:not(.showWarning) tr.warning,
+        &:not(.showError) tr.error {
+            display: none;
+        }
+
         table {
             max-width: 100%;
             width: 100%;
@@ -93,6 +118,14 @@ div.pluginConsole {
                 th {
                     font-weight: 600;
                     text-align: center;
+
+                    &.time {
+                        width: 70px;
+                    }
+
+                    &.plugin {
+                        width: 120px;
+                    }
                 }
             }
 
@@ -103,10 +136,6 @@ div.pluginConsole {
                     padding: 2px 8px;
 
                     overflow-x: auto;
-
-                    &.time, &.plugin {
-                        width: 120px;
-                    }
 
                     &.message {
                         display: flex;

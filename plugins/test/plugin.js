@@ -303,3 +303,5 @@ plugin.registerMode(new RetroXMode())
 plugin.registerMode(new AnnaOuMode())
 
 plugin.info("hello world!!")
+plugin.warn("hello world!!")
+plugin.error("hello world!!")

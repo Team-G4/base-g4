@@ -55,14 +55,14 @@
 
                     <div class="filters">
                         Show:
-                        <button class="active call">API calls</button>
-                        <button class="active info">Info</button>
+                        <button class="call">API calls</button>
+                        <button class="info">Info</button>
                         <button class="warning">Warnings</button>
                         <button class="error">Errors</button>
                     </div>
                     <button id="clearPluginConsole">Clear console</button>
                 </header>
-                <div class="messages showInfo showError showWarning showCall">
+                <div class="messages">
                     <table>
                         <thead>
                             <tr>
@@ -654,6 +654,11 @@
                 <div class="content">
                     After enabling or disabling a plugin, you have to reload G4 to apply the changes.
                     <button id="reloadG4Btn">Reload G4</button>
+
+                    <div class="setting">
+                        <input type="checkbox" id="settingShowConsole">
+                        <label for="settingShowConsole">Show the plugin debug console</label>
+                    </div>
 
                     <h2>Installed plugins</h2>
                     
