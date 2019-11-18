@@ -33,6 +33,8 @@ class Leaderboard {
         this.userID = null
         this.userName = null
         this.accessToken = null
+
+        if (localStorage.getItem("g4_user_id")) this.forceLogin()
     }
 
     async isUsernameAvailable(username) {
@@ -45,6 +47,41 @@ class Leaderboard {
         data = await data.json()
 
         return data.available
+    }
+
+    async forceLogin() {
+        let uuid = localStorage.getItem("g4_user_id")
+        let data = await fetch(
+            leaderboardEndpoint + "/userForceLogin",
+            {
+                method: "POST",
+                mode: "cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    uuid
+                })
+            }
+        )
+        data = await data.json()
+
+        if (data.successful) {
+            this.setAuthData(data.username, uuid, data.accesstoken)
+            this.updateUI()
+
+            window.dispatchEvent(new CustomEvent(
+                "g4login", {
+                    detail: {
+                        username: data.username
+                    }
+                }
+            ))
+
+            return true
+        }
+
+        return false
     }
 
     async loginAccount(username, passwd) {
@@ -149,6 +186,8 @@ class Leaderboard {
         this.userName = null
         this.accessToken = null
 
+        localStorage.removeItem("g4_user_id")
+
         window.dispatchEvent(new CustomEvent(
             "g4logout"
         ))
@@ -160,6 +199,8 @@ class Leaderboard {
         this.userID = uuid
         this.userName = username
         this.accessToken = token
+
+        if (document.querySelector("input#loginRemember").checked) localStorage.setItem("g4_user_id", this.userID)
     }
 
     async updateUI() {
