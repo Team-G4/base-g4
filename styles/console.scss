@@ -32,7 +32,7 @@ div.pluginConsole {
     }
 
     &.collapsed {
-        height: 37px;
+        height: 41px;
 
         header {
             & > button, div.filters {
@@ -59,7 +59,7 @@ div.pluginConsole {
 
         background: var(--g4-app-header-background);
 
-        padding: 2px 8px;
+        padding: 4px 8px;
 
         display: flex;
 
@@ -85,9 +85,7 @@ div.pluginConsole {
                 --g4-app-background: var(--g4-app-header-background);
                 --g4-app-foreground: var(--plugin-msg-accent);
 
-                &:first-child {
-                    margin-left: 8px;
-                }
+                margin-left: 4px;
 
                 &.active {
                     background: var(--plugin-msg-accent);

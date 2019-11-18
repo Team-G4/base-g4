@@ -182,7 +182,7 @@ main {
   right: 400px;
 }
 main.visibleConsole div.game {
-  margin-bottom: 37px;
+  margin-bottom: 41px;
 }
 main div.firstTimeHint {
   position: absolute;
@@ -378,7 +378,7 @@ div.pluginConsole .warning {
   --plugin-msg-accent: rgb(214, 158, 5);
 }
 div.pluginConsole.collapsed {
-  height: 37px;
+  height: 41px;
 }
 div.pluginConsole.collapsed header > button, div.pluginConsole.collapsed header div.filters {
   visibility: hidden;
@@ -396,7 +396,7 @@ div.pluginConsole header {
   position: sticky;
   top: 0;
   background: var(--g4-app-header-background);
-  padding: 2px 8px;
+  padding: 4px 8px;
   display: flex;
   transition: background 0.2s;
 }
@@ -415,9 +415,7 @@ div.pluginConsole header div.filters {
 div.pluginConsole header div.filters button {
   --g4-app-background: var(--g4-app-header-background);
   --g4-app-foreground: var(--plugin-msg-accent);
-}
-div.pluginConsole header div.filters button:first-child {
-  margin-left: 8px;
+  margin-left: 4px;
 }
 div.pluginConsole header div.filters button.active {
   background: var(--plugin-msg-accent);
