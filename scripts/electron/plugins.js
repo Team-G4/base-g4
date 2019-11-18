@@ -566,4 +566,15 @@
             row.parentNode.removeChild(row)
         })
     })
+
+    // Enable/disable plugin console
+    if (!localStorage.getItem("g4_console_enabled")) localStorage["g4_console_enabled"] = false
+    if (localStorage["g4_console_enabled"] == "true") {
+        document.querySelector("input#settingShowConsole").checked = true
+        document.querySelector("main").classList.add("visibleConsole")
+    }
+    document.querySelector("input#settingShowConsole").addEventListener("input", function() {
+        localStorage["g4_console_enabled"] = this.checked
+        document.querySelector("main").classList.toggle("visibleConsole", this.checked)
+    })
 })()

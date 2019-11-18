@@ -1,3 +1,7 @@
+main:not(.visibleConsole) div.pluginConsole {
+  display: none;
+}
+
 div.pluginConsole {
   position: absolute;
   left: 0;
@@ -94,12 +98,12 @@ div.pluginConsole div.messages table tbody {
 div.pluginConsole div.messages table tbody td {
   padding: 2px 8px;
   overflow-x: auto;
+  vertical-align: middle;
 }
 div.pluginConsole div.messages table tbody td.plugin {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  vertical-align: middle;
 }
 div.pluginConsole div.messages table tbody td.plugin img {
   width: 16px;

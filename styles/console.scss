@@ -1,3 +1,7 @@
+main:not(.visibleConsole) div.pluginConsole {
+    display: none;
+}
+
 div.pluginConsole {
     position: absolute;
     left: 0;
@@ -134,13 +138,12 @@ div.pluginConsole {
                     padding: 2px 8px;
 
                     overflow-x: auto;
+                    vertical-align: middle;
 
                     &.plugin {
                         overflow: hidden;
                         white-space: nowrap;
                         text-overflow: ellipsis;
-
-                        vertical-align: middle;
 
                         img {
                             width: 16px;
