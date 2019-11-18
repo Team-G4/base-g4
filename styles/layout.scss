@@ -177,6 +177,13 @@ div.loadingScreen {
 
     z-index: 2000;
 
+    transition: opacity 0.3s;
+
+    &.hidden {
+        opacity: 0;
+        pointer-events: none;
+    }
+
     &.loading {
         img {
             filter: grayscale(1);

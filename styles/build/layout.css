@@ -1716,6 +1716,11 @@ div.loadingScreen {
   align-items: center;
   justify-content: center;
   z-index: 2000;
+  transition: opacity 0.3s;
+}
+div.loadingScreen.hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 div.loadingScreen.loading img {
   filter: grayscale(1);

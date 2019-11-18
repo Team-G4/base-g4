@@ -179,7 +179,7 @@ waitForAssetLoad(loadDefaultAssets()).then(() => {
     updateModeButtons()
 
     document.querySelector("button#openGame").addEventListener("click", () => {
-        document.querySelector("div.loadingScreen").style.display = "none"
+        document.querySelector("div.loadingScreen").classList.add("hidden")
         getAudioCategory("bgm").replace(
             0,
             new AudioItem(
