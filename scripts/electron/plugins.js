@@ -57,7 +57,10 @@
 
             tr.innerHTML = `
                 <td class="time">${time}</td>
-                <td class="plugin">${this.plugin.name}</td>
+                <td class="plugin">
+                    <img src="${pluginPath}/${this.plugin.directory}/${this.plugin.icon}">
+                    ${this.plugin.name}
+                </td>
                 <td class="message"><div>${this.messageHTML}</div></td>
             `
 

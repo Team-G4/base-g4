@@ -135,6 +135,19 @@ div.pluginConsole {
 
                     overflow-x: auto;
 
+                    &.plugin {
+                        overflow: hidden;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+
+                        vertical-align: middle;
+
+                        img {
+                            width: 16px;
+                            height: 16px;
+                        }
+                    }
+
                     &.message {
                         display: flex;
 

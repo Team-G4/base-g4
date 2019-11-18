@@ -450,6 +450,16 @@ div.pluginConsole div.messages table tbody td {
   padding: 2px 8px;
   overflow-x: auto;
 }
+div.pluginConsole div.messages table tbody td.plugin {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+}
+div.pluginConsole div.messages table tbody td.plugin img {
+  width: 16px;
+  height: 16px;
+}
 div.pluginConsole div.messages table tbody td.message {
   display: flex;
 }
