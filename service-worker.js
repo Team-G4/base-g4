@@ -1,6 +1,6 @@
 'use strict';
 
-const DEV_BUILD_VERSION = 37
+const DEV_BUILD_VERSION = 38
 
 const CACHE_NAME = `static-cache-g4.7-stable${DEV_BUILD_VERSION}`;
 const DATA_CACHE_NAME = `static-cache-g4.7-stable${DEV_BUILD_VERSION}`;
@@ -24,6 +24,10 @@ const FILES_TO_CACHE = [
     'res/music/denise.ogg',
     'res/music/nox.ogg',
     'res/music/polar.ogg',
+
+    'res/sfx/damage.ogg',
+    'res/sfx/shoot.ogg',
+    'res/sfx/succ.ogg',
 
     'res/images/achievements/10thClear.svg',
     'res/images/achievements/firstClear.svg',

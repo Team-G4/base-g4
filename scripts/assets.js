@@ -123,6 +123,19 @@ function loadDefaultAssets() {
         new ImageAsset(null, "g4img_ballNormalMap", "res/images/normals/ball.png"),
         new ImageAsset(null, "g4img_slope1NormalMap", "res/images/normals/slope1.png"),
         new ImageAsset(null, "g4img_slope2NormalMap", "res/images/normals/slope2.png"),
+        
+        new AudioAsset(
+            null, "g4sfx_damage",
+            "res/sfx/damage.ogg"
+        ),
+        new AudioAsset(
+            null, "g4sfx_shoot",
+            "res/sfx/shoot.ogg"
+        ),
+        new AudioAsset(
+            null, "g4sfx_succ",
+            "res/sfx/succ.ogg"
+        )
     ]
     assets.forEach(a => registerAsset(a))
     return assets

@@ -68,6 +68,7 @@ class AudioCategory {
 
     remove(index) {
         this.slots[index].stop()
+        this.slots[index].outputNode.disconnect(this.gainNode)
         this.slots[index] = null
     }
 
@@ -110,7 +111,8 @@ masterGainNode.connect(mainAudioContext.destination)
  * @type {AudioCategory[]}
  */
 let audioCategories = [
-    new AudioCategory("bgm", 1, masterGainNode)
+    new AudioCategory("bgm", 1, masterGainNode),
+    new AudioCategory("sfx", 8, masterGainNode)
 ]
 
 function getAudioCategory(name) {
@@ -140,7 +142,7 @@ document.querySelectorAll("div.volume").forEach(vol => {
     let gainNode = categoryName == "master" ? masterGainNode : getAudioCategory(categoryName).gainNode
 
     if (!localStorage.getItem(`g4_gain_${categoryName}`)) {
-        localStorage[`g4_gain_${categoryName}`] = categoryName == "master" ? 0 : 100
+        localStorage[`g4_gain_${categoryName}`] = categoryName == "bgm" ? 80 : 100
     }
 
     let input = vol.querySelector("input")

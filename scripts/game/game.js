@@ -422,6 +422,8 @@ class Game {
         }
 
         if (this.rgbHandler) this.rgbHandler.handleEvent("shoot")
+
+        getAudioCategory("sfx").add(new AudioItem(getAsset(null, "g4sfx_shoot"), "oneshot"))
     }
 
     /**
@@ -937,6 +939,8 @@ class Game {
                 }
             }
         })
+
+        getAudioCategory("sfx").add(new AudioItem(getAsset(null, "g4sfx_succ"), "oneshot"))
     }
 
     resetProgress() {
@@ -958,6 +962,8 @@ class Game {
         setTimeout(() => {
             this.dom.classList.remove("hit")
         }, 500)
+
+        getAudioCategory("sfx").add(new AudioItem(getAsset(null, "g4sfx_damage"), "oneshot"))
     }
 
     updateDeaths() {
