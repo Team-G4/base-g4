@@ -36,7 +36,7 @@ class AudioItem {
         this.sourceNode.start(
             mainAudioContext.currentTime,
             offset,
-            10e60
+            2**20
         )
 
         this.outputNode = this.createFXChain()

@@ -19,7 +19,6 @@
     </head>
 
     <body class="">
-        <img src="res/images/normals/ball.png" class="normalBall" style="display: none;">
         <div class="titleBar">
             <div class="title">
                 <p>G4X.7</p>
@@ -45,6 +44,17 @@
                         <polygon points="8.7,8 14.3,13.6 13.7,14.3 8,8.7 2.3,14.3 1.7,13.6 7.3,8 1.7,2.3 2.3,1.6 8,7.3 13.7,1.6 14.3,2.3 "/>
                     </svg>
                 </button>
+            </div>
+        </div>
+
+        <div class="loadingScreen loading">
+            <img src="res/images/updateLogo.svg">
+
+            <div>
+                <div class="progressBar">
+                    <div class="bar" style="width: 0%"></div>
+                </div>
+                <button id="openGame">Play G4</button>
             </div>
         </div>
 
@@ -138,12 +148,6 @@
                         </table>
                     </div>
                 </section>
-            </div>
-
-            <div class="assetProgress">
-                <img src="plugins/polar/icon.svg">
-                <span>Loading assets...</span>
-                <div class="bar" style="width: 0%"></div>
             </div>
 
             <footer>

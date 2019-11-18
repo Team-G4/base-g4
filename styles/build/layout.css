@@ -1703,4 +1703,52 @@ body.light button.daynight div:after {
   box-shadow: inset 0px 0px 0px 3px var(--g4-app-background);
 }
 
+div.loadingScreen {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--g4-app-background);
+  color: var(--g4-app-foreground);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+div.loadingScreen.loading img {
+  filter: grayscale(1);
+}
+div.loadingScreen.loading div.progressBar {
+  display: block;
+}
+div.loadingScreen.loading button {
+  display: none;
+}
+div.loadingScreen img {
+  width: 256px;
+  height: auto;
+  transition: filter 0.4s;
+}
+div.loadingScreen > div {
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+div.loadingScreen > div div.progressBar {
+  width: 200px;
+  height: 2px;
+  background: var(--g4-app-header-background);
+  display: none;
+}
+div.loadingScreen > div div.progressBar div {
+  height: 2px;
+  background: var(--g4-app-accent);
+}
+div.loadingScreen > div button {
+  padding: 8px 24px;
+}
+
 /*# sourceMappingURL=layout.css.map */

@@ -177,4 +177,15 @@ waitForAssetLoad(loadDefaultAssets()).then(() => {
     window.getActiveMode = () => mainGame.currentMode
 
     updateModeButtons()
+
+    document.querySelector("button#openGame").addEventListener("click", () => {
+        document.querySelector("div.loadingScreen").style.display = "none"
+        getAudioCategory("bgm").replace(
+            0,
+            new AudioItem(
+                getAsset(null, `g4mode_easy_bgm`),
+                "looped"
+            )
+        )
+    })
 })
