@@ -288,6 +288,8 @@
 
                     gameModes.push(mode)
 
+                    updateModeButtons()
+
                     return true
                 },
 
@@ -459,6 +461,8 @@
                 "utf-8"
             )
 
+            this.isRunning = true
+
             try {
                 vm.runInNewContext(scriptData, context, {
                     displayErrors: true
@@ -468,6 +472,19 @@
                     new PluginExecutionErrorMessage(this, e)
                 )
             }
+        }
+
+        unregister() {
+            this.objects.forEach(o => {
+                if (o instanceof CustomMode) {
+                    gameModes.splice(gameModes.indexOf(o), 1)
+                }
+            })
+
+            this.isRunning = false
+            
+            updateModeButtons()
+            updatePluginList()
         }
     }
     
@@ -490,8 +507,10 @@
 
             checkbox.addEventListener("input", () => {
                 if (checkbox.checked) {
+                    plugin.run()
                     setPluginAsRunning(plugin.directory)
                 } else {
+                    plugin.unregister()
                     setPluginAsStopped(plugin.directory)
                 }
             })

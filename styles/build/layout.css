@@ -1518,6 +1518,19 @@ div.volume div.slider p {
   margin: 0px 0px 0px 16px;
 }
 
+dialog#settingsAbout h1 {
+  font-size: 20pt;
+  font-weight: 200;
+  text-align: center;
+  margin: 0px;
+}
+dialog#settingsAbout h3 {
+  font-size: 14pt;
+  font-weight: 200;
+  text-align: center;
+  margin: 0px;
+}
+
 div.credit {
   background: var(--g4-app-header-background);
   padding: 8px 16px;
