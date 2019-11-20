@@ -269,44 +269,6 @@
 
         getPluginContext() {
             return {
-                // Event handler creation/removal
-                addEventListener: (eventType, listener) => {
-                    this.debugMessages.push(
-                        new PluginDebugAPICallMessage(this, "[PluginContext].addEventListener", [eventType, listener])
-                    )
-
-                    let handler = new PluginEventHandler(eventType, listener)
-
-                    this.eventHandlers.push(handler)
-                },
-                removeEventListener: (eventType, listener) => {
-                    this.debugMessages.push(
-                        new PluginDebugAPICallMessage(this, "[PluginContext].removeEventListener", [eventType, listener])
-                    )
-
-                    let index = this.eventHandlers.findIndex(h => h.eventType == eventType && h.listener == listener)
-                    
-                    if (index >= 0) this.eventHandlers.splice(index, 1)
-                },
-
-                // Notifications
-                popNotification: (notif) => {
-                    this.debugMessages.push(
-                        new PluginDebugAPICallMessage(this, "[PluginContext].popNotification", [notif])
-                    )
-
-                    let source = {
-                        icon: this.getFilePath(this.icon),
-                        name: this.name
-                    }
-
-                    showNotification({
-                        source,
-                        text: notif.text,
-                        buttons: notif.buttons
-                    })
-                },
-
                 // Object registration
                 registerMode: (mode) => {
                     this.debugMessages.push(
