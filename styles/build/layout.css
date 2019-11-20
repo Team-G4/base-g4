@@ -1445,6 +1445,9 @@ div.pluginList div.plugin div.toggle input[type=checkbox] {
   opacity: 0;
   pointer-events: none;
 }
+div.pluginList div.plugin div.toggle input[type=checkbox]:disabled + label:after {
+  opacity: 0;
+}
 div.pluginList div.plugin div.toggle input[type=checkbox] + label:before {
   position: absolute;
   right: 16px;

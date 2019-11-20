@@ -154,7 +154,7 @@ function waitForAssetLoad(assets) {
 }
 
 function getAsset(source, name) {
-    return gameAssets.find(a => a.source == source && a.name == name)
+    return gameAssets.find(a => a instanceof Asset && a.source == source && a.name == name)
 }
 
 function loadDefaultAssets() {

@@ -537,8 +537,10 @@
 
             checkbox.addEventListener("input", () => {
                 if (checkbox.checked) {
+                    checkbox.disabled = true
                     waitForAssetLoad(plugin.registerAssets()).then(() => {
                         plugin.run()
+                        checkbox.disabled = false
                         setPluginAsRunning(plugin.directory)
                         updatePluginList()
                     })

@@ -391,6 +391,10 @@ div.pluginList {
                 opacity: 0;
         
                 pointer-events: none;
+
+                &:disabled + label:after {
+                    opacity: 0;
+                }
         
                 & + label:before {
                     position: absolute;
