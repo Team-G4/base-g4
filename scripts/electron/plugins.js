@@ -135,6 +135,24 @@
         }
     }
 
+    class PluginModuleErrorMessage extends PluginDebugMessage {
+        constructor(plugin, msg) {
+            super(plugin)
+
+            this.msg = msg
+
+            this.addToConsole()
+        }
+
+        get messageHTML() {
+            return `Error while importing modules: ${this.msg}`
+        }
+
+        get messageType() {
+            return "error"
+        }
+    }
+
     class PluginDebugTextMessage extends PluginDebugMessage {
         constructor(plugin, message, type) {
             super(plugin)
@@ -267,8 +285,26 @@
             }
         }
 
-        getPluginContext() {
+        getPluginContext(moduleDir, exports) {
             return {
+                // Modules
+                export: (object) => {
+                    this.debugMessages.push(
+                        new PluginDebugAPICallMessage(this, "[PluginContext].export", [object])
+                    )
+
+                    exports.exports = object
+                },
+                import: (modulePath) => {
+                    this.debugMessages.push(
+                        new PluginDebugAPICallMessage(this, "[PluginContext].import", [modulePath])
+                    )
+
+                    let scriptPath = path.join(moduleDir, modulePath)
+
+                    return this.runScript(scriptPath)
+                },
+
                 // Object registration
                 registerMode: (mode) => {
                     this.debugMessages.push(
@@ -444,13 +480,32 @@
             return volatileSpec
         }
 
-        run() {
+        runScript(scriptPath) {
+            if (!isInsidePluginsPath(this, scriptPath)) {
+                this.debugMessages.push(
+                    new PluginModuleErrorMessage(this, `Tried to load a module from outside the plugin directory.`)
+                )
+                return
+            }
+            if (!fs.existsSync(scriptPath)) {
+                this.debugMessages.push(
+                    new PluginModuleErrorMessage(this, `Couldn't find ${scriptPath}.`)
+                )
+                return
+            }
+
+            let scriptDir = path.dirname(scriptPath)
+
+            let exportsObject = {
+                exports: null
+            }
             let context = {
-                plugin: this.getPluginContext(),
+                plugin: this.getPluginContext(scriptDir, exportsObject),
                 G4: this.getG4Object()
             }
+
             let scriptData = fs.readFileSync(
-                this.getFilePath(this.scriptPath),
+                scriptPath,
                 "utf-8"
             )
 
@@ -460,11 +515,17 @@
                 vm.runInNewContext(scriptData, context, {
                     displayErrors: true
                 })
+
+                return exportsObject.exports
             } catch(e) {
                 this.debugMessages.push(
                     new PluginExecutionErrorMessage(this, e)
                 )
             }
+        }
+
+        run() {
+            return this.runScript(this.getFilePath(this.scriptPath))
         }
 
         unregister() {
