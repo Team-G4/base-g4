@@ -506,7 +506,8 @@
                             }
                         ))
                     }
-                    gameModes.splice(gameModes.indexOf(o), 1)
+                    let idx = gameModes.indexOf(o)
+                    if (idx >= 0) gameModes.splice(idx, 1)
                 }
             })
 
