@@ -10,6 +10,8 @@ class Viewport {
     fillPath(path, fill) {}
     strokePath(path, stroke, lineWidth) {}
 
+    drawImage(asset, x, y, w, h) {}
+
     translate(dX, dY) {}
     rotate(rot) {}
     scale(sX, sY) {}
@@ -123,6 +125,16 @@ class LevelRenderer {
                 if (lineWidth) ctx.lineWidth = lineWidth
                 if (stroke) ctx.strokeStyle = stroke
                 ctx.stroke(path)
+            },
+
+            
+            drawImage: (asset, x, y, w, h) => {
+                if (asset instanceof AssetLink) asset = getAssetFromLink(asset)
+                if (!(asset instanceof ImageAsset)) return
+
+                let img = asset.image
+
+                ctx.drawImage(img, x, y, w, h)
             },
 
             translate: (dX, dY) => {
