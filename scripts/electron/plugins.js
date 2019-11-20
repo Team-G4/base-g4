@@ -6,6 +6,12 @@
 
     const pluginPath = path.join(__dirname, "plugins")
 
+    function isInsidePluginsPath(plugin, p) {
+        let rel = path.relative(path.join(pluginPath, plugin.directory), p)
+
+        return rel && !rel.startsWith("..") && !path.isAbsolute(rel)
+    }
+
     /**
      * @type {Plugin[]}
      */
@@ -210,6 +216,12 @@
                 }
 
                 let assetFile = this.getFilePath(assetSpec.file)
+                if (!isInsidePluginsPath(this, assetFile)) {
+                    this.debugMessages.push(
+                        new PluginAssetErrorMessage(this, assetName, `Tried to load a file from outside the plugin directory.`)
+                    )
+                    continue
+                }
                 if (!fs.existsSync(assetFile)) {
                     this.debugMessages.push(
                         new PluginAssetErrorMessage(this, assetName, `Couldn't find ${assetSpec.file}.`)
