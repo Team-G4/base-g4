@@ -249,6 +249,8 @@
             for (let assetName in this.manifest.assets) {
                 let asset = getAsset(this, assetName)
                 let link = getAssetLink(asset)
+
+                asset.dispose()
                 gameAssets[link.id] = null
             }
         }
@@ -494,6 +496,16 @@
         unregister() {
             this.objects.forEach(o => {
                 if (o instanceof CustomMode) {
+                    if (getActiveMode() == o) {
+                        console.log(o)
+                        dispatchEvent(new CustomEvent(
+                            "g4modechange", {
+                                detail: {
+                                    mode: gameModes[0]
+                                }
+                            }
+                        ))
+                    }
                     gameModes.splice(gameModes.indexOf(o), 1)
                 }
             })
@@ -631,10 +643,6 @@
 
         updatePluginList()
         updateModeButtons()
-    })
-
-    document.querySelector("button#reloadG4Btn").addEventListener("click", () => {
-        location.reload()
     })
 
     document.querySelector("div.pluginConsole > header span").addEventListener("click", () => {

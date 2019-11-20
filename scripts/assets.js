@@ -20,6 +20,8 @@ class Asset {
             }
         ))
     }
+
+    dispose() {}
 }
 
 class AudioAsset extends Asset {
@@ -39,6 +41,10 @@ class AudioAsset extends Asset {
         this.audioBuffer = await mainAudioContext.decodeAudioData(arrayBuf)
 
         super.load()
+    }
+
+    dispose() {
+        delete this.audioBuffer
     }
 }
 
@@ -70,6 +76,10 @@ class ImageAsset extends Asset {
         await this.asyncImgLoad()
 
         super.load()
+    }
+
+    dispose() {
+        delete this.image
     }
 }
 
