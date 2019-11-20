@@ -904,6 +904,11 @@ class Game {
     }
 
     sendStateChange() {
+        console.log({
+            mode: this.data.mode,
+            levelIndex: this.data.levelIndex,
+            record: this.data.userRecord
+        })
         window.dispatchEvent(
             new CustomEvent(
                 "g4statechange",

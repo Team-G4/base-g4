@@ -196,6 +196,8 @@
         registerAssets() {
             if (!("assets" in this.manifest)) return
 
+            let assets = []
+
             for (let assetName in this.manifest.assets) {
                 let assetSpec = this.manifest.assets[assetName]
 
@@ -227,12 +229,27 @@
                 }
 
                 if (asset) {
-                    registerAsset(asset)
+                    // registerAsset(asset)
+                    assets.push(asset)
                 } else {
                     this.debugMessages.push(
                         new PluginAssetErrorMessage(this, assetName, `Couldn't create asset.`)
                     )
                 }
+            }
+
+            assets.forEach(a => registerAsset(a))
+
+            return assets
+        }
+
+        unregisterAssets() {
+            if (!("assets" in this.manifest)) return
+
+            for (let assetName in this.manifest.assets) {
+                let asset = getAsset(this, assetName)
+                let link = getAssetLink(asset)
+                gameAssets[link.id] = null
             }
         }
 
@@ -481,6 +498,7 @@
                 }
             })
 
+            this.unregisterAssets()
             this.isRunning = false
             
             updateModeButtons()
@@ -507,11 +525,15 @@
 
             checkbox.addEventListener("input", () => {
                 if (checkbox.checked) {
-                    plugin.run()
-                    setPluginAsRunning(plugin.directory)
+                    waitForAssetLoad(plugin.registerAssets()).then(() => {
+                        plugin.run()
+                        setPluginAsRunning(plugin.directory)
+                        updatePluginList()
+                    })
                 } else {
                     plugin.unregister()
                     setPluginAsStopped(plugin.directory)
+                    updatePluginList()
                 }
             })
 

@@ -83,6 +83,7 @@ class AssetLink {
  * @type {Asset[]}
  */
 let gameAssets = []
+let baseLoadedCount = 0
 
 function getAssetLink(asset) {
     return new AssetLink(gameAssets.indexOf(asset))
@@ -92,12 +93,26 @@ function getAssetFromLink(link) {
     return gameAssets[link.id]
 }
 
+function getAssetCount() {
+    return gameAssets.filter(a => a instanceof Asset).length
+}
+
+function getLoadedAssetCount() {
+    return gameAssets.filter(a => a instanceof Asset && a.isLoaded).length
+}
+
 function updateAssetProgress() {
-    let loaded = gameAssets.filter(a => a.isLoaded).length
+    let loaded = getLoadedAssetCount()
+    let all = getAssetCount()
+    let fraction = (loaded - baseLoadedCount) / (all - baseLoadedCount)
 
-    document.querySelector("div.loadingScreen").classList.toggle("loading", loaded != gameAssets.length)
+    document.querySelector("div.loadingScreen").classList.toggle("loading", loaded != all)
 
-    document.querySelector("div.loadingScreen div.bar").style.width = `${100 * loaded / gameAssets.length}%`
+    document.querySelector("div.loadingScreen div.bar").style.width = `${100 * fraction}%`
+
+    if (loaded == all) {
+        baseLoadedCount = loaded
+    }
 }
 
 function registerAsset(asset) {
@@ -110,7 +125,7 @@ function registerAsset(asset) {
 }
 
 function areAssetsLoaded(assets) {
-    return assets.filter(a => a.isLoaded).length == assets.length
+    return getLoadedAssetCount() == getAssetCount()
 }
 
 function waitForAssetLoad(assets) {
