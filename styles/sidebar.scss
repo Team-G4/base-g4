@@ -405,15 +405,6 @@ aside {
 
                 fill: var(--g4-app-foreground);
             }
-
-            &:hover {
-                background: var(--g4-app-accent);
-                color: var(--g4-app-background);
-
-                svg {
-                    fill: var(--g4-app-background);
-                }
-            }
         }
     }
 }

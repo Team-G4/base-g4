@@ -796,13 +796,6 @@ aside footer div.statusItem svg {
   margin-right: 8px;
   fill: var(--g4-app-foreground);
 }
-aside footer div.statusItem:hover {
-  background: var(--g4-app-accent);
-  color: var(--g4-app-background);
-}
-aside footer div.statusItem:hover svg {
-  fill: var(--g4-app-background);
-}
 
 div.dialogContainer {
   position: fixed;
@@ -1553,6 +1546,10 @@ div.credit span.name {
 }
 
 div.titleBar {
+  display: none;
+}
+
+body:not(.electron) .onlyElectron {
   display: none;
 }
 
