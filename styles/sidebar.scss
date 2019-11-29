@@ -543,6 +543,19 @@ dialog.open {
     left: 0;
 }
 
+dialog#oobe {
+    div.play {
+        text-align: center;
+
+        button#hideOOBE {
+            font-size: 18pt;
+            text-transform: none;
+
+            margin-top: 16px;
+        }
+    }
+}
+
 dialog#playerStats {
     div.content {
         padding: 8px;
@@ -601,6 +614,7 @@ dialog#playerStats {
             display: flex;
 
             svg {
+                min-width: 48px;
                 width: 48px;
                 height: 48px;
 

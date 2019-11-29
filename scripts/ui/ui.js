@@ -4,6 +4,10 @@ if (!localStorage.getItem("g4_hideHint")) {
     localStorage.setItem("g4_hideHint", true)
 }
 
+document.querySelector("#hideOOBE").addEventListener("click", () => {
+    closeWindows()
+})
+
 // Sidebar expander
 document.querySelector("button.expander").addEventListener("click", () => {
     document.querySelector("aside").classList.toggle("expanded")
@@ -11,6 +15,7 @@ document.querySelector("button.expander").addEventListener("click", () => {
 
 // Sidebar windows
 document.querySelectorAll("dialog").forEach(dialog => {
+    if (!dialog.querySelector("button.close")) return
     dialog.querySelector("button.close").addEventListener("click", () => {
         dialog.classList.remove("open")
     })
