@@ -33,7 +33,7 @@ function closeWindows() {
     document.querySelectorAll("dialog.open").forEach(d => d.classList.remove("open"))
 }
 
-// G4 Account
+// G4 Account 
 /**
  * 
  * @param {Leaderboard} leaderboard 
