@@ -2,11 +2,11 @@
 if (!localStorage.getItem("g4_hideHint")) {
     openWindow("oobe")
     localStorage.setItem("g4_hideHint", true)
-}
+} 
 
 document.querySelector("#hideOOBE").addEventListener("click", () => {
     closeWindows()
-})
+}) 
 
 // Sidebar expander
 document.querySelector("button.expander").addEventListener("click", () => {
