@@ -19,7 +19,7 @@ document.querySelectorAll("dialog").forEach(dialog => {
     dialog.querySelector("button.close").addEventListener("click", () => {
         dialog.classList.remove("open")
     })
-}) 
+})
 
 function openWindow(id) {
     let zIndex = 2000 + document.querySelectorAll("dialog.open").length
