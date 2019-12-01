@@ -11,7 +11,7 @@ document.querySelector("#hideOOBE").addEventListener("click", () => {
 // Sidebar expander
 document.querySelector("button.expander").addEventListener("click", () => {
     document.querySelector("aside").classList.toggle("expanded")
-}) 
+})
 
 // Sidebar windows
 document.querySelectorAll("dialog").forEach(dialog => {
