@@ -439,6 +439,8 @@ dialog {
     display: flex;
     flex-direction: column;
 
+    visibility: hidden;
+
     transition: left 0.2s;
 
     pointer-events: all;
@@ -541,6 +543,7 @@ dialog {
 
 dialog.open {
     left: 0;
+    visibility: visible;
 }
 
 dialog#oobe {

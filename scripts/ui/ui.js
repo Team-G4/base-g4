@@ -5,6 +5,7 @@ if (!localStorage.getItem("g4_hideHint")) {
 }
 
 document.querySelector("#hideOOBE").addEventListener("click", () => {
+    console.log(32)
     closeWindows()
 })
 
