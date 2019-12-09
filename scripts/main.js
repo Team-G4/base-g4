@@ -18,6 +18,15 @@ waitForAssetLoad(loadDefaultAssets()).then(() => {
 
     games.push(mainGame)
 
+    document.querySelectorAll("div.leaderboardTimeframe button").forEach(btn => {
+        btn.addEventListener("click", () => {
+            document.querySelector("div.leaderboardTimeframe button.active").classList.remove("active")
+            btn.classList.add("active")
+
+            mainGame.updateLeaderboard()
+        })
+    })
+
     // if (localStorage["g4_glsl_enable"] == "true") mainGame.initWebGL()
 
     // Owo Chroma
