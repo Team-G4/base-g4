@@ -944,7 +944,7 @@ class Game {
                 }
 
                 if (this.leaderboard.userName) {
-                    let scores = await this.leaderboard.getLeaderboard(this.currentMode.modeId, "week", 0)
+                    let scores = await this.leaderboard.getLeaderboard(this.currentMode.modeId, "all", 0)
                     
                     if (scores.scores[0].username === this.leaderboard.userName || this.data.levelIndex === scores.scores[0].score) {
                         this.addAchievement(
