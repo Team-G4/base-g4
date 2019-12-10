@@ -37,3 +37,25 @@ document.querySelectorAll("a").forEach(link => {
 window.openLink = (url) => {
     shell.openExternal(url)
 }
+
+// Check whether the thing was just updated
+{
+    let path = require("path")
+    let fs = require("fs")
+
+    let versionPath = path.join(__dirname, "../version.json")
+    let version = JSON.parse(
+        fs.readFileSync(versionPath, "utf-8")
+    )
+    
+    if (version.justUpdated) {
+        openWindow("changelog")
+
+        version.justUpdated = false
+        fs.writeFileSync(
+            versionPath,
+            JSON.stringify(version),
+            "utf-8"
+        )
+    }
+}

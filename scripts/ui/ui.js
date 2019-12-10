@@ -7,6 +7,9 @@ if (!localStorage.getItem("g4_hideHint")) {
 document.querySelector("#hideOOBE").addEventListener("click", () => {
     closeWindows()
 })
+document.querySelector("#hideUpdate").addEventListener("click", () => {
+    closeWindows()
+})
 
 // Sidebar expander
 document.querySelector("button.expander").addEventListener("click", () => {
