@@ -433,7 +433,7 @@ class Leaderboard {
 
         if (playerBits & 1) badges += `<div class="badge teamg4">G4 Dev</div>`
         if (playerBits & 2) badges += `<div class="badge teamgt">Team Theorist</div>`
-        if (isVerified) badges += `<div class="badge">Verified Legit™</div>`
+        if (isVerified) badges += `<div class="badge">Verified Legit Cheater™</div>`
 
         document.querySelector("dialog#playerStats div.badges").innerHTML = badges
     }
