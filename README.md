@@ -1,4 +1,4 @@
-# G4
+# GODDAMN CURTAINS
 An infinite puzzle rage game by Team G4
 
 [![Discord][1]][2]
