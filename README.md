@@ -5,3 +5,9 @@ An infinite puzzle rage game by Team G4
 
 [1]:  https://discordapp.com/api/guilds/632990721552678923/widget.png?style=banner2
 [2]:  http://discord.gg/BKB4ft2
+
+## User Reviews
+
+* "it's very wet" - sci
+* "can't you do translate: ctx.translate" - yay
+* "NODE_MODUUUULEEES" - di its hevin
