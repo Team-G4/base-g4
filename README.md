@@ -11,6 +11,7 @@ An infinite puzzle rage game by Team G4
 * "it's very wet" - sci
 * "can't you do translate: ctx.translate" - yay
 * "NODE_MODUUUULEEES" - di its hevin
+* "GitHub Pages successfully built your site. on master" - bitbucket
 
 ## Discord Links Hall of Fame
 
