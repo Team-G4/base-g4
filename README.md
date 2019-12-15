@@ -29,3 +29,7 @@ An infinite puzzle rage game by Team G4
 [![Discord][1]][2]
 [![Discord][1]][2]
 [![Discord][1]][2]
+
+# Shame Corner Hall of Fame
+
+* "g4 be like cut my balls and nerve system, and turn that into spinning line and balls owo" - DEVIN
