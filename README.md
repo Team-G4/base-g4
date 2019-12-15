@@ -11,3 +11,15 @@ An infinite puzzle rage game by Team G4
 * "it's very wet" - sci
 * "can't you do translate: ctx.translate" - yay
 * "NODE_MODUUUULEEES" - di its hevin
+
+## Discord Links Hall of Fame
+
+[![Discord][1]][2]
+[![Discord][1]][2]
+[![Discord][1]][2]
+[![Discord][1]][2]
+[![Discord][1]][2]
+[![Discord][1]][2]
+[![Discord][1]][2]
+[![Discord][1]][2]
+[![Discord][1]][2]
