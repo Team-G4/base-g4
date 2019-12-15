@@ -13,6 +13,10 @@ An infinite puzzle rage game by Team G4
 * "NODE_MODUUUULEEES" - di its hevin
 * "GitHub Pages successfully built your site. on master" - bitbucket
 
+### User Reviews User Reviews
+
+* "LMAOOOOOOOOO" - hevidevin
+
 ## Discord Links Hall of Fame
 
 [![Discord][1]][2]
