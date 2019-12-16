@@ -1,0 +1,17 @@
+{
+    "name": "Easy Mode 2",
+    "author": "scintilla4evr",
+    "description": "A plugin that adds an improved Easy mode",    
+    "icon": "icon.svg",
+
+    "version": 1,
+
+    "script": "plugin.js",
+
+    "assets": {
+        "test_bgm": {
+            "type": "audio",
+            "file": "test_bgm.mp3"
+        }
+    }
+}
