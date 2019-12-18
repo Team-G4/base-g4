@@ -142,14 +142,11 @@ aside {
     }
 
     section.gameMode {
-<<<<<<< HEAD
         background: transparent;
 
         padding: 0px;
         border-radius: 0px;
 
-=======
->>>>>>> master
         div.content {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -258,7 +255,6 @@ aside {
 
     section.leaderboard {
         div.content {
-<<<<<<< HEAD
             div.leaderboardTimeframe {
                 display: flex;
                 justify-content: center;
@@ -295,8 +291,6 @@ aside {
                 }
             }
 
-=======
->>>>>>> master
             table {
                 width: 100%;
 
@@ -336,7 +330,6 @@ aside {
                             font-size: 80%;
 
                             margin-left: 4px;
-<<<<<<< HEAD
                             padding: 0px;
                             border-radius: 2px;
                         }
@@ -361,12 +354,6 @@ aside {
                             margin-left: 4px;
                         }
 
-=======
-                            padding: 0px 2px;
-                            border-radius: 2px;
-                        }
-
->>>>>>> master
                         span svg {
                             width: 20px;
                             height: auto;

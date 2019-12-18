@@ -100,14 +100,6 @@ waitForAssetLoad(loadDefaultAssets()).then(() => {
         games.forEach(game => game.handleGamepadEvent(e))
     })
 
-<<<<<<< HEAD
-=======
-    // Load audio & stuff
-    loadAssets().then(() => {
-        document.querySelector("label[for=settingMusic]").classList.remove("loading")
-    })
-
->>>>>>> master
     // On window resize, resize the canvases
     window.addEventListener("resize", () => {
         games.forEach(game => game.resizeCanvas())
@@ -190,7 +182,6 @@ waitForAssetLoad(loadDefaultAssets()).then(() => {
         } else if (mode instanceof CustomMode) {
             let bgmAsset = getAsset(null, `g4mode_easy_bgm`)
 
-<<<<<<< HEAD
             if ("getMusic" in mode) {
                 let link = mode.getMusic()
 
@@ -225,12 +216,5 @@ waitForAssetLoad(loadDefaultAssets()).then(() => {
         )
 
         dispatchEvent(new CustomEvent("g4runall"))
-=======
-            document.querySelector("section.gameMode button.active").classList.remove("active")
-            button.classList.add("active")
-
-            playAudio(mainGame.data.mode)
-        })
->>>>>>> master
     })
 })

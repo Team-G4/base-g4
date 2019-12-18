@@ -1021,17 +1021,12 @@ dialog#playerStats div.content div.highScore {
   align-items: center;
 }
 dialog#playerStats div.content div.highScore p {
-<<<<<<< HEAD
   font-size: 12pt;
   font-weight: 600;
   text-transform: uppercase;
-=======
-  font-size: 14pt;
->>>>>>> master
   margin: 0px;
   flex-grow: 1;
 }
-<<<<<<< HEAD
 dialog#playerStats div.content div.highScore p span {
   background: var(--g4-game-bullet);
   color: var(--g4-game-background);
@@ -1041,10 +1036,6 @@ dialog#playerStats div.content div.highScore p span {
 }
 dialog#playerStats div.content div.highScore table {
   width: 200px;
-=======
-dialog#playerStats div.content div.highScore table {
-  width: 100%;
->>>>>>> master
   border-spacing: 0px;
 }
 dialog#playerStats div.content div.highScore table th {
@@ -1053,10 +1044,7 @@ dialog#playerStats div.content div.highScore table th {
   text-align: left;
 }
 dialog#playerStats div.content div.highScore table td {
-<<<<<<< HEAD
   width: 50%;
-=======
->>>>>>> master
   font-weight: 500;
   font-size: 13pt;
   line-height: 1;
