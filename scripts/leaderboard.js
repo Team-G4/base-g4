@@ -215,19 +215,12 @@ class Leaderboard {
         }
     }
 
-<<<<<<< HEAD
     async getLeaderboard(mode, timeframe, legit) {
         if (legit == undefined) legit = localStorage["g4_showLegitTM"]
         let data = await fetch(
             leaderboardEndpoint + "/scores?mode=" + mode + "&legit=" + legit + (
                 timeframe ? `&timeframe=${timeframe}` : ""
             )
-=======
-    async getLeaderboard(mode) {
-        let legit = localStorage["g4_showLegitTM"]
-        let data = await fetch(
-            leaderboardEndpoint + "/scores?mode=" + mode + "&legit=" + legit
->>>>>>> master
         )
 
         return await data.json()
@@ -268,7 +261,6 @@ class Leaderboard {
         scores.scores.forEach((score, i) => {
             let tr = document.createElement("tr")
 
-<<<<<<< HEAD
             if (score.verified) {
                 tr.classList.add("verified")
             } else {
@@ -278,10 +270,6 @@ class Leaderboard {
             if (score.username === this.userName) {
                 tr.classList.add("me")
             }
-=======
-            if (score.username === this.userName) tr.classList.add("me")
-            if (score.verified) tr.classList.add("verified")
->>>>>>> master
 
             let rank = document.createElement("td")
             rank.textContent = score.verified ? "-" : counter
@@ -302,7 +290,6 @@ class Leaderboard {
                 player.appendChild(verified)
             }
 
-<<<<<<< HEAD
             if (score.playerinfo) {
                 let teamBits = score.playerinfo.teammember
                 let isG4Dev = !!(teamBits & 1)
@@ -322,8 +309,6 @@ class Leaderboard {
                 }
             }
 
-=======
->>>>>>> master
             tr.appendChild(player)
 
             let scoreText = document.createElement("td")
@@ -503,9 +488,14 @@ class Leaderboard {
     }
 
     async postScore(mode, score, deathCount) {
-        this.scoreStack.push({
-            mode, score, deathCount
-        })
+        // this.scoreStack.push({
+        //     mode, score, deathCount
+        // })
+        let status = "err"
+
+        while (status == "err") {
+            status = await this.performScoreRequest(mode, score, deathCount)
+        }
     }
 
     async addAchievement(achID) {
