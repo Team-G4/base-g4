@@ -3,31 +3,36 @@ let leaderboardEndpoint = "https://g4-leaderboard.herokuapp.com"
 if (!localStorage.getItem("g4_showLegitTM")) localStorage["g4_showLegitTM"] = "0"
 if (localStorage["g4_showLegitTM"] == "1") document.querySelector("input#settingVerifiedLegit").checked = true
 
-let gameAchievements = {
-    "firstClear": {
-        name: "First steps",
-        description: "You reached level 1 in $$ mode."
-    },
-    "10thClear": {
-        name: "Almost 11",
-        description: "You reached level 10 in $$ mode."
-    },
-    "ninenine": {
-        name: "Infinity",
-        description: "You reached level 999,999 in $$ mode."
-    },
+//load game achievements
+let gameAchievements
+fetch("/JSON/achievments.json")
+   .then(async res => res.text())
+   .then(data => {
+	   gameAchievements = JSON.parse(data);
+   });
 
-    "zeroFail": {
-        name: "Oh.",
-        description: "Oh well. You failed on level 0 in $$ mode."
-    },
-
-    "leader": {
-        name: "Follow the Leader",
-        description: "You got the first place on the $$ mode leaderboard."
-    }
+async function fetchData(endpoint, body) {
+	return fetch(
+		leaderboardEndpoint + endpoint,
+		{
+			method: "POST",
+			mode: "cors",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(body)
+		}
+	)
 }
-
+function dispatchG4LoginEvent(data) {
+	window.dispatchEvent(new CustomEvent(
+		"g4login", {
+			detail: {
+				username: data.username
+			}
+		}
+	))
+}
 class Leaderboard {
     constructor() {
         this.userID = null
@@ -45,40 +50,24 @@ class Leaderboard {
         let name = encodeURIComponent(username)
         let url = `${leaderboardEndpoint}/usernameAvailable?username=${name}`
 
-        let data = await fetch(url)
-        data = await data.json()
-
-        return data.available
+		return await fetch(url)
+		.then(res => res.json())
+		.then(data => {
+			console.log(data)
+			return data.available
+		})
     }
 
     async forceLogin() {
         let uuid = localStorage.getItem("g4_user_id")
-        let data = await fetch(
-            leaderboardEndpoint + "/userForceLogin",
-            {
-                method: "POST",
-                mode: "cors",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    uuid
-                })
-            }
-        )
+        let data = await fetchData("/userForceLogin", {uuid});
         data = await data.json()
 
         if (data.successful) {
             this.setAuthData(data.username, uuid, data.accesstoken)
             this.updateUI()
 
-            window.dispatchEvent(new CustomEvent(
-                "g4login", {
-                    detail: {
-                        username: data.username
-                    }
-                }
-            ))
+			dispatchG4LoginEvent(data);
 
             return true
         }
@@ -87,20 +76,7 @@ class Leaderboard {
     }
 
     async loginAccount(username, passwd) {
-        let data = await fetch(
-            leaderboardEndpoint + "/userLogin",
-            {
-                method: "POST",
-                mode: "cors",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    username: username,
-                    password: passwd
-                })
-            }
-        )
+        let data = await fetchData("/userLogin", {username, password: passwd});
         data = await data.json()
 
         if (!data.successful) {
@@ -112,13 +88,7 @@ class Leaderboard {
             this.setAuthData(username, data.uuid, data.accesstoken)
             this.updateUI()
 
-            window.dispatchEvent(new CustomEvent(
-                "g4login", {
-                    detail: {
-                        username: username
-                    }
-                }
-            ))
+            dispatchG4LoginEvent(data);
 
             return true
         }
@@ -127,20 +97,7 @@ class Leaderboard {
     async registerAccount(username, passwd) {
         if (username.length > 20) return false
 
-        let data = await fetch(
-            leaderboardEndpoint + "/userRegister",
-            {
-                method: "POST",
-                mode: "cors",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    username: username,
-                    password: passwd
-                })
-            }
-        )
+        let data = await fetchData("/userRegister", {username, password: passwd});
 
         data = await data.json()
 
@@ -153,13 +110,7 @@ class Leaderboard {
             this.setAuthData(username, data.uuid, data.accesstoken)
             this.updateUI()
 
-            window.dispatchEvent(new CustomEvent(
-                "g4login", {
-                    detail: {
-                        username: username
-                    }
-                }
-            ))
+            dispatchG4LoginEvent(data);
 
             return true
         }
@@ -168,19 +119,7 @@ class Leaderboard {
     async logout() {
         if (!this.userID) return
 
-        let data = await fetch(
-            leaderboardEndpoint + "/userLogout",
-            {
-                method: "POST",
-                mode: "cors",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    uuid: this.userID
-                })
-            }
-        )
+        let data = await fetchData("/userLogout", {uuid: this.userID});
 
         data = await data.json()
 
@@ -238,12 +177,8 @@ class Leaderboard {
         if (!scores) scores = []
 
         let hiScore = scores.find(score => score.gamemode == mode)
-
-        if (hiScore) {
-            hiScore = hiScore.score
-        } else {
-            hiScore = 0
-        }
+        
+        hiScore = hiScore ? hiScore.score : 0
 
         document.querySelector("div.personalHiScore p.score").textContent = hiScore
     }
@@ -359,7 +294,7 @@ class Leaderboard {
         document.querySelector("dialog#playerStats h1").textContent = username
 
         let container = document.querySelector("dialog#playerStats div.scores")
-        container.innerHTML = ""        
+        container.innerHTML = ""
 
         let achContainer = document.querySelector("dialog#playerStats div.achievements")
         achContainer.innerHTML = ""
@@ -501,22 +436,14 @@ class Leaderboard {
     async addAchievement(achID) {
         if (!this.userID) return false
 
-        let data = await fetch(
-            leaderboardEndpoint + "/addAchievement",
-            {
-                method: "POST",
-                mode: "cors",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    uuid: this.userID,
-                    accesstoken: this.accessToken,
-                    data: {
-                        achievement: achID
-                    }
-                })
-            }
+        let data = await fetchData("/addAchievement", 
+			{
+				uuid: this.userID,
+				accesstoken: this.accessToken,
+				data: {
+					achievement: achID
+				}
+			}
         )
 
         data = await data.json()
