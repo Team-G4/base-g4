@@ -110,25 +110,22 @@ class SlowMode {
 
 class GameData {
     constructor(mode, cannon, rings, levelIndex, deathCount, userRecord) {
-        this.mode = mode
 
         this.projectile = null
-        this.cannon = cannon
 
-        this.rings = rings
         this.rotation = 0
 
         this.slow = new SlowMode(0, false)
 
-        Object.assign(this, {levelIndex, deathCount, userRecord});
+        Object.assign(this, {mode, cannon, rings, levelIndex, deathCount, userRecord});
     }
 }
 
 class LevelGenerator {
     /**
-     * @param {Number} angle 
-     * @param {Number} distance 
-     * @param {Number} radius 
+     * @param {Number} angle
+     * @param {Number} distance
+     * @param {Number} radius
      * @returns {RingBall}
      */
     static createRingBall(angle, distance, radius, centerX, centerY) {
@@ -136,10 +133,10 @@ class LevelGenerator {
     }
 
     /**
-     * @param {Number} angle 
-     * @param {Number} distance 
-     * @param {Number} radius 
-     * @param {Number} pulseFreq 
+     * @param {Number} angle
+     * @param {Number} distance
+     * @param {Number} radius
+     * @param {Number} pulseFreq
      * @return {RingPulsingBall}
      */
     static createRingPulsingBall(angle, distance, radius, pulseFreq, centerX, centerY) {
@@ -147,10 +144,10 @@ class LevelGenerator {
     }
 
     /**
-     * @param {Number} angleStart 
-     * @param {Number} angleLength 
-     * @param {Number} distance 
-     * @param {Number} radius 
+     * @param {Number} angleStart
+     * @param {Number} angleLength
+     * @param {Number} distance
+     * @param {Number} radius
      * @returns {RingBar}
      */
     static createRingBar(angleStart, angleLength, distance, radius, centerX, centerY) {
@@ -158,11 +155,11 @@ class LevelGenerator {
     }
 
     /**
-     * @param {Number} angleStart 
-     * @param {Number} angleLength 
-     * @param {Number} distance 
-     * @param {Number} radius 
-     * @param {Number} sweepFreq 
+     * @param {Number} angleStart
+     * @param {Number} angleLength
+     * @param {Number} distance
+     * @param {Number} radius
+     * @param {Number} sweepFreq
      * @returns {RingMarqueeBar}
      */
     static createRingMarqueeBar(
@@ -174,25 +171,23 @@ class LevelGenerator {
     }
 
     /**
-     * @param {Number} angle 
-     * @param {Number} distance 
+     * @param {Number} angle
+     * @param {Number} distance
      * @param {Number} radius
-     * @param {Number} direction 
-     * @param {Number} layout 
-     * @param {Number} wingSpan 
-     * @param {Boolean} hasBase 
-     * @param {Number} baseDistance 
-     * @param {Number} centerX 
-     * @param {Number} centerY 
+     * @param {Number} direction
+     * @param {Number} layout
+     * @param {Number} wingSpan
+     * @param {Boolean} hasBase
+     * @param {Number} baseDistance
+     * @param {Number} centerX
+     * @param {Number} centerY
      */
     static createRingH(
         angle, distance, radius,
         direction, layout, wingSpan,
         hasBase, baseDistance,
-        centerX, centerY
+        centerX = 0, centerY = 0
     ) {
-        if (!centerX) centerX = 0
-        if (!centerY) centerY = 0
         if (!hasBase) {
             hasBase = false
             baseDistance = 1000
@@ -208,9 +203,9 @@ class LevelGenerator {
     }
 
     /**
-     * @param {Number} n 
-     * @param {Boolean} isSmall 
-     * @param {Boolean} isEasy 
+     * @param {Number} n
+     * @param {Boolean} isSmall
+     * @param {Boolean} isEasy
      * @returns {Number[]}
      */
     static generateAngleArrangement(
@@ -243,8 +238,8 @@ class LevelGenerator {
     }
 
     /**
-     * @param {Number} difficulty 
-     * @param {Number} distance 
+     * @param {Number} difficulty
+     * @param {Number} distance
      * @returns {RingElement[]}
      */
     static generateInnerRing(difficulty, distance) {
@@ -306,8 +301,8 @@ class LevelGenerator {
     }
 
     /**
-     * @param {Number} difficulty 
-     * @param {Number} distance 
+     * @param {Number} difficulty
+     * @param {Number} distance
      * @returns {RingElement[]}
      */
     static generateMiddleRing(difficulty, distance) {
@@ -338,8 +333,8 @@ class LevelGenerator {
     }
 
     /**
-     * @param {Number} difficulty 
-     * @param {Number} distance 
+     * @param {Number} difficulty
+     * @param {Number} distance
      * @returns {RingElement[]}
      */
     static generateOuterRing(difficulty, distance) {
@@ -382,8 +377,8 @@ class LevelGenerator {
     }
 
     /**
-     * @param {Number} difficulty 
-     * @param {Number} distance 
+     * @param {Number} difficulty
+     * @param {Number} distance
      * @returns {RingElement[]}
      */
     static generateDeniseRing(difficulty, distance) {
@@ -432,9 +427,9 @@ class LevelGenerator {
     }
 
     /**
-     * @param {RingElement[]} items 
-     * @param {Number} speedMult 
-     * @param {Boolean} isDistraction 
+     * @param {RingElement[]} items
+     * @param {Number} speedMult
+     * @param {Boolean} isDistraction
      * @returns {Ring}
      */
     static createRing(items, speedMult, isDistraction, distance, revolveFreq, revolvePhase) {
@@ -448,7 +443,7 @@ class LevelGenerator {
     }
 
     /**
-     * @param {Number} levelIndex 
+     * @param {Number} levelIndex
      * @returns {Number[][]}
      */
     static getDefaultDifficulties(levelIndex) {
@@ -494,33 +489,18 @@ class LevelGenerator {
     }
 
     static generateDefaultRings(rings, progression) {
-        if (progression[0])
-            rings.push(
-                LevelGenerator.createRing(
+      
+      let tempFunc = (progressionIndex, distance, speedMult) => {
+        return LevelGenerator.createRing(
                     LevelGenerator.generateInnerRing(
-                        progression[0], 200
+                        progression[progressionIndex], distance
                     ),
-                    1, false
+                    speedMult, false
                 )
-            )
-        if (progression[1])
-            rings.push(
-                LevelGenerator.createRing(
-                    LevelGenerator.generateMiddleRing(
-                        progression[1], 300
-                    ),
-                    0.5, false
-                )
-            )
-        if (progression[2])
-            rings.push(
-                LevelGenerator.createRing(
-                    LevelGenerator.generateOuterRing(
-                        progression[2], 400
-                    ),
-                    0.25, false
-                )
-            )
+      }
+        if (progression[0]) rings.push(tempFunc(0, 200, 1))
+        if (progression[1]) rings.push(tempFunc(1, 300, 0.5))
+        if (progression[2]) rings.push(tempFunc(2, 500, 0,.25));
     }
 
     static generateNoxRings(rings, level) {
@@ -578,7 +558,7 @@ class LevelGenerator {
     }
 
     /**
-     * @param {RingElement} item 
+     * @param {RingElement} item
      * @param {Number} ringLength
      */
     static getRingItemAngleRange(item, ringLength) {
@@ -664,14 +644,14 @@ class LevelGenerator {
 
 class Mode {
     /**
-     * @param {String} name 
+     * @param {String} name
      */
     constructor(name) {
         this.name = name
     }
 
     /**
-     * @param {Number} levelIndex 
+     * @param {Number} levelIndex
      * @returns {Ring[]}
      */
     generateRings(levelIndex) {
@@ -688,7 +668,7 @@ class Mode {
     }
 
     /**
-     * @param {Number} levelIndex 
+     * @param {Number} levelIndex
      * @returns {Ring[]}
      */
     getRings(levelIndex) {
@@ -938,7 +918,7 @@ class ShookNativeMode extends NativeMode {
     }
 
     getRings(levelIndex) {
-        let rings = [            
+        let rings = [
         ]
         let n = Math.min(
             2 + Math.floor(levelIndex / 5),
