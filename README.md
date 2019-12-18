@@ -34,5 +34,5 @@ An infinite puzzle rage game by Team G4
 # Shame Corner Hall of Fame
 
 * "g4 be like cut my balls and nerve system, and turn that into spinning line and balls owo" - DEVIN
-
+* "Hi, it doesn't seem to be loading because I don't see the play g4 button" - Yay
 # Also hi mom im on the internet
