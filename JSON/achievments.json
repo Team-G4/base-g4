@@ -1,0 +1,24 @@
+{
+	"firstClear": {
+		"name": "First steps",
+		"description": "You reached level 1 in $$ mode."
+	},
+	"10thClear": {
+		"name": "Almost 11",
+		"description": "You reached level 10 in $$ mode."
+	},
+	"ninenine": {
+		"name": "Infinity",
+		"description": "You reached level 999,999 in $$ mode."
+	},
+
+	"zeroFail": {
+		"name": "Oh.",
+		"description": "Oh well. You failed on level 0 in $$ mode."
+	},
+
+	"leader": {
+		"name": "Follow the Leader",
+		"description": "You got the first place on the $$ mode leaderboard."
+	}
+}

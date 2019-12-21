@@ -1,66 +1,22 @@
 class Projectile {
+
     constructor(x, y, velocityX, velocityY, radius) {
-        /**
-         * @type {Number}
-         */
-        this.x = x
-        /**
-         * @type {Number}
-         */
-        this.y = y
-
-        /**
-         * @type {Number}
-         */
-        this.velocityX = velocityX
-        /**
-         * @type {Number}
-         */
-        this.velocityY = velocityY
-
-        /**
-         * @type {Number}
-         */
-        this.radius = radius
+		//type: all number
+		Object.assign(this, {x, y, velocityX, velocityY, raidus});
     }
 }
 
 class Cannon {
     constructor(x, y, angle, freqMultiplier) {
-        /**
-         * @type {Number}
-         */
-        this.x = x
-        /**
-         * @type {Number}
-         */
-        this.y = y
-        /**
-         * @type {Number}
-         */
-        this.angle = angle
-        /**
-         * @type {Number}
-         */
-        this.freqMultiplier = freqMultiplier
+		//type: all number
+		Object.assign(this, {x, y, angle, freqMultiplier})
     }
 }
 
 class RingElement {
-    constructor(type, centerX, centerY) {
-        /**
-         * @type {String}
-         */
-        this.type = type
-
-        /**
-         * @type {Number}
-         */
-        this.centerX = centerX ? centerX : 0
-        /**
-         * @type {Number}
-         */
-        this.centerY = centerY ? centerY : 0
+    constructor(type, centerX = 0, centerY = 0) {
+		//type: string, number, number
+		Object.assign(this, {type, centerX, centerY});
     }
 }
 
@@ -68,18 +24,8 @@ class RingBall extends RingElement {
     constructor(angle, distance, radius, centerX, centerY) {
         super("ball", centerX, centerY)
 
-        /**
-         * @type {Number}
-         */
-        this.angle = angle
-        /**
-         * @type {Number}
-         */
-        this.distance = distance
-        /**
-         * @type {Number}
-         */
-        this.radius = radius
+		//type: all number
+		Object.assign(this, {angle, distance, radius});
 
         this.defaults = {...this}
     }
@@ -87,23 +33,14 @@ class RingBall extends RingElement {
 
 class RingPulsingBall extends RingBall {
     constructor(angle, distance, radius, pulseFreq, centerX, centerY) {
+
         super(angle, distance, radius, centerX, centerY)
+
         this.type = "pulsingBall"
-
-        /**
-         * @type {Number}
-         */
-        this.baseRadius = radius
-
-        /**
-         * @type {Number}
-         */        
-        this.pulseFreq = pulseFreq
-
-        /**
-         * @type {Number}
-         */
+        /** @type {Number} */
         this.pulseTime = 0
+
+		Object.assign(this, {baseRadius: radius, pulseFreq})
 
         this.defaults = {...this}
     }
@@ -113,23 +50,8 @@ class RingBar extends RingElement {
     constructor(angleStart, angleLength, distance, radius, centerX, centerY) {
         super("bar", centerX, centerY)
 
-        /**
-         * @type {Number}
-         */
-        this.angleStart = angleStart
-        /**
-         * @type {Number}
-         */
-        this.angleLength = angleLength
-
-        /**
-         * @type {Number}
-         */
-        this.distance = distance
-        /**
-         * @type {Number}
-         */
-        this.radius = radius
+		//type: all number
+		Object.assign(this, {angleStart, angleLength, distance, radius});
 
         this.defaults = {...this}
     }
@@ -140,21 +62,13 @@ class RingMarqueeBar extends RingBar {
         super(angleStart, angleLength, distance, radius, centerX, centerY)
         this.type = "marqueeBar"
 
-        /**
-         * @type {Number}
-         */
+        /** @type {Number} */
         this.baseStart = angleStart
-        /**
-         * @type {Number}
-         */
+        /** @type {Number} */
         this.baseEnd = angleStart + angleLength
-        /**
-         * @type {Number}
-         */
+        /** @type {Number} */
         this.sweepTime = 0
-        /**
-         * @type {Number}
-         */
+        /** @type {Number} */
         this.sweepFreq = sweepFreq
 
         this.defaults = {...this}
@@ -169,89 +83,49 @@ class RingH extends RingElement {
     ) {
         super("h", centerX, centerY)
 
-        this.angle = angle
-        this.distance = distance
-        this.radius = radius
-        this.direction = direction
-
-        this.layout = layout
-        this.wingSpan = wingSpan
-        this.hasBase = hasBase
-        this.baseDistance = baseDistance
+		Object.assign(this, {angle, distance, radius, direction, layout, wingSpan, hasBase, baseDistance})
 
         this.defaults = {...this}
     }
 }
 
 class Ring {
-    constructor(items, speedMult, isDistraction, distance, revolveFreq, revolvePhase) {
-        /**
-         * @type {RingElement[]}
-         */
+    constructor(items, speedMult, isDistraction, distance = 0, revolveFreq = 0, revolvePhase = 0) {
+        /** @type {RingElement[]} */
         this.items = items
 
         this.rotation = 0
 
-        /**
-         * @type {Number}
-         */
-        this.speedMult = speedMult
-        /**
-         * @type {Boolean}
-         */
-        this.isDistraction = isDistraction
-
-        /**
-         * @type {Number}
-         */
-        this.distance = distance ? distance : 0
-        /**
-         * @type {Number}
-         */
-        this.revolveFreq = revolveFreq ? revolveFreq : 0
-        /**
-         * @type {Number}
-         */
-        this.revolvePhase = revolvePhase ? revolvePhase : 0
+		//type: number, bool, number, number, number
+		Object.assign(this, {speedMult, isDistraction, distance, revolveFreq, revolvePhase});
     }
 }
 
 class SlowMode {
     constructor(time, isSlow) {
-        /**
-         * @type {Number}
-         */
-        this.time = time
-        /**
-         * @type {Boolean}
-         */
-        this.isSlow = isSlow
+		//type: number, bool
+		Object.assign(this, {time, isSlow});
     }
 }
 
 class GameData {
-    constructor(mode, cannon, rings, levelIndex, deathCount, record) {
-        this.mode = mode
+    constructor(mode, cannon, rings, levelIndex, deathCount, userRecord) {
 
         this.projectile = null
-        this.cannon = cannon
 
-        this.rings = rings
         this.rotation = 0
 
         this.slow = new SlowMode(0, false)
 
-        this.levelIndex = levelIndex
-        this.userDeaths = deathCount
-        this.userRecord = record
+        Object.assign(this, {mode, cannon, rings, levelIndex, deathCount, userRecord});
     }
 }
 
 class LevelGenerator {
     /**
-     * @param {Number} angle 
-     * @param {Number} distance 
-     * @param {Number} radius 
+     * @param {Number} angle
+     * @param {Number} distance
+     * @param {Number} radius
      * @returns {RingBall}
      */
     static createRingBall(angle, distance, radius, centerX, centerY) {
@@ -259,10 +133,10 @@ class LevelGenerator {
     }
 
     /**
-     * @param {Number} angle 
-     * @param {Number} distance 
-     * @param {Number} radius 
-     * @param {Number} pulseFreq 
+     * @param {Number} angle
+     * @param {Number} distance
+     * @param {Number} radius
+     * @param {Number} pulseFreq
      * @return {RingPulsingBall}
      */
     static createRingPulsingBall(angle, distance, radius, pulseFreq, centerX, centerY) {
@@ -270,10 +144,10 @@ class LevelGenerator {
     }
 
     /**
-     * @param {Number} angleStart 
-     * @param {Number} angleLength 
-     * @param {Number} distance 
-     * @param {Number} radius 
+     * @param {Number} angleStart
+     * @param {Number} angleLength
+     * @param {Number} distance
+     * @param {Number} radius
      * @returns {RingBar}
      */
     static createRingBar(angleStart, angleLength, distance, radius, centerX, centerY) {
@@ -281,11 +155,11 @@ class LevelGenerator {
     }
 
     /**
-     * @param {Number} angleStart 
-     * @param {Number} angleLength 
-     * @param {Number} distance 
-     * @param {Number} radius 
-     * @param {Number} sweepFreq 
+     * @param {Number} angleStart
+     * @param {Number} angleLength
+     * @param {Number} distance
+     * @param {Number} radius
+     * @param {Number} sweepFreq
      * @returns {RingMarqueeBar}
      */
     static createRingMarqueeBar(
@@ -297,25 +171,23 @@ class LevelGenerator {
     }
 
     /**
-     * @param {Number} angle 
-     * @param {Number} distance 
+     * @param {Number} angle
+     * @param {Number} distance
      * @param {Number} radius
-     * @param {Number} direction 
-     * @param {Number} layout 
-     * @param {Number} wingSpan 
-     * @param {Boolean} hasBase 
-     * @param {Number} baseDistance 
-     * @param {Number} centerX 
-     * @param {Number} centerY 
+     * @param {Number} direction
+     * @param {Number} layout
+     * @param {Number} wingSpan
+     * @param {Boolean} hasBase
+     * @param {Number} baseDistance
+     * @param {Number} centerX
+     * @param {Number} centerY
      */
     static createRingH(
         angle, distance, radius,
         direction, layout, wingSpan,
         hasBase, baseDistance,
-        centerX, centerY
+        centerX = 0, centerY = 0
     ) {
-        if (!centerX) centerX = 0
-        if (!centerY) centerY = 0
         if (!hasBase) {
             hasBase = false
             baseDistance = 1000
@@ -331,9 +203,9 @@ class LevelGenerator {
     }
 
     /**
-     * @param {Number} n 
-     * @param {Boolean} isSmall 
-     * @param {Boolean} isEasy 
+     * @param {Number} n
+     * @param {Boolean} isSmall
+     * @param {Boolean} isEasy
      * @returns {Number[]}
      */
     static generateAngleArrangement(
@@ -366,8 +238,8 @@ class LevelGenerator {
     }
 
     /**
-     * @param {Number} difficulty 
-     * @param {Number} distance 
+     * @param {Number} difficulty
+     * @param {Number} distance
      * @returns {RingElement[]}
      */
     static generateInnerRing(difficulty, distance) {
@@ -429,8 +301,8 @@ class LevelGenerator {
     }
 
     /**
-     * @param {Number} difficulty 
-     * @param {Number} distance 
+     * @param {Number} difficulty
+     * @param {Number} distance
      * @returns {RingElement[]}
      */
     static generateMiddleRing(difficulty, distance) {
@@ -461,8 +333,8 @@ class LevelGenerator {
     }
 
     /**
-     * @param {Number} difficulty 
-     * @param {Number} distance 
+     * @param {Number} difficulty
+     * @param {Number} distance
      * @returns {RingElement[]}
      */
     static generateOuterRing(difficulty, distance) {
@@ -505,8 +377,8 @@ class LevelGenerator {
     }
 
     /**
-     * @param {Number} difficulty 
-     * @param {Number} distance 
+     * @param {Number} difficulty
+     * @param {Number} distance
      * @returns {RingElement[]}
      */
     static generateDeniseRing(difficulty, distance) {
@@ -555,9 +427,9 @@ class LevelGenerator {
     }
 
     /**
-     * @param {RingElement[]} items 
-     * @param {Number} speedMult 
-     * @param {Boolean} isDistraction 
+     * @param {RingElement[]} items
+     * @param {Number} speedMult
+     * @param {Boolean} isDistraction
      * @returns {Ring}
      */
     static createRing(items, speedMult, isDistraction, distance, revolveFreq, revolvePhase) {
@@ -571,7 +443,7 @@ class LevelGenerator {
     }
 
     /**
-     * @param {Number} levelIndex 
+     * @param {Number} levelIndex
      * @returns {Number[][]}
      */
     static getDefaultDifficulties(levelIndex) {
@@ -617,33 +489,18 @@ class LevelGenerator {
     }
 
     static generateDefaultRings(rings, progression) {
-        if (progression[0])
-            rings.push(
-                LevelGenerator.createRing(
+      
+      let tempFunc = (progressionIndex, distance, speedMult) => {
+        return LevelGenerator.createRing(
                     LevelGenerator.generateInnerRing(
-                        progression[0], 200
+                        progression[progressionIndex], distance
                     ),
-                    1, false
+                    speedMult, false
                 )
-            )
-        if (progression[1])
-            rings.push(
-                LevelGenerator.createRing(
-                    LevelGenerator.generateMiddleRing(
-                        progression[1], 300
-                    ),
-                    0.5, false
-                )
-            )
-        if (progression[2])
-            rings.push(
-                LevelGenerator.createRing(
-                    LevelGenerator.generateOuterRing(
-                        progression[2], 400
-                    ),
-                    0.25, false
-                )
-            )
+      }
+        if (progression[0]) rings.push(tempFunc(0, 200, 1))
+        if (progression[1]) rings.push(tempFunc(1, 300, 0.5))
+        if (progression[2]) rings.push(tempFunc(2, 500, 0,.25));
     }
 
     static generateNoxRings(rings, level) {
@@ -701,7 +558,7 @@ class LevelGenerator {
     }
 
     /**
-     * @param {RingElement} item 
+     * @param {RingElement} item
      * @param {Number} ringLength
      */
     static getRingItemAngleRange(item, ringLength) {
@@ -787,14 +644,14 @@ class LevelGenerator {
 
 class Mode {
     /**
-     * @param {String} name 
+     * @param {String} name
      */
     constructor(name) {
         this.name = name
     }
 
     /**
-     * @param {Number} levelIndex 
+     * @param {Number} levelIndex
      * @returns {Ring[]}
      */
     generateRings(levelIndex) {
@@ -811,7 +668,7 @@ class Mode {
     }
 
     /**
-     * @param {Number} levelIndex 
+     * @param {Number} levelIndex
      * @returns {Ring[]}
      */
     getRings(levelIndex) {
@@ -1061,7 +918,7 @@ class ShookNativeMode extends NativeMode {
     }
 
     getRings(levelIndex) {
-        let rings = [            
+        let rings = [
         ]
         let n = Math.min(
             2 + Math.floor(levelIndex / 5),
