@@ -179,7 +179,9 @@ class Game {
 
             item.centerX = centerX
             item.centerY = centerY
-
+            
+            // 🦀
+            
             switch (item.type) {
                 case "ball":
                     item.angle += dTime
