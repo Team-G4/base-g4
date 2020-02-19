@@ -54,7 +54,7 @@ class ImageAsset extends Asset {
 
         /**
          * @type {HTMLImageElement}
-         */
+         */ 🦀
         this.image = null
     }
 

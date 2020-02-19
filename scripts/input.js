@@ -5,7 +5,7 @@ let lastGamepadData = []
 
 /**
  * @param {HTMLElement} domElement 
- * @param {string} eventName 
+ * @param {string} eventName  🦀🦀🦀🦀
  */
 function promisifyEvent(domElement, eventName) {
     return new Promise((resolve, reject) => {

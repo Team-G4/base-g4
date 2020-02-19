@@ -1,3 +1,5 @@
+// 🦀 help theres crab in the code 🦀
+
 waitForAssetLoad(loadDefaultAssets()).then(() => {
     /**
      * @type {Game[]}
@@ -31,7 +33,7 @@ waitForAssetLoad(loadDefaultAssets()).then(() => {
         })
     })
 
-    // if (localStorage["g4_glsl_enable"] == "true") mainGame.initWebGL()
+    // if (localStorage["g4_glsl_enable"] == "true") mainGame.initWebGL() 🦀
 
     // Owo Chroma
     let chroma = new RazerChromaRGBHandler()
@@ -56,7 +58,7 @@ waitForAssetLoad(loadDefaultAssets()).then(() => {
         unInitChroma()
     })
 
-    // Chroma on/off
+    // Chroma on/off 🦀
     if (!localStorage.getItem("g4_chromaEnabled")) localStorage["g4_chromaEnabled"] = false
     if (localStorage["g4_chromaEnabled"] == "true") {
         document.querySelector("input#settingEnableChroma").checked = true
@@ -110,7 +112,7 @@ waitForAssetLoad(loadDefaultAssets()).then(() => {
         games.forEach(game => game.updateDOM())
     }, 1000 / 30)
 
-    // Rendering "loop"
+    // Rendering "loop" 🦀
     let previousTimestamp = null
     let fpsCounter = document.querySelector("span.fpsCounter")
 
@@ -127,9 +129,9 @@ waitForAssetLoad(loadDefaultAssets()).then(() => {
         games.forEach(game => {
             game.render()
 
-            // if (game.glslCanvas) {
+            // if (game.glslCanvas) {🦀
             //     game.renderPasses()
-            //     game.renderWebGL()
+            //     game.renderWebGL() 🦀🦀🦀🦀
             // }
         })
 

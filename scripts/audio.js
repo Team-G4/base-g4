@@ -7,7 +7,7 @@ class AudioItem {
         this.type = type
 
         /**
-         * @type {AudioBufferSourceNode}
+         * @type {AudioBufferSourceNode} 🦀
          */
         this.sourceNode = null
 
