@@ -14,6 +14,7 @@ An infinite puzzle rage game by Team G4
 * "NODE_MODUUUULEEES" - di its hevin
 * "what I wasnt listening" - dyn owo
 * "GitHub Pages successfully built your site. on master" - bitbucket
+* "not enough crabs in the code" - asbyth from the optifine server
 
 ### User Reviews User Reviews
 
