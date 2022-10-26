@@ -1,4 +1,4 @@
-let leaderboardEndpoint = "https://g4-leaderboard.herokuapp.com"
+let leaderboardEndpoint = "https://g4z.artrinix.xyz"
 
 if (!localStorage.getItem("g4_showLegitTM")) localStorage["g4_showLegitTM"] = "0"
 if (localStorage["g4_showLegitTM"] == "1") document.querySelector("input#settingVerifiedLegit").checked = true
